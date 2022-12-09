@@ -146,7 +146,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3454e2260b4872645aa9588d9973246f, type: 2}
+  - {fileID: 2100000, guid: dda0125f3c1928140949377a995da236, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -191,9 +191,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7536357375812774357}
   - component: {fileID: -8665746548930516694}
-  - component: {fileID: 6668361868422691237}
+  - component: {fileID: 7954325698794392641}
   m_Layer: 0
-  m_Name: GrassTile
+  m_Name: WaterTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hightlight: {fileID: 2496616155142926772}
---- !u!61 &6668361868422691237
+--- !u!61 &7954325698794392641
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
