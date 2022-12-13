@@ -128,7 +128,6 @@ public class MovementManager : Singleton<MovementManager>
             tile.Parent = tile;
             tile.Visited = -1;
         }
-
     }
 
     /*public bool CheckRangeTiles()

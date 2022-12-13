@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour
     /// <summary>
     /// Tile on which the unit is on
     /// </summary>
-    private Tile _unitTile;
+    public Tile UnitTile { get; set; }
 
 
 }

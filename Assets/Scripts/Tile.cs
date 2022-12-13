@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public Unit _unit;
+    public Unit unitOnTile;
 
     [SerializeField] private bool _isWalkable;
     [SerializeField] private GameObject _hightlight;
@@ -30,13 +30,20 @@ public class Tile : MonoBehaviour
         _hightlight.SetActive(false);
     }
 
-    public bool Walkable => _isWalkable && _unit == null;
+    public bool Walkable => _isWalkable && unitOnTile == null;
 
     public void SetUnit(Unit unit)
     {
-        if(_unit != null) return;
-        unit.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-        _unit = unit;
+        if(unitOnTile != null) return;
+        unit.transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+        unitOnTile = unit;
+        unit.UnitTile = this;
+    }
+
+    public void CleanUnit(Unit unit)
+    {
+        unit.UnitTile = null;
+        unitOnTile = null;
     }
 
     //Move later

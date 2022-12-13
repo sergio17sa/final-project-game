@@ -4,28 +4,37 @@ using UnityEngine;
 //change later
 using System.Threading.Tasks;
 
+public enum GameState { Player1Turn, Player2Turn }
 public class ActionManager : Singleton<ActionManager>
 {
     Unit selectedUnit = null;
+    public GameState gameState;
+
+    private void Start()
+    {
+        gameState = GameState.Player1Turn;
+    }
 
     public async void MouseDown(Tile tile)
     {
-        if (tile._unit == null && !selectedUnit) return;
+        if (tile.unitOnTile == null && !selectedUnit) return;
 
-        if (tile._unit && !selectedUnit || tile._unit != selectedUnit && tile._unit != null)
-        {
-            selectedUnit = tile._unit;
-            MovementManager.Instance.CleanMovementTiles();
-
-            MovementManager.Instance
-                .SetMovementTiles(new Vector2(tile.transform.position.x, tile.transform.position.z), 3);
-        }
-
-        if(tile._unit == null && selectedUnit && tile.Walkable && tile.IsInRange) 
+        if (tile.unitOnTile == null && selectedUnit && tile.Walkable && tile.IsInRange)
         {
             await MoveInPath(selectedUnit, tile);
         }
-        
+
+        if (gameState == GameState.Player1Turn)
+        {
+            if (!tile.unitOnTile.CompareTag("Team1")) return;
+            MovementAction(tile);
+        }
+
+        if (gameState == GameState.Player2Turn)
+        {
+            if (!tile.unitOnTile.CompareTag("Team2")) return;
+            MovementAction(tile);
+        }
     }
 
     public async Task MoveInPath(Unit unit, Tile targetTile)
@@ -53,12 +62,24 @@ public class ActionManager : Singleton<ActionManager>
             pos = positions.Pop();
 
             unit.transform.position = pos;
-
             count++;
 
         }
         targetTile.SetUnit(unit);
+        tile.CleanUnit(unit);
         MovementManager.Instance.CleanMovementTiles();
+        
+    }
 
+    private void MovementAction(Tile tile)
+    {
+        if (tile.unitOnTile && !selectedUnit || tile.unitOnTile != selectedUnit && tile.unitOnTile != null  )
+        {
+            selectedUnit = tile.unitOnTile;
+            MovementManager.Instance.CleanMovementTiles();
+
+            MovementManager.Instance
+                .SetMovementTiles(new Vector2(tile.transform.position.x, tile.transform.position.z), 3);
+        }
     }
 }

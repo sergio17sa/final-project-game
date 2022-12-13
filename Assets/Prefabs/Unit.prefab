@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 730758929460758491}
   - component: {fileID: 6558291539184628328}
-  - component: {fileID: 137713081103511918}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -46,20 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db05f80b337ae01478f813dba407e3ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &137713081103511918
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 730758929460758492}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &730758929462911486
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,7 +56,7 @@ GameObject:
   - component: {fileID: 730758929462911485}
   - component: {fileID: 730758929462911482}
   - component: {fileID: 730758929462911483}
-  - component: {fileID: 730758929462911484}
+  - component: {fileID: 1414483324918619475}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -144,7 +129,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &730758929462911484
+--- !u!136 &1414483324918619475
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
