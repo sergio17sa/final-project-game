@@ -17,121 +17,164 @@ using NetworkEvent = Unity.Networking.Transport.NetworkEvent;
 using IngameDebugConsole;
 
 
-
-public class Relay : MonoBehaviour
+public class Relay : NetworkBehaviour
 {
 
+    private string relayJoinCode;
+    private Allocation allocation { get; set}
+    private JoinAllocation joinAllocation;
 
 
-    const int m_MaxConnections = 4;
-    public string relayJoinCode;
-
-    /// <summary>
-    /// petición asincrona para conectar con unity game services cuando el juego inicie (RELAY, LOBBY)
-    /// peticion asincrona para hacer una autenticación anonima del usurio que devuelve un playerID y un token de sesion
-    /// </summary>
-    /// <returns></returns>
     private async void Start()
     {
-        // TODO HACER METODOS PARA HACER LA CONEXION CON UNITY SERVICES Y CREAR LA AUTENTICACION DEL USUARIO POR SEPARADO
+        await UnityServicesConnection();
+        await anonymouslyAuthentication();
+
+        DebugLogConsole.AddCommandInstance("relayAllocation", "create allocation server and joincode", "RelayCreateAllocation", this);
+        DebugLogConsole.AddCommandInstance("joinAllocation", "use joincode to join to allocation server ", "JoinToAllocation", this);
+    }
+
+    /// <summary>
+    /// Initialize the Unity Services engine
+    /// </summary>
+    public async Task UnityServicesConnection()
+    {
         try
         {
 
             await UnityServices.InitializeAsync();
         }
-        catch (System.Exception ex)
+        catch (System.Exception e)
         {
-
-            Debug.LogException(ex); ;
+            Debug.LogError($"It was not possible to connect with unity services {e.Message}");
+            Debug.LogException(e);
         }
-
-        try
-        {
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-            Debug.Log("signIn anonymoisly successfull");
-            Debug.Log($"playerID: {AuthenticationService.Instance.PlayerId}");
-        }
-        catch (AuthenticationException ex)
-        {
-            //TODO Investigar Como responder con codigos de excepcion en unity ¿?
-            Debug.LogException(ex);
-        }
-
-        DebugLogConsole.AddCommandStatic("relayMethod", "create allocation server and joincode", "AllocateRelayServerAndGetJoinCode", typeof(Relay));
-        DebugLogConsole.AddCommandStatic("joinAllocation", "use joincode to join to allocation server ", "JoinToAllocation", typeof(Relay));
-
     }
 
-    public static async Task<RelayServerData> AllocateRelayServerAndGetJoinCode(int maxConnections)
+    /// <summary>
+    /// Anonymously Auyhentication player
+    /// </summary>
+    public async Task anonymouslyAuthentication()
     {
-        Allocation allocation;
-        string createJoinCode;
+        if (!AuthenticationService.Instance.IsSignedIn)
+        {
+            //If not already logged, log the user in
+            try
+            {
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
+                Debug.Log("signIn anonymously successfull");
+                Debug.Log($"playerID: {AuthenticationService.Instance.PlayerId}");
+            }
+            catch (AuthenticationException e)
+            {
+                Debug.LogError("Anonymously authentication failed");
+                Debug.LogException(e);
+            }
+        }
+    }
+
+    /// <summary>
+    /// ask Unity Services to allocate a Relay server and passing quantity connections like parameter
+    /// </summary>
+    /// <param name="maxConnections"></param>
+    /// <returns> allocation </returns>
+    public async Task<Allocation> RelayCreateAllocation(int maxConnections)
+    {
         try
         {
             allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
-            Debug.Log($"JoinCode: {allocation}");
+            Debug.Log($"Allocation: {allocation}");
         }
         catch (Exception e)
         {
             Debug.LogError($"Relay create allocation request failed {e.Message}");
             throw;
-
         }
 
         Debug.Log($"server: {allocation.ConnectionData[0]} {allocation.ConnectionData[1]}");
         Debug.Log($"server: {allocation.AllocationId}");
 
+        await GetJoinCode();
+
+        return allocation;
+    }
+
+
+    /// <summary>
+    /// Retrieve the Relay join code for our clients to join our game
+    /// </summary>
+    /// <returns></returns>
+    public async Task<String> GetJoinCode()
+    {
         try
         {
-            createJoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            Debug.Log($"JoinCode: {createJoinCode}");
+            relayJoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            Debug.Log($"JoinCode: {relayJoinCode}");
         }
-        catch
+        catch (Exception e)
         {
-
-            Debug.LogError("Relay create join code request failed");
+            Debug.LogException(e);
+            Debug.LogError(e.Message);
             throw;
         }
 
+        ConfigureTransportAndStartNgoAsHost();
+
+        return relayJoinCode;
+    }
+
+    /// <summary>
+    /// RelayServerData represents the necessary information
+    /// for a Host to host a game on a Relay and start the game like host
+    /// </summary>
+    public RelayServerData ConfigureTransportAndStartNgoAsHost()
+    {
+
         RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
+        //Retrieve the Unity transport used by the NetworkManager
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
         NetworkManager.Singleton.StartHost();
 
-
+        Debug.Log(relayJoinCode);
 
         return relayServerData;
-
     }
 
-
-
-    public static async Task<RelayServerData> JoinToAllocation(string joinCode)
+    /// <summary>
+    /// Join a Relay server based on the JoinCode received from the Host or Server
+    /// </summary>
+    public async Task<JoinAllocation> JoinToAllocation(string joinCode)
     {
-        JoinAllocation joinAllocation;
-        Debug.Log(joinCode);
         try
         {
-
+            //Ask Unity Services to join a Relay allocation based on our join code
             joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
-        RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
-
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-        NetworkManager.Singleton.StartClient();
             Debug.Log("join to allocation successfull");
         }
-        catch (System.Exception)
+        catch (Exception e)
         {
+            Debug.LogException(e);
+            Debug.LogError(e.Message);
 
-            Debug.LogError("Relay create join code request failed");
-            throw;
         }
 
-
-        return new RelayServerData(joinAllocation, "dtls");;
-
+        ConfigureTransportAndStartNgoAsPlayer();
+        return joinAllocation;
     }
 
+    /// <summary>
+    /// RelayServerData represents the necessary information
+    /// for a player to join a game on a Relay and start the game like client
+    /// </summary>
+    public RelayServerData ConfigureTransportAndStartNgoAsPlayer()
+    {
+        RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
+        //Retrieve the Unity transport used by the NetworkManager
+        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+        NetworkManager.Singleton.StartClient();
 
+        return new RelayServerData(joinAllocation, "dtls");
+    }
 }
+
