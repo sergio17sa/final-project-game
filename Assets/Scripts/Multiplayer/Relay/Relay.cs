@@ -21,7 +21,7 @@ public class Relay : NetworkBehaviour
 {
 
     private string relayJoinCode;
-    private Allocation allocation { get; set}
+    private Allocation allocation;
     private JoinAllocation joinAllocation;
 
 
