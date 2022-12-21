@@ -17,18 +17,35 @@ using NetworkEvent = Unity.Networking.Transport.NetworkEvent;
 using IngameDebugConsole;
 
 
-public class Relay : NetworkBehaviour
+public class RelayManager : MonoBehaviour
 {
 
+    public static RelayManager instance { get; private set;}
     private string relayJoinCode;
     private Allocation allocation;
     private JoinAllocation joinAllocation;
 
-
-    private async void Start()
+    private void Awake()
     {
-        await UnityServicesConnection();
-        await anonymouslyAuthentication();
+        if (instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+    }
+
+
+
+
+    private  void Start()
+    {
+        // await UnityServicesConnection();
+        // await anonymouslyAuthentication();
 
         DebugLogConsole.AddCommandInstance("relayAllocation", "create allocation server and joincode", "RelayCreateAllocation", this);
         DebugLogConsole.AddCommandInstance("joinAllocation", "use joincode to join to allocation server ", "JoinToAllocation", this);
