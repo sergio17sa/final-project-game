@@ -24,6 +24,7 @@ public class RelayManager : MonoBehaviour
     private string relayJoinCode;
     private Allocation allocation;
     private JoinAllocation joinAllocation;
+    int maxConnections = 1;
 
     private void Awake()
     {
@@ -96,8 +97,9 @@ public class RelayManager : MonoBehaviour
     /// </summary>
     /// <param name="maxConnections"></param>
     /// <returns> allocation </returns>
-    public async Task<Allocation> RelayCreateAllocation(int maxConnections)
+    public async Task<String> RelayCreateAllocation()
     {
+        string joinCodeData;
         try
         {
             allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
@@ -112,9 +114,9 @@ public class RelayManager : MonoBehaviour
         Debug.Log($"server: {allocation.ConnectionData[0]} {allocation.ConnectionData[1]}");
         Debug.Log($"server: {allocation.AllocationId}");
 
-        await GetJoinCode();
+        joinCodeData = await GetJoinCode();
 
-        return allocation;
+        return joinCodeData;
     }
 
 

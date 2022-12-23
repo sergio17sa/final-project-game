@@ -24,9 +24,11 @@ public class LobbyManager : MonoBehaviour
         DebugLogConsole.AddCommandInstance("QuickJoinLobby", "QuickJoinLobby", "QuickJoinLobby", this);
         DebugLogConsole.AddCommandInstance("UpdateLobbyData", "UpdateLobbyData", "UpdateLobbyData", this);
         DebugLogConsole.AddCommandInstance("PrintPlayers", "PrintPlayers", "PrintPlayers", this);
+        DebugLogConsole.AddCommandInstance("StartGameCreatingLobby", "StartGameCreatingLobby", "StartGameCreatingLobby", this);
+        DebugLogConsole.AddCommandInstance("StartGameQuick", "StartGameQuick", "StartGameQuick", this);
     }
 
-    public async void CreateLobby(string lobbyName)
+    public async Task CreateLobby(string lobbyName)
     {
         try
         {
@@ -44,6 +46,7 @@ public class LobbyManager : MonoBehaviour
 
 
             StartCoroutine(HeartBeatLobbyCoroutine(lobby.Id, 15));
+            StartCoroutine(PollForUpdates(2f));
 
             Debug.Log($"lobby created with name {lobby.Name}   quianty players: {lobby.MaxPlayers} Lobby ID: {lobby.Id}  lobby Code: {lobby.LobbyCode}");
             PrintPlayersData(hostLobby);
@@ -66,7 +69,7 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    public async void ListLobbies()
+    public async Task ListLobbies()
     {
         try
         {
@@ -100,7 +103,7 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    private async void JoinLobbyByLoobyCode(string lobbyCode)
+    private async Task JoinLobbyByLoobyCode(string lobbyCode)
     {
         try
         {
@@ -112,7 +115,8 @@ public class LobbyManager : MonoBehaviour
             Lobby lobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode, joinLobbyByCodeOptions);
             joinedLobby = lobby;
             Debug.Log($"Joined successfull to {lobby.Name} with lobby code: {lobbyCode}");
-            PrintPlayersData(lobby);
+            PrintPlayersData(joinedLobby);
+            StartCoroutine(PollForUpdates(2));
         }
 
         catch (LobbyServiceException e)
@@ -132,7 +136,8 @@ public class LobbyManager : MonoBehaviour
             Lobby lobby = await Lobbies.Instance.QuickJoinLobbyAsync(quickJoinLobbyOptions);
             joinedLobby = lobby;
             Debug.Log($"Joined successfull to {lobby.Name} with lobby code: {lobby.LobbyCode}");
-            PrintPlayersData(lobby);
+            PrintPlayersData(joinedLobby);
+            StartCoroutine(PollForUpdates(2f));
         }
         catch (LobbyServiceException e)
         {
@@ -153,6 +158,7 @@ public class LobbyManager : MonoBehaviour
         {
             hostLobby = await Lobbies.Instance.UpdateLobbyAsync(hostLobby.Id, updateLobbyOptions);
             joinedLobby = hostLobby;
+
         }
         catch (LobbyServiceException e)
         {
@@ -181,6 +187,75 @@ public class LobbyManager : MonoBehaviour
         foreach (Player player in lobby.Players)
         {
             Debug.Log($"player id: {player.Id} joined to lobby {lobby.Name} - palyer Name: {player.Data["PlayerName"].Value} - Lobby data: {lobby.Data["startGame"].Value}");
+        }
+    }
+
+
+    public IEnumerator PollForUpdates(float waitForSeconds)
+    {
+        Debug.Log("ENTRO A LA COROUTINE POLLING");
+        var delay = new WaitForSeconds(waitForSeconds);
+
+        while (joinedLobby != null)
+        {
+            var getLobbies = Task.Run(async () =>
+            await Lobbies.Instance.GetLobbyAsync(joinedLobby.Id)).ContinueWith((getLobbies) =>
+            {
+                if (getLobbies.IsFaulted)
+                {
+                    Debug.LogException(getLobbies.Exception);
+                }
+                if (getLobbies.IsCompleted)
+                {
+                    joinedLobby = getLobbies.Result;
+                    Debug.Log(getLobbies.Result);
+
+                }
+
+            });
+            yield return delay;
+        }
+    }
+
+    public bool IsLobbyHost()
+    {
+        bool isHost;
+        return isHost = hostLobby != null ? true : false;
+    }
+
+
+    public async Task StartGameCreatingLobby()
+    {
+
+        string relayJoinCode;
+        await CreateLobby($"Lobby relay {randomName}");
+
+        if (IsLobbyHost())
+        {
+            relayJoinCode = await RelayManager.instance.RelayCreateAllocation();
+
+            await UpdateLobbyData(relayJoinCode);
+        }
+    }
+
+    public async void StartGameQuick()
+    {
+
+        try
+        {
+            await QuickJoinLobby();
+            Debug.Log(joinedLobby.Data["startGame"].Value);
+            if (joinedLobby.Data["startGame"].Value != "0")
+            {
+                Debug.Log("SE UNIO AL LOBBY QUICKLY");
+                await RelayManager.instance.JoinToAllocation(joinedLobby.Data["startGame"].Value);
+            }
+        }
+        catch (LobbyServiceException e)
+        {
+
+            Debug.Log("esta fallando aca");
+            Debug.LogException(e);
         }
     }
 }
