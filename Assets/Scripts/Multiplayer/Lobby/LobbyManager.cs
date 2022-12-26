@@ -28,6 +28,13 @@ public class LobbyManager : MonoBehaviour
         DebugLogConsole.AddCommandInstance("StartGameQuick", "StartGameQuick", "StartGameQuick", this);
     }
 
+
+    /// <summary>
+    /// allow to create lobby and pass it options to determinate if the lobby is public or private,  player data like name, and lobby data to storage  
+    /// variables to set the lobby state or trigger other function into the game like connect the relay server.
+    /// </summary>
+    /// <param name="lobbyName"></param>
+    /// <returns>new Lobby </returns>
     public async Task CreateLobby(string lobbyName)
     {
         try
@@ -56,7 +63,13 @@ public class LobbyManager : MonoBehaviour
             Debug.LogException(e);
         }
     }
+    
 
+    /// <summary>
+    /// Lobbies turn off by default every 30 seconds, this coroutine send heartbeats every 15 seconds to avoid it.
+    /// </summary>
+    /// <param name="lobbyId"></param>
+    /// <param name="waitForSeconds"></param>
 
     public IEnumerator HeartBeatLobbyCoroutine(string lobbyId, float waitForSeconds)
     {
@@ -68,7 +81,11 @@ public class LobbyManager : MonoBehaviour
             yield return delay;
         }
     }
-
+    
+    /// <summary>
+    /// it do a query to bring a lobbies list with the filters needed, in this case
+    /// only bring the lobbies with available slots and those are sort by oldest to newest
+    /// </summary>
     public async Task ListLobbies()
     {
         try
@@ -103,6 +120,10 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// allow to join lobby using a lobby code that is created in CreateLobby() function
+    /// </summary>
+    /// <param name="lobbyCode"></param>
     private async Task JoinLobbyByLoobyCode(string lobbyCode)
     {
         try
@@ -125,6 +146,10 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Easy way to join lobby, it only search to a lobby that complies with the lobby options and if find, the player join to it.
+    /// </summary>
+    /// <returns></returns>
     public async Task QuickJoinLobby()
     {
         try
@@ -145,6 +170,13 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// it Allow to update the lobby data for determinate states in to the game,
+    /// in this case set up the variable "startGame" to indicate that the "startGame" variable in the lobby 
+    /// has or not releay join code needed to join the allocation server. 
+    /// </summary>
+    /// <param name="dataToUpdate"></param>
+    
     public async Task UpdateLobbyData(string dataToUpdate)
     {
         UpdateLobbyOptions updateLobbyOptions = new UpdateLobbyOptions
@@ -166,7 +198,10 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// it set up the player data to pass this options to lobby 
+    /// </summary>
+    /// <returns> player data to looby</returns>
     public Player GetPlayer()
     {
         return new Player
@@ -190,7 +225,11 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Like lobby is not a real time connection this coroutine polling every 2 
+    /// seconds doing a query to get information about changes in the lobby 
+    /// and pass the information between members. 
+    /// </summary>
     public IEnumerator PollForUpdates(float waitForSeconds)
     {
         Debug.Log("ENTRO A LA COROUTINE POLLING");
@@ -216,12 +255,25 @@ public class LobbyManager : MonoBehaviour
             yield return delay;
         }
     }
-
+    
+    /// <summary>
+    /// Return a bool to check if the player is lobby host or not
+    /// </summary>
+    /// <returns> bool </returns>
     public bool IsLobbyHost()
     {
         bool isHost;
         return isHost = hostLobby != null ? true : false;
     }
+
+
+    /// <summary>
+    /// If there are not lobbies available to join, this function allow to create 
+    /// one lobby, if the player is lobby host it create the allocation server, the
+    /// relay join code and it join the player to the lobby.
+    /// Once the player has joined, this function call UpdateLobbyData() 
+    /// passing it the relay join code to set up the variable "startGame" into de the lobby
+    /// </summary>
 
 
     public async Task StartGameCreatingLobby()
@@ -237,7 +289,14 @@ public class LobbyManager : MonoBehaviour
             await UpdateLobbyData(relayJoinCode);
         }
     }
+  
 
+    /// <summary>
+    /// if there are lobbies available to join, this function allow to player join to some of this lobbies 
+    /// through the QuickJoinLobby() function and then call the JoinToAllocation() function in the relay maneger 
+    /// to join to the relay server.
+    /// </summary>
+    /// <returns></returns>
     public async void StartGameQuick()
     {
 

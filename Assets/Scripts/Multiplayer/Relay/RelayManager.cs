@@ -20,11 +20,13 @@ using IngameDebugConsole;
 public class RelayManager : MonoBehaviour
 {
 
-    public static RelayManager instance { get; private set;}
+    public static RelayManager instance { get; private set; }
     private string relayJoinCode;
     private Allocation allocation;
     private JoinAllocation joinAllocation;
-    int maxConnections = 1;
+    int maxConnections = 1, randomNumber;
+    string playerName = "PlayerName";
+
 
     private void Awake()
     {
@@ -43,11 +45,11 @@ public class RelayManager : MonoBehaviour
 
 
 
-    private  void Start()
+    private void Start()
     {
         // await UnityServicesConnection();
         // await anonymouslyAuthentication();
-
+        randomNumber = UnityEngine.Random.Range(1, 100);
         DebugLogConsole.AddCommandInstance("relayAllocation", "create allocation server and joincode", "RelayCreateAllocation", this);
         DebugLogConsole.AddCommandInstance("joinAllocation", "use joincode to join to allocation server ", "JoinToAllocation", this);
     }
@@ -57,10 +59,15 @@ public class RelayManager : MonoBehaviour
     /// </summary>
     public async Task UnityServicesConnection()
     {
+
+        // Temporary variable to test multiple lobbies in the same device 
+        var initializationOptions = new InitializationOptions();
+        initializationOptions.SetProfile(playerName + randomNumber);
+
         try
         {
 
-            await UnityServices.InitializeAsync();
+            await UnityServices.InitializeAsync(initializationOptions);
         }
         catch (System.Exception e)
         {
