@@ -9,11 +9,26 @@ using System.Collections;
 
 public class LobbyManager : MonoBehaviour
 {
-
+    public static LobbyManager instance { get; private set; }
     private int maxPLayers = 2;
     private Lobby hostLobby, joinedLobby;
     private int randomName;
     private string playerName = "playernametest1", startGame = "0";
+
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+    }
 
     private void Start()
     {
@@ -63,7 +78,7 @@ public class LobbyManager : MonoBehaviour
             Debug.LogException(e);
         }
     }
-    
+
 
     /// <summary>
     /// Lobbies turn off by default every 30 seconds, this coroutine send heartbeats every 15 seconds to avoid it.
@@ -81,7 +96,7 @@ public class LobbyManager : MonoBehaviour
             yield return delay;
         }
     }
-    
+
     /// <summary>
     /// it do a query to bring a lobbies list with the filters needed, in this case
     /// only bring the lobbies with available slots and those are sort by oldest to newest
@@ -176,7 +191,7 @@ public class LobbyManager : MonoBehaviour
     /// has or not releay join code needed to join the allocation server. 
     /// </summary>
     /// <param name="dataToUpdate"></param>
-    
+
     public async Task UpdateLobbyData(string dataToUpdate)
     {
         UpdateLobbyOptions updateLobbyOptions = new UpdateLobbyOptions
@@ -255,7 +270,7 @@ public class LobbyManager : MonoBehaviour
             yield return delay;
         }
     }
-    
+
     /// <summary>
     /// Return a bool to check if the player is lobby host or not
     /// </summary>
@@ -289,7 +304,7 @@ public class LobbyManager : MonoBehaviour
             await UpdateLobbyData(relayJoinCode);
         }
     }
-  
+
 
     /// <summary>
     /// if there are lobbies available to join, this function allow to player join to some of this lobbies 
@@ -297,7 +312,7 @@ public class LobbyManager : MonoBehaviour
     /// to join to the relay server.
     /// </summary>
     /// <returns></returns>
-    public async void StartGameQuick()
+    public async Task StartGameQuick()
     {
 
         try
