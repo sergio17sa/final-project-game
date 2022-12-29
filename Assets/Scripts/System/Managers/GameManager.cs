@@ -6,10 +6,15 @@ public class GameManager : Singleton<GameManager>
 {
     [Header("Setup")]
     public bool isActive;
-    
+    public Text userName;
+    public Text score;
+    public int numIntentos;
     private void Start()
     {
+
         StartCoroutine(StartGame());
+        userName.text = BaseDataManager.Instance.name;
+        score.text = BaseDataManager.Instance.name;
     }
 
     public IEnumerator StartGame()
