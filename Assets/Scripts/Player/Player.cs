@@ -7,12 +7,6 @@ public class Player : MonoBehaviour
     public PlayerStats stats;
     public List<Character> characters;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     [ContextMenu("SavePlayerData")]
     public void SavePlayerData()
     {
@@ -23,12 +17,5 @@ public class Player : MonoBehaviour
     public void LoadPlayerData()
     {
         BaseDataManager.Instance.Load("/PlayerData.json", stats);
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
