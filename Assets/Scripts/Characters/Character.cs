@@ -43,8 +43,6 @@ public class Character : MonoBehaviour
     //Funcion para Curarse
     public void GetHealing(float healing)
     {
-        
-        
         currentLife += healing;
         characterAnim.SetHealing();
 

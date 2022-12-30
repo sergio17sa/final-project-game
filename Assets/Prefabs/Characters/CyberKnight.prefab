@@ -2683,7 +2683,7 @@ Animator:
   m_GameObject: {fileID: 7871070135524757766}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
-  m_Controller: {fileID: 9100000, guid: d7c55390ab0320c47b84f63184ecb1b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4d2912dba9fc7aa4a8a689abc407821a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2706,7 +2706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterAnim: {fileID: 4132488603783541226}
-  characterstats: {fileID: 11400000, guid: 1a0bea82222ffbb45843a1426e79b66f, type: 2}
+  characterstats: {fileID: 11400000, guid: 3bed6b286143e554eb052f4ff58c874b, type: 2}
   currentLife: 0
 --- !u!114 &4132488603783541226
 MonoBehaviour:

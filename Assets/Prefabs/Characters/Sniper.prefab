@@ -2413,7 +2413,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6273680258552125420}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.38, y: 0, z: -1.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2460,8 +2460,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded35f123e01fe94e96b4252036767cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterAnim: {fileID: 0}
-  characterstats: {fileID: 0}
+  characterAnim: {fileID: 1961529008945521069}
+  characterstats: {fileID: 11400000, guid: e3c21310c973ba6478563db036c9fb06, type: 2}
   currentLife: 0
 --- !u!114 &1961529008945521069
 MonoBehaviour:
@@ -2475,8 +2475,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2005ec87ad194ff4a9ae9f2e1e3dcd0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 0}
-  anim: {fileID: 0}
+  brain: {fileID: 8353332313609982257}
+  anim: {fileID: 6273680259211572297}
   index: 0
   soundsCharacter: []
 --- !u!1 &6273680258552125422

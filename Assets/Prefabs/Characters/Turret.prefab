@@ -1741,8 +1741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded35f123e01fe94e96b4252036767cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterAnim: {fileID: 0}
-  characterstats: {fileID: 0}
+  characterAnim: {fileID: 6902261578644195905}
+  characterstats: {fileID: 11400000, guid: 3b9c2776b5c9ac5488aeead6144475bf, type: 2}
   currentLife: 0
 --- !u!114 &6902261578644195905
 MonoBehaviour:
@@ -1756,8 +1756,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2005ec87ad194ff4a9ae9f2e1e3dcd0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 0}
-  anim: {fileID: 0}
+  brain: {fileID: 2706175069156986975}
+  anim: {fileID: 3952430398357817944}
   index: 0
   soundsCharacter: []
 --- !u!1 &3952430398348442104
