@@ -16,13 +16,13 @@ public class Player : MonoBehaviour
     [ContextMenu("SavePlayerData")]
     public void SavePlayerData()
     {
-        BaseDataManager.Instance.Save("/PlayerData.json", this);
+        BaseDataManager.Instance.Save("/PlayerData.json", stats);
     }
 
     [ContextMenu("LoadPlayerData")]
     public void LoadPlayerData()
     {
-        BaseDataManager.Instance.Load("/PlayerData.json", this);
+        BaseDataManager.Instance.Load("/PlayerData.json", stats);
     }
 
 
