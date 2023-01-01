@@ -7,6 +7,13 @@ public class Character : MonoBehaviour
     public CharacterAnimationController characterAnim;
     public CharacterStadistics characterstats;
     public float currentLife;
+
+    public MoveAction moveAction {get; private set; }
+
+    private void Awake() 
+    {
+        moveAction = GetComponent<MoveAction>();
+    }
     
     private void Start()
     {

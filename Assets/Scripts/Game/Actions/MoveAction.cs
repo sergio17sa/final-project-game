@@ -11,18 +11,17 @@ public class MoveAction : MonoBehaviour
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] float rotateSpeed = 30f;
 
+    private void Awake() 
+    {
+        _targetPosition = transform.position;
+    }
+
     private void Update()
     {
         Move();
-
-        if(Input.GetMouseButtonDown(0))
-        {
-            SetTargetPosition(MousePosition.GetPosition());
-            
-        }
     }
 
-    private void SetTargetPosition(Vector3 targetPosition)
+    public void SetTargetPosition(Vector3 targetPosition)
     {
         _targetPosition = targetPosition;
     }
