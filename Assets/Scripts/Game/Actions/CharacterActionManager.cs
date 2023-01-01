@@ -12,7 +12,6 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     private void Update()
     {
         TryUnitSelection();
-        
     }
 
     private bool TryUnitSelection()
@@ -29,8 +28,15 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
                 }   
             }
 
-            if(_selectedCharacter){
-                _selectedCharacter.moveAction.SetTargetPosition(MousePosition.GetPosition());
+            if(_selectedCharacter)
+            {
+                TilePosition mouseTilePosition = GridManager.Instance.GetTilePosition(MousePosition.GetPosition());
+
+                if(_selectedCharacter.CharacterMoveAction.IsValidAction(mouseTilePosition))
+                {
+                    _selectedCharacter.CharacterMoveAction.SetTargetPosition(mouseTilePosition);    
+                }
+                
             }
             
         }

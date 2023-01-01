@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841320275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c262ce7caad807879ad1bea315d10699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _character: {fileID: 0}
+  _character: {fileID: 7402910456750382952}
 --- !u!1 &8547978252648318051
 GameObject:
   m_ObjectHideFlags: 0
@@ -3860,7 +3860,7 @@ Transform:
   m_GameObject: {fileID: 8549923349657404279}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.659, y: 0, z: 0}
-  m_LocalScale: {x: 1.01, y: 1.01, z: 1.01}
+  m_LocalScale: {x: 1.0099999, y: 1.0099999, z: 1.0099999}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8551465088081836721}
@@ -3982,9 +3982,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667be6ed3e171a82c92a8f140de63c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _character: {fileID: 7402910456750382952}
   moveSpeed: 2
   rotateSpeed: 30
+  _maxMoveDistance: 2
 --- !u!65 &7190361432443822010
 BoxCollider:
   m_ObjectHideFlags: 0

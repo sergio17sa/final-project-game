@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class MoveAction : MonoBehaviour
 {
-    [SerializeField] Character _character;
+    private Character _character;
     private Vector3 _targetPosition;
 
     [Header("Setup Move and Rotation")]
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] float rotateSpeed = 30f;
 
+    [SerializeField] private int _maxMoveDistance = 1;
+
     private void Awake() 
     {
+        _character = GetComponent<Character>();
         _targetPosition = transform.position;
     }
 
@@ -21,9 +24,9 @@ public class MoveAction : MonoBehaviour
         Move();
     }
 
-    public void SetTargetPosition(Vector3 targetPosition)
+    public void SetTargetPosition(TilePosition tilePosition)
     {
-        _targetPosition = targetPosition;
+        _targetPosition = GridManager.Instance.GetWorldPosition(tilePosition);
     }
 
     private void Move()
@@ -43,5 +46,36 @@ public class MoveAction : MonoBehaviour
 
         
         transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+    }
+
+    public List<TilePosition> GetValidTilesPositionList()
+    {
+        List<TilePosition> validTilePositionList = new List<TilePosition>();
+
+        TilePosition charactetTilePosition = _character.CharacterTilePosition;
+
+        for(int x = -_maxMoveDistance; x <= _maxMoveDistance; x++)
+        {
+            for(int z = -_maxMoveDistance; z <= _maxMoveDistance; z++)
+            {
+                TilePosition offsetTilePosition = new TilePosition(x, z);
+                TilePosition testTilePosition = charactetTilePosition + offsetTilePosition;
+
+                if (!GridManager.Instance.IsValidTilePosition(testTilePosition)) continue;
+  
+                if(charactetTilePosition == testTilePosition) continue;
+
+                if (GridManager.Instance.HasCharacterOnTilePosition(testTilePosition)) continue;
+
+                validTilePositionList.Add(testTilePosition);
+            }
+        }
+
+        return validTilePositionList;
+    }
+    public bool IsValidAction(TilePosition tilePosition)
+    {
+        List<TilePosition> validTilesList = GetValidTilesPositionList();
+        return validTilesList.Contains(tilePosition);
     }
 }

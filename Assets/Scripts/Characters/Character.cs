@@ -8,16 +8,22 @@ public class Character : MonoBehaviour
     public CharacterStadistics characterstats;
     public float currentLife;
 
-    public MoveAction moveAction {get; private set; }
+
+    public TilePosition CharacterTilePosition { get; private set;}
+    public MoveAction CharacterMoveAction {get; private set; }
 
     private void Awake() 
     {
-        moveAction = GetComponent<MoveAction>();
+        CharacterMoveAction = GetComponent<MoveAction>();
     }
     
     private void Start()
     {
         currentLife = characterstats.initialLife;
+
+        CharacterTilePosition = GridManager.Instance.GetTilePosition(transform.position);
+        GridManager.Instance.SetCharacterOnTile(CharacterTilePosition, this);
+
     }
 
     void Update()
@@ -37,6 +43,14 @@ public class Character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             GetHealing(characterstats.healing);
+        }
+
+        TilePosition newTilePosition = GridManager.Instance.GetTilePosition(transform.position);
+
+        if(newTilePosition != CharacterTilePosition)
+        {
+            GridManager.Instance.CharacterMoveTile(this, CharacterTilePosition, newTilePosition);
+            CharacterTilePosition = newTilePosition;
         }
     }
 
