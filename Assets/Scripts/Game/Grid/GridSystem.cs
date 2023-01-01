@@ -67,5 +67,13 @@ public class GridSystem
     {
         return _tileArray[tilePosition.x, tilePosition.z];
     }
+
+    public bool IsValidTilePosition(TilePosition tilePosition)
+    {
+        return tilePosition.x >= 0 && 
+               tilePosition.z >= 0 && 
+               tilePosition.x < _width && 
+               tilePosition.z < _height;
+    }
     
 }

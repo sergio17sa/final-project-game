@@ -6,6 +6,7 @@ public class Tile
 {
     private GridSystem _gridSystem;
     private TilePosition _tilePosition;
+    public Character CharacterOnTile { get; set; }
 
     public Tile(GridSystem gridSystem, TilePosition tilePosition)
     {
@@ -15,6 +16,8 @@ public class Tile
 
     public override string ToString()
     {
-        return _tilePosition.ToString();
+        return _tilePosition.ToString() + "\n" + CharacterOnTile;
     }
+
+    public bool HasCharacter() => CharacterOnTile != null;
 }
