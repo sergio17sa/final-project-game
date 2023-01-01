@@ -15,7 +15,7 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        GetMoviment();
+        //GetMoviment();
 
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    //Funcion para RecibirDaño
+    //Funcion para RecibirDaï¿½o
     public void GetDamage(float enemyDamage)
     {
         currentLife -= enemyDamage;
@@ -59,8 +59,8 @@ public class Character : MonoBehaviour
     }
     
     //Funcion para moverse
-    public void GetMoviment()
+    public void GetMovement(float move)
     {
-        characterAnim.SetMove(Input.GetAxis("Vertical"));
+        characterAnim.SetMove(move);
     }
 }
