@@ -36,6 +36,8 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
             {
                 if(raycastHit.transform.TryGetComponent<Character>(out Character character))
                 {
+                    if(character == _selectedCharacter) return false;
+
                     SetSelectedCharacter(character);
                     return true;
                 }   
@@ -48,11 +50,11 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if(!_selectedCharacter) return;
+            
             TilePosition mouseTilePosition = GridManager.Instance.GetTilePosition(MousePosition.GetPosition());
 
             if (!_selectedAction.IsValidActionTile(mouseTilePosition)) return;
-
-            //if (!_selectedCharacter.TrySpendActionPointsToTakeAction(selectedAction)) return;
 
             SetBusy();
             _selectedAction.TakeAction(mouseTilePosition, ClearBusy);

@@ -5,11 +5,11 @@ using UnityEngine;
 public class GridVisualManager : Singleton<GridVisualManager>
 {
     [SerializeField] private Transform gridTileVisual;
-    private TileVisual[,] _tileCisualArray;
+    private TileVisual[,] _tileVisualArray;
     
     private void Start()
     {
-        _tileCisualArray = new TileVisual[
+        _tileVisualArray = new TileVisual[
             GridManager.Instance.GetWidth(),
             GridManager.Instance.GetHeight()
             ]; 
@@ -24,7 +24,7 @@ public class GridVisualManager : Singleton<GridVisualManager>
                     GridManager.Instance.GetWorldPosition(tilePosition), 
                     Quaternion.identity
                     );
-                _tileCisualArray[x, z] = gridSystenVisualSingleTransform.GetComponent<TileVisual>();
+                _tileVisualArray[x, z] = gridSystenVisualSingleTransform.GetComponent<TileVisual>();
             }
         }
     }
@@ -36,12 +36,12 @@ public class GridVisualManager : Singleton<GridVisualManager>
 
     public void HideAllTilePositions()
     {
-        for (int x = 0; x < _tileCisualArray.GetLength(0); x++)
+        for (int x = 0; x < _tileVisualArray.GetLength(0); x++)
         {
-            for (int z = 0; z < _tileCisualArray.GetLength(1); z++)
+            for (int z = 0; z < _tileVisualArray.GetLength(1); z++)
             {
 
-                _tileCisualArray[x, z].Hide();
+                _tileVisualArray[x, z].Hide();
             }
         }
     }
@@ -50,7 +50,7 @@ public class GridVisualManager : Singleton<GridVisualManager>
     {  
         foreach(TilePosition tilePosition in tilePositionList) 
         {
-            _tileCisualArray[tilePosition.x, tilePosition.z].Show();
+            _tileVisualArray[tilePosition.x, tilePosition.z].Show();
         }
     }
 
@@ -59,9 +59,11 @@ public class GridVisualManager : Singleton<GridVisualManager>
         HideAllTilePositions();
 
         Character selectedCharacter = CharacterActionManager.Instance.GetSelectedCharacter();
+        BaseAction selectedAction = CharacterActionManager.Instance.GetSelectedAction();
+
         if(selectedCharacter)
         {
-            ShowTilePositionList(selectedCharacter.CharacterMoveAction.GetValidActionTiles());
+            ShowTilePositionList(selectedAction.GetValidActionTiles());
         }
     }
 }

@@ -11,10 +11,14 @@ public class Character : MonoBehaviour
 
     public TilePosition CharacterTilePosition { get; private set;}
     public MoveAction CharacterMoveAction {get; private set; }
+    public TestAction CharacterTestAction {get; private set; }
+    public BaseAction[] BaseActions { get; private set; }
 
     private void Awake() 
     {
         CharacterMoveAction = GetComponent<MoveAction>();
+        CharacterTestAction = GetComponent<TestAction>();
+        BaseActions = GetComponents<BaseAction>();
     }
     
     private void Start()
