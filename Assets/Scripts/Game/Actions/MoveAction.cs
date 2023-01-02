@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveAction : MonoBehaviour
+public class MoveAction : BaseAction
 {
-    private Character _character;
     private Vector3 _targetPosition;
 
     [Header("Setup Move and Rotation")]
@@ -13,9 +13,12 @@ public class MoveAction : MonoBehaviour
 
     [SerializeField] private int _maxMoveDistance = 1;
 
-    private void Awake() 
+    public event EventHandler OnStartMoving;
+    public event EventHandler OnStopMoving;
+
+    protected override void Awake() 
     {
-        _character = GetComponent<Character>();
+        base.Awake();
         _targetPosition = transform.position;
     }
 
@@ -24,13 +27,19 @@ public class MoveAction : MonoBehaviour
         Move();
     }
 
-    public void SetTargetPosition(TilePosition tilePosition)
+    public override void TakeAction(TilePosition tilePosition, Action onActionComplete)
     {
+        ActionStart(onActionComplete);
+
         _targetPosition = GridManager.Instance.GetWorldPosition(tilePosition);
+
+        OnStartMoving?.Invoke(this, EventArgs.Empty);
     }
 
     private void Move()
     {
+        if (!_isActive) return;
+
         float stoppingDistance = 0.1f;
         Vector3 moveDirection = (_targetPosition - transform.position).normalized;
 
@@ -38,17 +47,18 @@ public class MoveAction : MonoBehaviour
         {
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
             _character.GetMovement(1);
-        } 
-        else 
+        }
+        else
         {
             _character.GetMovement(0);
+            OnStopMoving?.Invoke(this, EventArgs.Empty);
+            ActionComplete();
         }
-
         
         transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
     }
 
-    public List<TilePosition> GetValidTilesPositionList()
+    public override List<TilePosition> GetValidActionTiles()
     {
         List<TilePosition> validTilePositionList = new List<TilePosition>();
 
@@ -75,7 +85,12 @@ public class MoveAction : MonoBehaviour
     }
     public bool IsValidAction(TilePosition tilePosition)
     {
-        List<TilePosition> validTilesList = GetValidTilesPositionList();
+        List<TilePosition> validTilesList = GetValidActionTiles();
         return validTilesList.Contains(tilePosition);
+    }
+
+    public override string GetActionName()
+    {
+        return "Move";
     }
 }

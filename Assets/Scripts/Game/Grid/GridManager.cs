@@ -19,7 +19,7 @@ public class GridManager : Singleton<GridManager>
         
         _gridSystem = new GridSystem(_gridWidth, _gridHeight, _cellSize);
         
-        _gridSystem.CreateDebugTiles(_tileDebug);
+        //_gridSystem.CreateDebugTiles(_tileDebug);
     }
 
     public void SetCharacterOnTile(TilePosition tilePosition, Character character)
@@ -57,5 +57,8 @@ public class GridManager : Singleton<GridManager>
         ClearCharacterAtTilePosition(fromTilePosition);
         SetCharacterOnTile(toTilePosition, character);
     }
+
+    public int GetWidth () => _gridWidth;
+    public int GetHeight () => _gridHeight;
 
 }

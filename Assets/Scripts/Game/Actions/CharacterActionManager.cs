@@ -5,13 +5,26 @@ using UnityEngine;
 
 public class CharacterActionManager : Singleton<CharacterActionManager>
 {
-     public event EventHandler OnSelectedCharacter;
+    
     [SerializeField] private Character _selectedCharacter;
     [SerializeField] private LayerMask _characterLayerMask;
 
+    public bool isBusy;
+    private BaseAction _selectedAction;
+
+    //Events
+    public event EventHandler OnSelectedCharacter;
+    public event EventHandler OnSelectedActionChanged;
+    public event EventHandler<bool> OnBusyChanged;
+    public event EventHandler OnActionStarted;
+
     private void Update()
     {
-        TryUnitSelection();
+        if(isBusy) return;
+
+        if(TryUnitSelection()) return;
+  
+        HandleSelectedAction();
     }
 
     private bool TryUnitSelection()
@@ -27,30 +40,62 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
                     return true;
                 }   
             }
-
-            if(_selectedCharacter)
-            {
-                TilePosition mouseTilePosition = GridManager.Instance.GetTilePosition(MousePosition.GetPosition());
-
-                if(_selectedCharacter.CharacterMoveAction.IsValidAction(mouseTilePosition))
-                {
-                    _selectedCharacter.CharacterMoveAction.SetTargetPosition(mouseTilePosition);    
-                }
-                
-            }
-            
         }
         return false;
     }
 
-    public void SetSelectedCharacter(Character character)
+    private void HandleSelectedAction()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            TilePosition mouseTilePosition = GridManager.Instance.GetTilePosition(MousePosition.GetPosition());
+
+            if (!_selectedAction.IsValidActionTile(mouseTilePosition)) return;
+
+            //if (!_selectedCharacter.TrySpendActionPointsToTakeAction(selectedAction)) return;
+
+            SetBusy();
+            _selectedAction.TakeAction(mouseTilePosition, ClearBusy);
+
+            OnActionStarted?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    //Getters
+
+    public Character GetSelectedCharacter() =>  _selectedCharacter;
+
+    public BaseAction GetSelectedAction() => _selectedAction;
+
+    //Setters
+
+    private void SetBusy()
+    {
+        isBusy = true;
+
+        OnBusyChanged?.Invoke(this, isBusy);
+    }
+
+    public void SetSelectedAction(BaseAction baseAction)
+    {
+        _selectedAction = baseAction;
+
+        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void SetSelectedCharacter(Character character)
     {
         _selectedCharacter = character;
+
+        SetSelectedAction(character.CharacterMoveAction);
+
         OnSelectedCharacter?.Invoke(this, EventArgs.Empty);
     }
 
-    public Character GetSelectedCharacter()
+    private void ClearBusy()
     {
-        return _selectedCharacter;
+        isBusy = false;
+
+        OnBusyChanged?.Invoke(this, isBusy);
     }
 }
