@@ -42,9 +42,6 @@ public class RelayManager : MonoBehaviour
         }
     }
 
-
-
-
     private void Start()
     {
         // await UnityServicesConnection();
@@ -61,13 +58,14 @@ public class RelayManager : MonoBehaviour
     {
 
         // Temporary variable to test multiple lobbies in the same device 
-        var initializationOptions = new InitializationOptions();
-        initializationOptions.SetProfile(playerName + randomNumber);
+        // var initializationOptions = new InitializationOptions();
+        // initializationOptions.SetProfile(playerName + randomNumber);
 
         try
         {
 
-            await UnityServices.InitializeAsync(initializationOptions);
+          //  await UnityServices.InitializeAsync(initializationOptions);
+            await UnityServices.InitializeAsync();
         }
         catch (System.Exception e)
         {
