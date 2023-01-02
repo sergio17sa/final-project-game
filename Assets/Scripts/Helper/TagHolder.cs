@@ -12,6 +12,12 @@ public class Tags
     public const string ITEM_TAG = "Item";
 }
 
+public enum CharacterType
+{
+    MEDIEVAL,
+    FUTURE,
+}
+
 public enum MusicLevel
 {
     MAINMENU,
