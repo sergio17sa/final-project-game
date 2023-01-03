@@ -762,11 +762,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 52485d00-b53c-4514-ba97-05f0e03828e2
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: com.unity.multiplayer.samples.coop
+  organizationId: sergio17121
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
