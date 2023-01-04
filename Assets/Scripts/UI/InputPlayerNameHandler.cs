@@ -8,13 +8,15 @@ public class InputPlayerNameHandler : MonoBehaviour
 {
     [SerializeField] private PlayerStatsSave playerStatsSave;
     [SerializeField] private TMP_InputField inputPlayerName;
-    [SerializeField] private GameObject PanelInputPlayerName;
+    [SerializeField] private GameObject panelInputPlayerName;
+    [SerializeField] private GameObject paneljoinBtn;
+
 
 
     private void Awake()
     {
-        Debug.Log(playerStatsSave.stats.playerName );
-        //playerStatsSave.stats.playerName = null;
+        playerStatsSave.stats.playerName = null;
+        Debug.Log(playerStatsSave.stats.playerName != null);
         HideInputPlayerName();
     }
 
@@ -22,13 +24,23 @@ public class InputPlayerNameHandler : MonoBehaviour
     {
         playerStatsSave.stats.playerName = inputPlayerName.text;
         playerStatsSave.SavePlayerData();
+
     }
 
     public void HideInputPlayerName()
     {
+        
         if (playerStatsSave.stats.playerName != null)
         {
-            PanelInputPlayerName.SetActive(false);
+            panelInputPlayerName.SetActive(false);
+            paneljoinBtn.SetActive(true);
         }
+        else
+        {
+            panelInputPlayerName.SetActive(true);
+            paneljoinBtn.SetActive(false);
+        }
+
+
     }
 }
