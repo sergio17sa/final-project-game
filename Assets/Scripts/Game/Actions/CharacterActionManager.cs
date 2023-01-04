@@ -89,7 +89,7 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     {
         _selectedCharacter = character;
 
-        SetSelectedAction(character.CharacterMoveAction);
+        SetSelectedAction(character.GetAction<MoveAction>());
 
         OnSelectedCharacter?.Invoke(this, EventArgs.Empty);
     }

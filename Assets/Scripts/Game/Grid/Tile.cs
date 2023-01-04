@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Tile
 {
-    private GridSystem _gridSystem;
+    private GridSystem<Tile> _gridSystem;
     private TilePosition _tilePosition;
     public Character CharacterOnTile { get; set; }
 
-    public Tile(GridSystem gridSystem, TilePosition tilePosition)
+    public Tile(GridSystem<Tile> gridSystem, TilePosition tilePosition)
     {
         _gridSystem = gridSystem;
         _tilePosition = tilePosition;
