@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         StartCoroutine(StartGame());
+        
     }
 
     public IEnumerator StartGame()
