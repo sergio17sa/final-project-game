@@ -24,6 +24,11 @@ public class GridManager : Singleton<GridManager>
         //_gridSystem.CreateDebugTiles(_tileDebug);
     }
 
+    private void Start()
+    {
+        PathFinding.Instance.Setup(_gridWidth, _gridHeight, _cellSize);
+    }
+
     public void SetCharacterOnTile(TilePosition tilePosition, Character character)
     {
         Tile tile = _gridSystem.GetTile(tilePosition);
