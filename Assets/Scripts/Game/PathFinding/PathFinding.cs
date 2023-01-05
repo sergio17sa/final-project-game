@@ -35,7 +35,7 @@ public class PathFinding : Singleton<PathFinding>
             }
         }
 
-        _gridSystem.CreateDebugTiles(_debugTile);
+        //_gridSystem.CreateDebugTiles(_debugTile);
     }
 
     public List<TilePosition> FindPath(TilePosition startTilePosition, TilePosition endTilePosition, out int pathLength)
