@@ -9,18 +9,20 @@ public class GameManager : Singleton<GameManager>
     public Text userName;
     public Text score;
     public int numIntentos;
-
-    private void Start()
+    
+    
+    private  void Start()
     {
-        StartCoroutine(StartGame());
+       //  StartCoroutine(StartGame());
     }
 
-    public IEnumerator StartGame()
-    {
-        ScenesManager.Instance.ui.panelRuler.SetActive(true);
-        yield return new WaitUntil(() => !ScenesManager.Instance.ui.panelRuler.activeInHierarchy);
-        isActive = true;
-    }
+
+    // public IEnumerator StartGame()
+    // {
+    //     ScenesManager.Instance.ui.panelRuler.SetActive(true);
+    //     yield return new WaitUntil(() => !ScenesManager.Instance.ui.panelRuler.activeInHierarchy);
+    //     isActive = true;
+    // }
 
     public IEnumerator Winner()
     {
@@ -43,7 +45,7 @@ public class GameManager : Singleton<GameManager>
         ScenesManager.Instance.RestartMainMenu();
     }
 
-    
+
     // Update is called once per frame
     void Update()
     {

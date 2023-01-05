@@ -17,7 +17,7 @@ using NetworkEvent = Unity.Networking.Transport.NetworkEvent;
 using IngameDebugConsole;
 
 
-public class RelayManager : Singleton<RelayManager>
+public class RelayManager : MonoBehaviour
 {
     private string relayJoinCode;
     private Allocation allocation;
@@ -25,8 +25,21 @@ public class RelayManager : Singleton<RelayManager>
     int maxConnections = 1, randomNumber;
     string playerName = "PlayerName";
 
+    public static RelayManager Instance;
 
-    private  void Start()
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(this);
+    }
+
+    private void Start()
     {
         //  await UnityServicesConnection();
         //  await anonymouslyAuthentication();
@@ -41,13 +54,13 @@ public class RelayManager : Singleton<RelayManager>
     public async Task UnityServicesConnection()
     {
         // Temporary variable to test multiple lobbies in the same device 
-        // var initializationOptions = new InitializationOptions();
-        // initializationOptions.SetProfile(playerName + randomNumber);
+        var initializationOptions = new InitializationOptions();
+        initializationOptions.SetProfile(playerName + randomNumber);
 
         try
         {
 
-          //  await UnityServices.InitializeAsync(initializationOptions);
+            await UnityServices.InitializeAsync(initializationOptions);
             await UnityServices.InitializeAsync();
         }
         catch (System.Exception e)
