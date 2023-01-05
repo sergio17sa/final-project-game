@@ -8,6 +8,7 @@ public class PathNode
     public int GCost { get; set; }
     public int HCost { get; set; }
     public int FCost { get; private set; }
+    public bool IsWalkable { get; set; } = true;
 
     public PathNode LastNode { get; set; }
     public PathNode(TilePosition tilePosition)
@@ -20,11 +21,8 @@ public class PathNode
         return NodeTilePosition.ToString();
     }
 
-    public void CalculteFCost()
-    {
-        FCost = GCost + HCost;
-    }
+    public void CalculateFCost() => FCost = GCost + HCost;
+   
 
     public void ResetLastNode() => LastNode = null;
-
 }
