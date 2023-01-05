@@ -8,16 +8,12 @@ public class Character : MonoBehaviour
     public CharacterStadistics characterstats;
     public float currentLife;
 
-
     public TilePosition CharacterTilePosition { get; private set;}
-    public MoveAction CharacterMoveAction {get; private set; }
-    public TestAction CharacterTestAction {get; private set; }
+
     public BaseAction[] BaseActions { get; private set; }
 
     private void Awake() 
     {
-        CharacterMoveAction = GetComponent<MoveAction>();
-        CharacterTestAction = GetComponent<TestAction>();
         BaseActions = GetComponents<BaseAction>();
     }
     
@@ -87,5 +83,17 @@ public class Character : MonoBehaviour
     public void GetMovement(float move)
     {
         characterAnim.SetMove(move);
+    }
+
+    public T GetAction<T>() where T : BaseAction
+    {
+        foreach(BaseAction baseAction in BaseActions)
+        {
+            if(baseAction is T)
+            {
+                return (T)baseAction;
+            }
+        }
+        return null;
     }
 }

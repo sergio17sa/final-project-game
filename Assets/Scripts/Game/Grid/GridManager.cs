@@ -11,15 +11,22 @@ public class GridManager : Singleton<GridManager>
     [SerializeField] private int _gridHeight;
     [SerializeField] private int _gridWidth;
 
-    private GridSystem _gridSystem;
+    private GridSystem<Tile> _gridSystem;
 
     protected override void Awake() 
     {
         base.Awake();
         
-        _gridSystem = new GridSystem(_gridWidth, _gridHeight, _cellSize);
+        _gridSystem = new GridSystem<Tile>(_gridWidth, _gridHeight, _cellSize, 
+                (GridSystem<Tile> tile, TilePosition tilePosition) => new Tile(tile, tilePosition)
+            );
         
         //_gridSystem.CreateDebugTiles(_tileDebug);
+    }
+
+    private void Start()
+    {
+        PathFinding.Instance.Setup(_gridWidth, _gridHeight, _cellSize);
     }
 
     public void SetCharacterOnTile(TilePosition tilePosition, Character character)

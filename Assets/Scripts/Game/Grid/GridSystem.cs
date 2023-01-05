@@ -1,21 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridSystem
+public class GridSystem<TTile>
 {
     private int _width;
     private int _height;
     private float _cellSize;
-    private Tile [,] _tileArray;
+    private TTile [,] _tileArray;
 
-    public GridSystem(int width, int height, float cellSize)
+    public GridSystem(int width, int height, float cellSize, Func<GridSystem<TTile>, TilePosition, TTile> createTile)
     {
         _width = width;
         _height = height;
         _cellSize = cellSize;
 
-        _tileArray = new Tile[width, height];
+        _tileArray = new TTile[width, height];
 
         for(int x = 0; x < width; x++)
         {
@@ -23,7 +24,7 @@ public class GridSystem
             {
                 TilePosition tilePosition = new TilePosition(x, z); 
                                
-                _tileArray[x,z] = new Tile(this, tilePosition);
+                _tileArray[x,z] = createTile(this, tilePosition);
             }
         }
     }
@@ -63,7 +64,7 @@ public class GridSystem
         }
     }
 
-    public Tile GetTile(TilePosition tilePosition)
+    public TTile GetTile(TilePosition tilePosition)
     {
         return _tileArray[tilePosition.x, tilePosition.z];
     }
@@ -75,5 +76,8 @@ public class GridSystem
                tilePosition.x < _width && 
                tilePosition.z < _height;
     }
+
+    public int GetWidth() => _width;
+    public int GetHeight() => _height;
     
 }
