@@ -13,7 +13,7 @@ public class Testing : MonoBehaviour
             TilePosition mouseTilePosition = GridManager.Instance.GetTilePosition(MousePosition.GetPosition());
             TilePosition startTilePosition = new TilePosition(0, 0);
 
-            List<TilePosition> tilePositions = PathFinding.Instance.FindPath(startTilePosition, mouseTilePosition);
+            List<TilePosition> tilePositions = PathFinding.Instance.FindPath(startTilePosition, mouseTilePosition, out int pathLength);
 
             for(int i = 0; i < tilePositions.Count - 1; i++)
             {

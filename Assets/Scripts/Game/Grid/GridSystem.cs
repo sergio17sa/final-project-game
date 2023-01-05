@@ -59,7 +59,7 @@ public class GridSystem<TTile>
 
                 Transform debugTileTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(tilePosition), Quaternion.identity);
                 TileDebug tileDebugObject = debugTileTransform.GetComponent<TileDebug>();
-                tileDebugObject.SetDebugTile(GetTile(tilePosition) as Tile);
+                tileDebugObject.SetDebugTile(GetTile(tilePosition));
             }
         }
     }
