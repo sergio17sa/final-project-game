@@ -215,7 +215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.000000074505806}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &161204871
@@ -748,17 +748,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 767119989, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
   m_PrefabInstance: {fileID: 7941148310374809749}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &452801343 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1222636043537796807, guid: cdc47e8ffcc008c478e3f3e3c6a2eef5, type: 3}
-  m_PrefabInstance: {fileID: 9037322606875250938}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8ecffeaa922bae46b93fb4924f27766, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &453230487 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1165603953, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
@@ -780,6 +769,7 @@ GameObject:
   - component: {fileID: 660445291}
   - component: {fileID: 660445290}
   - component: {fileID: 660445289}
+  - component: {fileID: 660445292}
   m_Layer: 5
   m_Name: PanelBtnJoinGame
   m_TagString: Untagged
@@ -846,6 +836,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0.36569, y: -28}
   m_SizeDelta: {x: 92.417, y: 15.48753}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &660445292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660445288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9916ba759fd0804187c1cbcaf667dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joinButtonText: {fileID: 161204871}
 --- !u!1 &700856802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,8 +2039,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 452801343}
-        m_TargetAssemblyTypeName: NetworkManagerServer, Assembly-CSharp
+      - m_Target: {fileID: 660445292}
+        m_TargetAssemblyTypeName: JoinHandlerBtn, Assembly-CSharp
         m_MethodName: StartBtnTransition
         m_Mode: 1
         m_Arguments:
