@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class InputPlayerNameHandler : MonoBehaviour
 {
@@ -13,10 +14,21 @@ public class InputPlayerNameHandler : MonoBehaviour
 
     private void Awake()
     {
-       // playerStatsSave.stats.playerName = null;
-        Debug.Log(playerStatsSave.stats.playerName != null);
-        Debug.Log(playerStatsSave.stats.playerName);
         HideInputPlayerName();
+    }
+
+    public void HideInputPlayerName()
+    {
+        if (String.IsNullOrEmpty(playerStatsSave.stats.playerName))
+        {
+            panelInputPlayerName.SetActive(true);
+            paneljoinBtn.SetActive(false);
+        }
+        else
+        {
+            panelInputPlayerName.SetActive(false);
+            paneljoinBtn.SetActive(true);
+        }
     }
 
     public void SubmitPlayerName()
@@ -25,18 +37,10 @@ public class InputPlayerNameHandler : MonoBehaviour
         playerStatsSave.SavePlayerData();
         HideInputPlayerName();
     }
-
-    public void HideInputPlayerName()
+    
+    [ContextMenu("SetNulPlayerName")]
+    public void SetNullPlayerName()
     {
-        if (playerStatsSave.stats.playerName != null )
-        {
-            panelInputPlayerName.SetActive(false);
-            paneljoinBtn.SetActive(true);
-        }
-        else 
-        {
-            panelInputPlayerName.SetActive(true);
-            paneljoinBtn.SetActive(false);
-        }
+        playerStatsSave.stats.playerName = null;
     }
 }

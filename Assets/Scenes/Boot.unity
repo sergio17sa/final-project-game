@@ -1030,7 +1030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &753813478
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1051,7 +1051,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 8.3}
   m_SizeDelta: {x: 93.416824, y: 29.391998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &753813479
@@ -2443,6 +2443,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4019212369584944335, guid: 8d8a770182c8d944c9a004deb4d914aa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6055909215917949845, guid: 8d8a770182c8d944c9a004deb4d914aa, type: 3}
       propertyPath: ui.panelRuler
       value: 
@@ -2549,6 +2553,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11298831317447c4dbfb90925b4cf982, type: 3}
+--- !u!1 &1942524738 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3843495346311729801, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+  m_PrefabInstance: {fileID: 7941148310374809749}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2102743012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,6 +2742,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2110862273251252915, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2242457360788320772, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -74
@@ -2744,6 +2757,10 @@ PrefabInstance:
     - target: {fileID: 3843495346311729801, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
       propertyPath: m_Name
       value: GameCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3843495346311729801, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3843495346311729805, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
       propertyPath: m_Pivot.x
@@ -2853,6 +2870,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 137
       objectReference: {fileID: 0}
+    - target: {fileID: 6842652656711837094, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284755845838531265, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8213795376450783696, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -112.799934
@@ -2865,6 +2890,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1921702063}
+    - target: {fileID: 8750270328373809685, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8766447907597795660, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -112.8
@@ -2902,6 +2931,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1222636043537796807, guid: cdc47e8ffcc008c478e3f3e3c6a2eef5, type: 3}
+      propertyPath: Scene
+      value: 
+      objectReference: {fileID: 745950446}
+    - target: {fileID: 1222636043537796807, guid: cdc47e8ffcc008c478e3f3e3c6a2eef5, type: 3}
+      propertyPath: mainPanel
+      value: 
+      objectReference: {fileID: 1942524738}
     - target: {fileID: 1222636043537796807, guid: cdc47e8ffcc008c478e3f3e3c6a2eef5, type: 3}
       propertyPath: joinButtonText
       value: 

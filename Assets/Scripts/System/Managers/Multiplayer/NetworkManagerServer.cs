@@ -1,26 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class NetworkManagerServer : MonoBehaviour
 {
+    public static NetworkManagerServer Instance;
     public int lobbiesQuantity { get; private set; }
-    public bool checkForLobbies;
+    public bool checkForLobbies { get; private set; }
 
-    [SerializeField] private TMP_Text joinButtonText;
-    [SerializeField] private GameObject panelUI;
 
-    private string joinGame = "Join Game", CreateGameAndJoin = "Create Game And Join";
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(this);
+    }
 
     private async void Start()
     {
         await RelayManager.Instance.UnityServicesConnection();
         await RelayManager.Instance.anonymouslyAuthentication();
+    }
+
+    public async void GetLobbies()
+    {
         lobbiesQuantity = await LobbyManager.Instance.ListLobbies();
     }
 
-    public void ToggleChecForlobbies()
+    public void ToggleCheckForlobbies()
     {
         if (lobbiesQuantity != 0)
         {
@@ -32,26 +43,7 @@ public class NetworkManagerServer : MonoBehaviour
         }
     }
 
-    public IEnumerator JoinBtnTrasition()
-    {
-        yield return new WaitForSecondsRealtime(3f);
-        joinButtonText.text = "Looking for a lobby Game...";
-        yield return new WaitForSecondsRealtime(4f);
-        if (checkForLobbies)
-        {
-            joinButtonText.text = "Lobby Game found";
-        }
-        else
-        {
-            joinButtonText.text = "Creating new lobby game..";
-        }
-        yield return new WaitForSecondsRealtime(4f);
-        ScenesManager.Instance.LoadLevel("Multiplayerlocal");
-        yield return new WaitForSecondsRealtime(4f);
-        List();
-    }
-
-    public async void List()
+    public async void CheckLobbiesToStart()
     {
         if (checkForLobbies)
         {
@@ -62,12 +54,6 @@ public class NetworkManagerServer : MonoBehaviour
             await LobbyManager.Instance.StartGameCreatingLobby();
         }
     }
-
-    public void StartBtnTransition()
-    {
-        StartCoroutine("JoinBtnTrasition");
-    }
-
 }
 
 

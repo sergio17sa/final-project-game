@@ -7,8 +7,22 @@ using UnityEngine;
 using IngameDebugConsole;
 using System.Collections;
 
-public class LobbyManager : Singleton<LobbyManager>
+public class LobbyManager : MonoBehaviour
 {
+
+    public static LobbyManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(this);
+    }
     private int maxPLayers = 2;
     private Lobby hostLobby, joinedLobby;
     private QueryResponse queryResponse;
@@ -234,7 +248,6 @@ public class LobbyManager : Singleton<LobbyManager>
     /// </summary>
     public IEnumerator PollForUpdates(float waitForSeconds)
     {
-        Debug.Log("ENTRO A LA COROUTINE POLLING");
         var delay = new WaitForSeconds(waitForSeconds);
 
         while (joinedLobby != null)

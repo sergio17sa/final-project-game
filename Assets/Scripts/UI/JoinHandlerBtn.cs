@@ -1,47 +1,40 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class JoinHandlerBtn : MonoBehaviour
 {
-    [SerializeField] TMP_Text joinButtonText;
 
-    private int lobbiesQuantity;
-    private string joinGame = "Join Game", CreateGameAndJoin = "Create Game And Join";
+    [SerializeField] private TMP_Text joinButtonText;
+    private string lookingForLobby = "Looking for a lobby Game...", lobbyFound = "Lobby Game found", creatingLobby = "Creating new lobby game..";
 
-    private void Start()
+    public IEnumerator JoinBtnTrasition()
     {
-        SetJoinButtonText();
-        Debug.Log($"lobbies save in joinhandler are {lobbiesQuantity}");
-    }
+        yield return new WaitForSecondsRealtime(3f);
+        joinButtonText.text = lookingForLobby;
+        NetworkManagerServer.Instance.GetLobbies();
 
-    public async void ToggleJoinMode()
-    {
-        Debug.Log($"entro al toggle y la cantidad de lobbies es {lobbiesQuantity}");
-        if (lobbiesQuantity <= 0)
+        yield return new WaitForSecondsRealtime(1f);
+        NetworkManagerServer.Instance.ToggleCheckForlobbies();
+
+        yield return new WaitForSecondsRealtime(3f);
+        if (NetworkManagerServer.Instance.checkForLobbies)
         {
-            await LobbyManager.Instance.StartGameCreatingLobby();
+            joinButtonText.text = lobbyFound;
         }
         else
         {
-            await LobbyManager.Instance.StartGameQuick();
+            joinButtonText.text = creatingLobby;
         }
+
+        yield return new WaitForSecondsRealtime(2f);
+        SceneManager.LoadSceneAsync(1);
+        NetworkManagerServer.Instance.CheckLobbiesToStart();
     }
 
-    public void SetJoinButtonText()
+    public void StartBtnTransition()
     {
-
-      //  lobbiesQuantity = GameManager.Instance.lobbiesQuantity;
-        if (lobbiesQuantity <= 0)
-        {
-            joinButtonText.text = CreateGameAndJoin;
-        }
-        else
-        {
-            joinButtonText.text = joinGame;
-        }
+        StartCoroutine("JoinBtnTrasition");
     }
 }

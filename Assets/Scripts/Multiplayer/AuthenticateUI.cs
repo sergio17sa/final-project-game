@@ -6,26 +6,26 @@ using UnityEngine.UI;
 public class AuthenticateUI : MonoBehaviour
 {
 
-    [SerializeField] private Button autheticate;
-    [SerializeField] private Button createLobby;
+    // [SerializeField] private Button autheticate;
+    // [SerializeField] private Button createLobby;
     [SerializeField] private Button joinLobby;
     private void Awake()
     {
 
 
-        autheticate.onClick.AddListener(async () =>
-        {
-            await RelayManager.Instance.UnityServicesConnection();
-            await RelayManager.Instance.anonymouslyAuthentication();
-            hide(autheticate);
-        });
+        // autheticate.onClick.AddListener(async () =>
+        // {
+        //     await RelayManager.Instance.UnityServicesConnection();
+        //     await RelayManager.Instance.anonymouslyAuthentication();
+        //     hide(autheticate);
+        // });
 
 
-        createLobby.onClick.AddListener(async () =>
-        {
-            await LobbyManager.Instance.StartGameCreatingLobby();
-            hide(createLobby);
-        });
+        // createLobby.onClick.AddListener(async () =>
+        // {
+        //     await LobbyManager.Instance.StartGameCreatingLobby();
+        //     hide(createLobby);
+        // });
 
         joinLobby.onClick.AddListener(async () =>
         {
