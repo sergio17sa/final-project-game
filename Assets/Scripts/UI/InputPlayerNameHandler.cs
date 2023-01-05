@@ -13,7 +13,7 @@ public class InputPlayerNameHandler : MonoBehaviour
 
     private void Awake()
     {
-        playerStatsSave.stats.playerName = null;
+       // playerStatsSave.stats.playerName = null;
         Debug.Log(playerStatsSave.stats.playerName != null);
         Debug.Log(playerStatsSave.stats.playerName);
         HideInputPlayerName();

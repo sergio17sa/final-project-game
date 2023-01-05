@@ -11,6 +11,7 @@ public class LobbyManager : Singleton<LobbyManager>
 {
     private int maxPLayers = 2;
     private Lobby hostLobby, joinedLobby;
+    private QueryResponse queryResponse;
     private int randomName;
     private string playerName = "playernametest1", startGame = "0";
 
@@ -86,11 +87,10 @@ public class LobbyManager : Singleton<LobbyManager>
     /// it do a query to bring a lobbies list with the filters needed, in this case
     /// only bring the lobbies with available slots and those are sort by oldest to newest
     /// </summary>
-    public async Task ListLobbies()
+    public async Task<int> ListLobbies()
     {
         try
         {
-
             QueryLobbiesOptions queryLobbiesOptions = new QueryLobbiesOptions
             {
                 // Determina la cantidad de lobbies del listado y muestra solo los que tienen espacios disponibles 
@@ -105,19 +105,21 @@ public class LobbyManager : Singleton<LobbyManager>
 
             };
 
-            QueryResponse queryResponse = await Lobbies.Instance.QueryLobbiesAsync(queryLobbiesOptions);
+            queryResponse = await Lobbies.Instance.QueryLobbiesAsync(queryLobbiesOptions);
 
             Debug.Log($"Lobbies Quantity {queryResponse.Results.Count}");
-            foreach (Lobby lobby in queryResponse.Results)
-            {
-                Debug.Log(lobby.Name + " " + lobby.MaxPlayers + " " + "Lobby Data: " + lobby.Data["startGame"].Value);
-            }
+            // foreach (Lobby lobby in queryResponse.Results)
+            // {
+            //     Debug.Log(lobby.Name + " " + lobby.MaxPlayers + " " + "Lobby Data: " + lobby.Data["startGame"].Value);
+            // }
 
         }
         catch (LobbyServiceException e)
         {
             Debug.LogException(e);
         }
+
+        return queryResponse.Results.Count;
     }
 
     /// <summary>
