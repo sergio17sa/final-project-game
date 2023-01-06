@@ -13,3 +13,11 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   playerName: sergio
+  points: 0
+  victories: 0
+  levels:
+  - 
+  - 
+  - 
+  - 
+  - 
