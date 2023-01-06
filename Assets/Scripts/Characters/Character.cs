@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -11,10 +13,14 @@ public class Character : MonoBehaviour
     public TilePosition CharacterTilePosition { get; private set;}
 
     public BaseAction[] BaseActions { get; private set; }
+    public List<BaseAction> ActionsTaken { get; private set; }
+
+    [SerializeField] private Team _team;
 
     private void Awake() 
     {
         BaseActions = GetComponents<BaseAction>();
+        ActionsTaken = new List<BaseAction>();
     }
     
     private void Start()
@@ -23,6 +29,8 @@ public class Character : MonoBehaviour
 
         CharacterTilePosition = GridManager.Instance.GetTilePosition(transform.position);
         GridManager.Instance.SetCharacterOnTile(CharacterTilePosition, this);
+
+        TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
 
     }
 
@@ -96,4 +104,15 @@ public class Character : MonoBehaviour
         }
         return null;
     }
+
+    public void AddActionTaken(BaseAction action) => ActionsTaken.Add(action);
+
+    public Team GetCharacterTeam() => _team;
+
+    private void TurnSystemManager_OnTurnChanged(object sender, EventArgs e)
+    {
+        ActionsTaken.Clear();
+    }
+
+
 }

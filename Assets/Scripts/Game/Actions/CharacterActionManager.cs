@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CharacterActionManager : Singleton<CharacterActionManager>
 {
-    
+
     [SerializeField] private Character _selectedCharacter;
     [SerializeField] private LayerMask _characterLayerMask;
 
@@ -20,10 +21,10 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
 
     private void Update()
     {
-        if(isBusy) return;
+        if (isBusy) return;
 
-        if(TryUnitSelection()) return;
-  
+        if (TryUnitSelection()) return;
+
         HandleSelectedAction();
     }
 
@@ -32,15 +33,18 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, _characterLayerMask))
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, _characterLayerMask))
             {
-                if(raycastHit.transform.TryGetComponent<Character>(out Character character))
+                if (raycastHit.transform.TryGetComponent<Character>(out Character character))
                 {
-                    if(character == _selectedCharacter) return false;
+
+                    if (character == _selectedCharacter) return false;
+
+                    if(character.GetCharacterTeam() != TurnSystemManager.Instance.GetTeamTurn()) return false;
 
                     SetSelectedCharacter(character);
                     return true;
-                }   
+                }
             }
         }
         return false;
@@ -50,11 +54,13 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if(!_selectedCharacter) return;
-            
+            if (!_selectedCharacter) return;
+
             TilePosition mouseTilePosition = GridManager.Instance.GetTilePosition(MousePosition.GetPosition());
 
             if (!_selectedAction.IsValidActionTile(mouseTilePosition)) return;
+
+            if (_selectedCharacter.ActionsTaken.Contains(_selectedAction)) return;
 
             SetBusy();
             _selectedAction.TakeAction(mouseTilePosition, ClearBusy);
@@ -65,7 +71,7 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
 
     //Getters
 
-    public Character GetSelectedCharacter() =>  _selectedCharacter;
+    public Character GetSelectedCharacter() => _selectedCharacter;
 
     public BaseAction GetSelectedAction() => _selectedAction;
 
