@@ -17,28 +17,29 @@ public class Character : MonoBehaviour
 
     [SerializeField] private Team _team;
 
+    public event EventHandler OnGetDamaged;
+
     private void Awake() 
     {
         BaseActions = GetComponents<BaseAction>();
         ActionsTaken = new List<BaseAction>();
+
+        currentLife = characterstats.initialLife;
     }
     
     private void Start()
     {
-        currentLife = characterstats.initialLife;
-
         CharacterTilePosition = GridManager.Instance.GetTilePosition(transform.position);
         GridManager.Instance.SetCharacterOnTile(CharacterTilePosition, this);
 
         TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
-
     }
 
     void Update()
     {
         //GetMoviment();
 
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             GetAttack();
         }
@@ -51,7 +52,7 @@ public class Character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             GetHealing(characterstats.healing);
-        }
+        }*/
 
         TilePosition newTilePosition = GridManager.Instance.GetTilePosition(transform.position);
 
@@ -67,6 +68,7 @@ public class Character : MonoBehaviour
     {
         currentLife -= enemyDamage;
         characterAnim.SetDamage(currentLife);
+        OnGetDamaged?.Invoke(this, EventArgs.Empty);
     }
 
     //Funcion para Curarse
@@ -114,5 +116,6 @@ public class Character : MonoBehaviour
         ActionsTaken.Clear();
     }
 
+    public float GetNormalizeHealth() => currentLife/ (float)characterstats.initialLife;
 
 }
