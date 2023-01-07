@@ -36,7 +36,7 @@ public class InputPlayerNameHandler : MonoBehaviour
         StatisticsManager.Instance.stats.playerName = inputPlayerName.text;
         StatisticsManager.Instance.SavePlayerData();
         HideInputPlayerName();
-        statisticsUI.SetPlayerName();
+        statisticsUI.SetPlayerStats();
     }
     
     [ContextMenu("SetNulPlayerName")]

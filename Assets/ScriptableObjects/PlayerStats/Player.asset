@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   playerName: sergio
-  points: 0
-  victories: 0
+  points: 7680
+  victories: 17
   levels:
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Beginner
+  - Advanced
+  - Expert
+  - Master

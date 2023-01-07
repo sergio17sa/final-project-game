@@ -10,26 +10,38 @@ public class StatisticsUI : MonoBehaviour
     [SerializeField] private TMP_Text numberPoints;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private TMP_Text victoriesNumber;
-    private string temporalPlayerName = "Welcome";
+    private string temporalPlayerName = "";
+    private string initialPoints = "0";
+    private string initialLevel = "Beginner";
+    private string initialVictory = "0";
 
-
-    private void Start()
+    private void Update()
     {
-        SetPlayerName();
+        SetPlayerStats();
     }
 
-    public void SetPlayerName()
+    public void SetPlayerStats()
     {
-        if (!string.IsNullOrEmpty(StatisticsManager.Instance.stats.playerName))
-        {
+        bool playerNameIsEmmpty = string.IsNullOrEmpty(StatisticsManager.Instance.stats.playerName);
+        bool numberPointsIsEmmpty = string.IsNullOrEmpty(StatisticsManager.Instance.stats.points.ToString());
+        bool levelTextIsEmmpty = string.IsNullOrEmpty(StatisticsManager.Instance.stats.levels[0]);
+        bool victoriesNumberIsEmmpty = string.IsNullOrEmpty(StatisticsManager.Instance.stats.victories.ToString());
 
-            playerName.text = StatisticsManager.Instance.stats.playerName;
-        }
-        else
-        {
-            playerName.text = temporalPlayerName;
-        }
+        if (!playerNameIsEmmpty) playerName.text = StatisticsManager.Instance.stats.playerName;
+        else playerName.text = temporalPlayerName;
+
+        if (!numberPointsIsEmmpty) numberPoints.text = StatisticsManager.Instance.stats.points.ToString();
+        else numberPoints.text = initialPoints;
+
+        if (!levelTextIsEmmpty) levelText.text = StatisticsManager.Instance.ControllerLevel();
+        else numberPoints.text = initialLevel;
+
+        if (!victoriesNumberIsEmmpty) victoriesNumber.text = StatisticsManager.Instance.stats.victories.ToString();
+        else victoriesNumber.text = initialVictory;
     }
-
-    
 }
+
+
+
+
+
