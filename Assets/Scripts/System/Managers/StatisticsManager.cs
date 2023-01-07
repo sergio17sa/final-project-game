@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StatisticsManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class StatisticsManager : MonoBehaviour
     {
         victory = false;
         LoadPlayerData();
+        SetNullPlayerName();
     }
 
     [ContextMenu("SavePlayerData")]
@@ -60,6 +62,7 @@ public class StatisticsManager : MonoBehaviour
 
     public string ControllerLevel()
     {
+
         foreach (string level in stats.levels)
         {
 
@@ -100,6 +103,36 @@ public class StatisticsManager : MonoBehaviour
     {
         victory = !victory;
         VictoryPointStorage();
+    }
+
+    [ContextMenu("SetNulPlayerName")]
+    public void SetNullPlayerName()
+    {
+        LoadPlayerData();
+
+        if (String.IsNullOrEmpty(stats.playerName))
+        {
+
+            stats.points = 0;
+            stats.levels.Add("Beginner");
+            stats.levels.Add("Advanced");
+            stats.levels.Add("Expert");
+            stats.levels.Add("Master");
+            stats.victories = 0;
+            SavePlayerData();
+        }
+        else
+        {
+            Debug.Log("ya existen datos del jugador");
+        }
+
+    }
+
+    [ContextMenu("SetNulPlayer")]
+    public void SetNullPlayer()
+    {
+        stats.playerName = null;
+        SavePlayerData();
     }
 
 

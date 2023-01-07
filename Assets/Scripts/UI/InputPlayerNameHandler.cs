@@ -39,9 +39,5 @@ public class InputPlayerNameHandler : MonoBehaviour
         statisticsUI.SetPlayerStats();
     }
     
-    [ContextMenu("SetNulPlayerName")]
-    public void SetNullPlayerName()
-    {
-        StatisticsManager.Instance.stats.playerName = null;
-    }
+    
 }
