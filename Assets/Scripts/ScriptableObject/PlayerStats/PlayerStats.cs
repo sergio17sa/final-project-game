@@ -6,4 +6,6 @@ using UnityEngine;
 public class PlayerStats : ScriptableObject
 {
     public string playerName;
+    public int points, victories;
+    public List<string> levels = new List<string>();
 }
