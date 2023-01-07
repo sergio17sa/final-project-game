@@ -27,7 +27,8 @@ public class StatisticsManager : MonoBehaviour
 
     private void Start()
     {
-       victory = false;
+        victory = false;
+        LoadPlayerData();
     }
 
     [ContextMenu("SavePlayerData")]
@@ -44,7 +45,7 @@ public class StatisticsManager : MonoBehaviour
     }
 
 
-   public void VictoryPointStorage()
+    public void VictoryPointStorage()
     {
         if (victory)
         {
@@ -52,9 +53,10 @@ public class StatisticsManager : MonoBehaviour
             stats.victories += victoryMatch;
             victory = false;
             SavePlayerData();
+            LoadPlayerData();
         }
     }
-    
+
 
     public string ControllerLevel()
     {
