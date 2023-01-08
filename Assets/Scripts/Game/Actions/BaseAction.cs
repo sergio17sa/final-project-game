@@ -38,9 +38,10 @@ public abstract class BaseAction : MonoBehaviour
         _onActionComplete = onActionComplete;
     }
 
-    protected void ActionComplete()
+    protected void ActionComplete(BaseAction action)
     {
         _isActive = false;
         _onActionComplete();
+        _character.AddActionTaken(action);
     }
 }

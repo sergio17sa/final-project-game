@@ -17,7 +17,7 @@ public class TestAction : BaseAction
         totalSpinAmount += spinAddAmount;
         if (totalSpinAmount >= 360f)
         {
-            ActionComplete();
+            ActionComplete(this);
         }
 
     }

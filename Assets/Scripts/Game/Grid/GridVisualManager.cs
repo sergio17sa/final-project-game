@@ -47,8 +47,10 @@ public class GridVisualManager : Singleton<GridVisualManager>
     }
 
     public void ShowTilePositionList(List<TilePosition> tilePositionList) 
-    {  
-        foreach(TilePosition tilePosition in tilePositionList) 
+    {
+        if (tilePositionList == null) return;
+
+        foreach (TilePosition tilePosition in tilePositionList) 
         {
             _tileVisualArray[tilePosition.x, tilePosition.z].Show();
         }
@@ -61,9 +63,12 @@ public class GridVisualManager : Singleton<GridVisualManager>
         Character selectedCharacter = CharacterActionManager.Instance.GetSelectedCharacter();
         BaseAction selectedAction = CharacterActionManager.Instance.GetSelectedAction();
 
-        if(selectedCharacter)
+        if(selectedCharacter != null)
         {
             ShowTilePositionList(selectedAction.GetValidActionTiles());
+        } else
+        {
+            ShowTilePositionList(null);
         }
     }
 }
