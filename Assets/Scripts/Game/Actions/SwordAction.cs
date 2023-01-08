@@ -55,11 +55,10 @@ public class SwordAction : BaseAction
         float rotateSpeed = 10f;
         transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
 
-
         ActionStart(onActionComplete);
         
         _character.GetAttack();
-        _targetCharacter.GetDamage(100);
+        _targetCharacter.GetDamage(50);
 
         ActionComplete(this);
     }
