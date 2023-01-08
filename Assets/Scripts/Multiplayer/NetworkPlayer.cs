@@ -52,7 +52,6 @@ public class NetworkPlayer : NetworkBehaviour
             Debug.Log(OwnerClientId + " playerClient value: " + playerClient.Value.nameString);
             UIManager.Instance.playerClient.text = $"{playerClient.Value.nameString} {playerClient.Value.id.ToString()} {playerClient.Value.isReady.ToString()}";
         };
-
     }
     private void Update()
     {
@@ -92,14 +91,13 @@ public class NetworkPlayer : NetworkBehaviour
         }
     }
 
-
     void test()
     {
-         int randomId = Random.Range(0, 99);
+        int randomId = Random.Range(0, 99);
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            SetPlayerName(randomId , true);
+            SetPlayerName(randomId, true);
         }
     }
 }
