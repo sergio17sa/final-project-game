@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,19 +20,20 @@ public class CharacterActionsUI : MonoBehaviour
     {
         CharacterActionManager.Instance.OnSelectedCharacter += CharacterActionManager_OnSelectedCharacter;
         CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
+        TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
     }
     private void CreateActionButtons()
     {
         Character selectedCharacter = CharacterActionManager.Instance.GetSelectedCharacter();
 
-        foreach(Transform button in _actionButtonContainer)
+        /*foreach(Transform button in _actionButtonContainer)
         {
             Destroy(button.gameObject);
         }
         
-        _actionButtons.Clear();
+        _actionButtons.Clear();*/
 
-        
+        ClearButtons();
 
         foreach(BaseAction baseAction in selectedCharacter.BaseActions)
         {
@@ -51,18 +53,29 @@ public class CharacterActionsUI : MonoBehaviour
 
     private void UpdateSelectedVisual()
     {
-        Character selectedCharacter = CharacterActionManager.Instance.GetSelectedCharacter();
-
-        if(!selectedCharacter) return;
-
         foreach(ActionButtonUI actionButtonUI in _actionButtons)
         {
             actionButtonUI.UpdateSelectedVisual();
         }
     }
 
+    private void ClearButtons()
+    {
+        foreach (Transform button in _actionButtonContainer)
+        {
+            Destroy(button.gameObject);
+        }
+
+        _actionButtons.Clear();
+    }
+
     private void CharacterActionManager_OnSelectedActionChanged(object sender, EventArgs e)
     {
         UpdateSelectedVisual();
+    }
+
+    private void TurnSystemManager_OnTurnChanged(object sender, EventArgs e)
+    {
+        ClearButtons();
     }
 }

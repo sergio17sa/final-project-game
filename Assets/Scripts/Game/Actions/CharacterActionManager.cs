@@ -19,6 +19,11 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     public event EventHandler<bool> OnBusyChanged;
     public event EventHandler OnActionStarted;
 
+    private void Start()
+    {
+        TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
+    }
+
     private void Update()
     {
         if (isBusy) return;
@@ -105,5 +110,10 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
         isBusy = false;
 
         OnBusyChanged?.Invoke(this, isBusy);
+    }
+
+    private void TurnSystemManager_OnTurnChanged(object sender, EventArgs e)
+    {
+        _selectedCharacter = null;
     }
 }
