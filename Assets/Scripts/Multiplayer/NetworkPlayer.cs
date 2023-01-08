@@ -7,11 +7,19 @@ using Unity.Netcode;
 public class NetworkPlayer : NetworkBehaviour
 {
 
-    private NetworkVariable<NetString> player1Account = new NetworkVariable<NetString>(
+    private NetworkVariable<NetString> playerServer = new NetworkVariable<NetString>(
         new NetString
         {
-            nameString = "test",
+            nameString = "0",
             id = 0,
+            isReady = false
+        }, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+    private NetworkVariable<NetString> playerClient = new NetworkVariable<NetString>(
+        new NetString
+        {
+            nameString = "1",
+            id = 1,
             isReady = false
         }, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
@@ -21,6 +29,7 @@ public class NetworkPlayer : NetworkBehaviour
         public int id;
         public bool isReady;
 
+
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
             serializer.SerializeValue(ref nameString);
@@ -28,24 +37,25 @@ public class NetworkPlayer : NetworkBehaviour
             serializer.SerializeValue(ref isReady);
         }
     }
-    public GameObject playerPrefab;
-    public int clientID;
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        player1Account.OnValueChanged += (NetString previousValue, NetString newValue) =>
+        playerServer.OnValueChanged += (NetString previousValue, NetString newValue) =>
         {
+            Debug.Log(OwnerClientId + " playerServer value: " + playerServer.Value.nameString);
+            UIManager.Instance.playerServer.text = $"{playerServer.Value.nameString} {playerServer.Value.id.ToString()} {playerServer.Value.isReady.ToString()}";
+        };
 
-            Debug.Log(OwnerClientId + " player1Account value: " + player1Account.Value.nameString + " " + player1Account.Value.isReady + " " + player1Account.Value.id);
-            UIManager.Instance.player1Name.text = player1Account.Value.nameString + player1Account.Value.isReady.ToString() + player1Account.Value.id.ToString();
-
+        playerClient.OnValueChanged += (NetString previousValue, NetString newValue) =>
+        {
+            Debug.Log(OwnerClientId + " playerClient value: " + playerClient.Value.nameString);
+            UIManager.Instance.playerClient.text = $"{playerClient.Value.nameString} {playerClient.Value.id.ToString()} {playerClient.Value.isReady.ToString()}";
         };
 
     }
     private void Update()
     {
-
         if (!IsOwner) return;
         test();
         Vector3 moveDir = new Vector3(0, 0, 0);
@@ -57,54 +67,39 @@ public class NetworkPlayer : NetworkBehaviour
 
         float speed = 10f;
         transform.Translate(moveDir * speed * Time.deltaTime);
-
-
     }
 
-    public NetString SetPlayerName()
+    public void SetPlayerName(int id, bool isReady)
     {
 
-        return player1Account.Value = new NetString {
-            nameString = "points",
-            id = Random.Range(0,100),
-            isReady = true
-        };
-        // {
-        //     player1Account.Value = new NetString()
-        //     {
-        //        // nameString = namePlayer,
-        //         id = playerId,
-        //      //   isReady = true
-        //     };
-        // }
-
-        // if (playerId == 2)
-        // {
-        //     player2Account.Value = new NetString()
-        //     {
-        //         nameString = namePlayer,
-        //         id = playerId,
-        //         isReady = false
-        //     };
-        // }
+        if (OwnerClientId == 0)
+        {
+            playerServer.Value = new NetString
+            {
+                nameString = "Player Server",
+                id = id,
+                isReady = isReady
+            };
+        }
+        if (OwnerClientId == 1)
+        {
+            playerClient.Value = new NetString
+            {
+                nameString = "Player Client",
+                id = id,
+                isReady = isReady
+            };
+        }
     }
 
 
     void test()
     {
+         int randomId = Random.Range(0, 99);
+
         if (Input.GetKeyDown(KeyCode.F))
         {
-            //UIManager.Instance.networkUI.SetPlayerName("Oscarxd", 1);
-            //UIManager.Instance.networkUI.SetPlayerName( 1);
-            // UIManager.Instance.networkUI.Test(true, 1);
-            SetPlayerName();
+            SetPlayerName(randomId , true);
         }
-
-        // if (Input.GetKeyDown(KeyCode.S))
-        // {
-        //     // UIManager.Instance.networkUI.SetPlayerName("Andreyxd", 2);
-        //     //UIManager.Instance.networkUI.SetPlayerName( 2);
-        //    // UIManager.Instance.networkUI.Test(false, 2);
-        // }
     }
 }

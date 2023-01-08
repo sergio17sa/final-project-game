@@ -7,8 +7,7 @@ using TMPro;
 
 public class UIManager : Singleton<UIManager>
 {
-    public TMP_Text player1Name; 
-    public TMP_Text player2Name;
+    public TMP_Text playerServer; 
+    public TMP_Text playerClient;
     public NetworkUIController networkUI;
-
 }
