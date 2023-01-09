@@ -47,6 +47,7 @@ public class NetworkPlayer : NetworkBehaviour
         {
             Debug.Log(OwnerClientId + " playerServer value: " + playerServer.Value.nameString);
             UIManager.Instance.playerServer.text = $"{playerServer.Value.nameString} {playerServer.Value.id.ToString()} {playerServer.Value.isReady.ToString()}";
+           
         };
 
         playerClient.OnValueChanged += (NetString previousValue, NetString newValue) =>
@@ -95,6 +96,7 @@ public class NetworkPlayer : NetworkBehaviour
 
     void test()
     {
+        Debug.Log("ENTRA");
         int randomId = Random.Range(0, 99);
 
         if (Input.GetKeyDown(KeyCode.F))

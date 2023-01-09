@@ -42,7 +42,7 @@ public class CharacterSelectedVisual : MonoBehaviour
         _meshRenderer.enabled = false;
     }
 
-    private void OnDestroy()
+    private  void OnDisable()
     {
         CharacterActionManager.Instance.OnSelectedCharacter -= CharacterActionManager_OnSelectedCharacter;
     }
