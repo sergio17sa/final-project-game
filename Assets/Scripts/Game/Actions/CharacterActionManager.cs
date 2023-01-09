@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CharacterActionManager : Singleton<CharacterActionManager>
 {
@@ -27,6 +28,8 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     private void Update()
     {
         if (isBusy) return;
+
+        if (EventSystem.current.IsPointerOverGameObject()) return;
 
         if (TryUnitSelection()) return;
 
