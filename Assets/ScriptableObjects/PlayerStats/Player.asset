@@ -12,4 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83413eda54c5fa4fb89960c761caf62, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  playerName: sergio
+  playerName: moscow17
+  points: 1920
+  victories: 4
+  levels:
+  - Begginer
+  - Advanced
+  - Expert
+  - Master
+  - Beginner
+  - Advanced
+  - Expert
+  - Master
