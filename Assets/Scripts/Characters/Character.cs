@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -11,26 +13,33 @@ public class Character : MonoBehaviour
     public TilePosition CharacterTilePosition { get; private set;}
 
     public BaseAction[] BaseActions { get; private set; }
+    public List<BaseAction> ActionsTaken { get; private set; }
+
+    [SerializeField] private Team _team;
+
+    public event EventHandler OnGetDamaged;
 
     private void Awake() 
     {
         BaseActions = GetComponents<BaseAction>();
+        ActionsTaken = new List<BaseAction>();
+
+        currentLife = characterstats.initialLife;
     }
     
     private void Start()
     {
-        currentLife = characterstats.initialLife;
-
         CharacterTilePosition = GridManager.Instance.GetTilePosition(transform.position);
         GridManager.Instance.SetCharacterOnTile(CharacterTilePosition, this);
 
+        TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
     }
 
     void Update()
     {
         //GetMoviment();
 
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             GetAttack();
         }
@@ -43,7 +52,7 @@ public class Character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             GetHealing(characterstats.healing);
-        }
+        }*/
 
         TilePosition newTilePosition = GridManager.Instance.GetTilePosition(transform.position);
 
@@ -59,6 +68,7 @@ public class Character : MonoBehaviour
     {
         currentLife -= enemyDamage;
         characterAnim.SetDamage(currentLife);
+        OnGetDamaged?.Invoke(this, EventArgs.Empty);
     }
 
     //Funcion para Curarse
@@ -96,4 +106,16 @@ public class Character : MonoBehaviour
         }
         return null;
     }
+
+    public void AddActionTaken(BaseAction action) => ActionsTaken.Add(action);
+
+    public Team GetCharacterTeam() => _team;
+
+    private void TurnSystemManager_OnTurnChanged(object sender, EventArgs e)
+    {
+        ActionsTaken.Clear();
+    }
+
+    public float GetNormalizeHealth() => currentLife/ (float)characterstats.initialLife;
+
 }

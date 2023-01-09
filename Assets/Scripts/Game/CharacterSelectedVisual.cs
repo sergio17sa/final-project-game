@@ -16,6 +16,7 @@ public class CharacterSelectedVisual : MonoBehaviour
      private void Start()
     {
         CharacterActionManager.Instance.OnSelectedCharacter += CharacterActionManager_OnSelectedCharacter;
+        TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
         UpdateVisual();
     }
 
@@ -36,8 +37,15 @@ public class CharacterSelectedVisual : MonoBehaviour
         }
     }
 
+    private void TurnSystemManager_OnTurnChanged(object sender, EventArgs eventArgs)
+    {
+        _meshRenderer.enabled = false;
+    }
+
     private void OnDestroy()
     {
         CharacterActionManager.Instance.OnSelectedCharacter -= CharacterActionManager_OnSelectedCharacter;
     }
+
+    
 }
