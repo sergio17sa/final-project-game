@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class GridManager : Singleton<GridManager>
     [SerializeField] private int _gridWidth;
 
     private GridSystem<Tile> _gridSystem;
+
+    public event EventHandler OnCharacterMove;
 
     protected override void Awake() 
     {
@@ -63,6 +66,8 @@ public class GridManager : Singleton<GridManager>
     {
         ClearCharacterAtTilePosition(fromTilePosition);
         SetCharacterOnTile(toTilePosition, character);
+
+        OnCharacterMove?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetWidth () => _gridWidth;

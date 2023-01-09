@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,40 @@ public class GridVisualManager : Singleton<GridVisualManager>
 {
     [SerializeField] private Transform gridTileVisual;
     private TileVisual[,] _tileVisualArray;
-    
+
+    [Serializable]
+    public struct TileTypeMaterial
+    {
+        public TileColor tileColor;
+        public Material material;
+    }
+    public enum TileColor
+    {
+        White,
+        Red,
+        SoftRed,
+        Blue,
+    }
+
+    [SerializeField] private List<TileTypeMaterial> tileTypeMaterials;
+
     private void Start()
+    {
+
+        CreateVisualTiles();
+
+        CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
+        GridManager.Instance.OnCharacterMove += GridManager_OnCharacterMove;
+
+        UpdateTileVisual();
+    }
+
+    private void CreateVisualTiles()
     {
         _tileVisualArray = new TileVisual[
             GridManager.Instance.GetWidth(),
             GridManager.Instance.GetHeight()
-            ]; 
+            ];
 
         for (int x = 0; x < GridManager.Instance.GetWidth(); x++)
         {
@@ -20,20 +48,14 @@ public class GridVisualManager : Singleton<GridVisualManager>
             {
                 TilePosition tilePosition = new TilePosition(x, z);
                 Transform gridSystenVisualSingleTransform = Instantiate(
-                    gridTileVisual, 
-                    GridManager.Instance.GetWorldPosition(tilePosition), 
+                    gridTileVisual,
+                    GridManager.Instance.GetWorldPosition(tilePosition),
                     Quaternion.identity
                     );
                 _tileVisualArray[x, z] = gridSystenVisualSingleTransform.GetComponent<TileVisual>();
             }
         }
     }
-
-    private void Update()
-    {
-        UpdateTileVisual();
-    }
-
     public void HideAllTilePositions()
     {
         for (int x = 0; x < _tileVisualArray.GetLength(0); x++)
@@ -46,29 +68,128 @@ public class GridVisualManager : Singleton<GridVisualManager>
         }
     }
 
-    public void ShowTilePositionList(List<TilePosition> tilePositionList) 
+    public void ShowTilePositionList(List<TilePosition> tilePositionList, TileColor tileColor)
     {
         if (tilePositionList == null) return;
 
-        foreach (TilePosition tilePosition in tilePositionList) 
+        Material newMaterial = GetTileColor(tileColor);
+
+        foreach (TilePosition tilePosition in tilePositionList)
         {
-            _tileVisualArray[tilePosition.x, tilePosition.z].Show();
+            _tileVisualArray[tilePosition.x, tilePosition.z].Show(newMaterial);
         }
     }
 
-    private void UpdateTileVisual() 
+    private void ShowGridPositionRange(TilePosition gridPosition, int range, TileColor gridVisualType)
+    {
+        List<TilePosition> tilePositions = new List<TilePosition>();
+
+        for (int x = -range; x <= range; x++)
+        {
+            for (int z = -range; z <= range; z++)
+            {
+                TilePosition testTilePosition = gridPosition + new TilePosition(x, z);
+
+                if (!GridManager.Instance.IsValidTilePosition(testTilePosition))
+                {
+                    continue;
+                }
+
+                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                if (testDistance > range)
+                {
+                    continue;
+                }
+
+                tilePositions.Add(testTilePosition);
+            }
+        }
+
+        ShowTilePositionList(tilePositions, gridVisualType);
+    }
+
+
+    private void ShowActionRangeSquare(TilePosition tilePosition, int range, TileColor gridVisualType)
+    {
+        List<TilePosition> tilePositions = new List<TilePosition>();
+
+        for (int x = -range; x <= range; x++)
+        {
+            for (int z = -range; z <= range; z++)
+            {
+                TilePosition testTilePosition = tilePosition + new TilePosition(x, z);
+
+                if (!GridManager.Instance.IsValidTilePosition(testTilePosition)) continue;
+
+                tilePositions.Add(testTilePosition);
+            }
+        }
+
+        ShowTilePositionList(tilePositions, gridVisualType);
+    }
+
+
+    private void UpdateTileVisual()
     {
         HideAllTilePositions();
 
         Character selectedCharacter = CharacterActionManager.Instance.GetSelectedCharacter();
         BaseAction selectedAction = CharacterActionManager.Instance.GetSelectedAction();
 
-        if(selectedCharacter != null)
+        if (selectedCharacter != null)
         {
-            ShowTilePositionList(selectedAction.GetValidActionTiles());
-        } else
-        {
-            ShowTilePositionList(null);
+            TileColor tileColor;
+
+            switch (selectedAction)
+            {
+                default:
+                case MoveAction moveAction:
+                    tileColor = TileColor.White;
+                    break;
+                case SwordAction swordAction:
+                    tileColor = TileColor.Red;
+
+                    ShowActionRangeSquare(
+                        selectedCharacter.CharacterTilePosition, 
+                        swordAction.GetSwordRange(),
+                        TileColor.SoftRed
+                        );
+                    break;
+                case ShootArrowAction arrowAction:
+                    tileColor = TileColor.Red;
+
+                    ShowGridPositionRange(
+                        selectedCharacter.CharacterTilePosition,
+                        arrowAction.GetArrowRange(),
+                        TileColor.SoftRed
+                        );
+                    break;
+            }
+
+            ShowTilePositionList(selectedAction.GetValidActionTiles(), tileColor);
         }
+    }
+
+    private void CharacterActionManager_OnSelectedActionChanged(object sender, EventArgs e)
+    {
+        UpdateTileVisual();
+    }
+
+    private void GridManager_OnCharacterMove(object sender, EventArgs e)
+    {
+        UpdateTileVisual();
+    }
+
+    private Material GetTileColor(TileColor tileColor)
+    {
+        foreach (TileTypeMaterial tileTypeMaterial in tileTypeMaterials)
+        {
+            if (tileTypeMaterial.tileColor == tileColor)
+            {
+                return tileTypeMaterial.material;
+            }
+        }
+
+        return null;
     }
 }
