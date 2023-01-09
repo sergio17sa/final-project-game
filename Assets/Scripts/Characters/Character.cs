@@ -58,8 +58,9 @@ public class Character : MonoBehaviour
 
         if(newTilePosition != CharacterTilePosition)
         {
-            GridManager.Instance.CharacterMoveTile(this, CharacterTilePosition, newTilePosition);
+            TilePosition lastTilePosition = CharacterTilePosition;
             CharacterTilePosition = newTilePosition;
+            GridManager.Instance.CharacterMoveTile(this, lastTilePosition, newTilePosition);
         }
     }
 
