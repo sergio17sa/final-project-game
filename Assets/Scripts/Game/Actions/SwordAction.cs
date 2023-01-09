@@ -6,7 +6,7 @@ using UnityEngine;
 public class SwordAction : BaseAction
 {
 
-    private int maxSwordDistance = 1;
+    [SerializeField] private int _maxSwordDistance = 1;
     private Character _targetCharacter;
 
     private void Update()
@@ -15,7 +15,7 @@ public class SwordAction : BaseAction
     }
     public override string GetActionName()
     {
-        return "Atack";
+        return "Slash";
     }
 
     public override List<TilePosition> GetValidActionTiles()
@@ -24,15 +24,14 @@ public class SwordAction : BaseAction
 
         TilePosition unitGridPosition = _character.CharacterTilePosition;
 
-        for (int x = -maxSwordDistance; x <= maxSwordDistance; x++)
+        for (int x = -_maxSwordDistance; x <= _maxSwordDistance; x++)
         {
-            for (int z = -maxSwordDistance; z <= maxSwordDistance; z++)
+            for (int z = -_maxSwordDistance; z <= _maxSwordDistance; z++)
             {
                 TilePosition offsetGridPosition = new TilePosition(x, z);
                 TilePosition testGridPosition = unitGridPosition + offsetGridPosition;
 
                 if (!GridManager.Instance.IsValidTilePosition(testGridPosition)) continue;
-
 
                 if (!GridManager.Instance.HasCharacterOnTilePosition(testGridPosition)) continue;
 
@@ -43,6 +42,7 @@ public class SwordAction : BaseAction
                 validGridPositionList.Add(testGridPosition);
             }
         }
+
         return validGridPositionList;
     }
 
@@ -50,10 +50,10 @@ public class SwordAction : BaseAction
     {
         _targetCharacter = GridManager.Instance.GetCharacterAtTilePosition(tilePosition);
 
-        Vector3 aimDir = (_targetCharacter.transform.position - _character.transform.position).normalized;
+        /*Vector3 aimDir = (_targetCharacter.transform.position - _character.transform.position).normalized;
 
         float rotateSpeed = 10f;
-        transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
+        transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);*/
 
         ActionStart(onActionComplete);
         
@@ -63,5 +63,5 @@ public class SwordAction : BaseAction
         ActionComplete(this);
     }
 
-
+    public int GetSwordRange() => _maxSwordDistance;
 }
