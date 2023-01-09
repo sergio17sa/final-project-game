@@ -12,7 +12,7 @@ public class NetworkPlayer : NetworkBehaviour
         {
             nameString = "0",
             id = 0,
-            isReady = false
+            isReady = false,
         }, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     private NetworkVariable<NetString> playerClient = new NetworkVariable<NetString>(
@@ -28,6 +28,8 @@ public class NetworkPlayer : NetworkBehaviour
         public string nameString;
         public int id;
         public bool isReady;
+
+        public Vector3 vector3;
 
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter

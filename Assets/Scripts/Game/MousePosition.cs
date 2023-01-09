@@ -12,5 +12,4 @@ public class MousePosition : Singleton<MousePosition>
         Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, Instance._groundLayerMask);
         return raycastHit.point;
     }
-
 }

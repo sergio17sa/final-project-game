@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public abstract class BaseAction : MonoBehaviour
+public abstract class BaseAction : NetworkBehaviour
 {
     protected Character _character;
     protected bool _isActive;
