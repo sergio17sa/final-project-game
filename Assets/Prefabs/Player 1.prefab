@@ -113,6 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc499c85fbf15af4a8d1e53bfdc8cf10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 0}
+  clientID: 0
 --- !u!114 &6568828130354902753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 951099334
   AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
+  DontDestroyWithOwner: 1
   AutoObjectParentSync: 1
 --- !u!114 &1372683083433895819
 MonoBehaviour:
