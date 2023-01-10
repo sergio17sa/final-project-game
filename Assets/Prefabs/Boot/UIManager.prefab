@@ -182,8 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c03fb6adfecd7f409571326ffd2539b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1Name: {fileID: 3066640546621688939}
-  player2Name: {fileID: 1720519813504923034}
+  playerServer: {fileID: 3066640546621688939}
+  playerClient: {fileID: 1720519813504923034}
   networkUI: {fileID: 3759823078594667493}
 --- !u!114 &3759823078594667493
 MonoBehaviour:
@@ -197,10 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 919eb5d8fefd56c47aa4c85a30d27d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  namePlayer1:
-    m_InternalValue: Player1
-  namePlayer2:
-    m_InternalValue: Player2
 --- !u!114 &822040135
 MonoBehaviour:
   m_ObjectHideFlags: 0
