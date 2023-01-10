@@ -78,7 +78,7 @@ public class NetworkPlayer : NetworkBehaviour
         {
             playerServer.Value = new NetString
             {
-                nameString = "Player Server",
+                nameString = StatisticsManager.Instance.stats.playerName,
                 id = id,
                 isReady = isReady
             };
@@ -87,7 +87,7 @@ public class NetworkPlayer : NetworkBehaviour
         {
             playerClient.Value = new NetString
             {
-                nameString = "Player Client",
+                nameString = StatisticsManager.Instance.stats.playerName,
                 id = id,
                 isReady = isReady
             };
