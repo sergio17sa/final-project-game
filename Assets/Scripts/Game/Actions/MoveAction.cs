@@ -92,13 +92,8 @@ public class MoveAction : BaseAction
 
                 if (!PathFinding.Instance.HasPath(charactetTilePosition, testTilePosition)) continue;
 
+                if (PathFinding.Instance.GetPathLength(charactetTilePosition, testTilePosition) > _maxMoveDistance) continue;
 
-                /*int pathfindingDistanceMultiplier = 10;
-                if (PathFinding.Instance.GetPathLength(charactetTilePosition, testTilePosition) > _maxMoveDistance * pathfindingDistanceMultiplier)
-                {
-                    // Path length is too long
-                    continue;
-                }*/
 
 
                 validTilePositionList.Add(testTilePosition);

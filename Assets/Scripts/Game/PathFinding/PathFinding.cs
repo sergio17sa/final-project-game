@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PathFinding : Singleton<PathFinding>
 {
-    private const int MOVE_STRAIGHT_COST = 10;
-
     private GridSystem<PathNode> _gridSystem;
     [SerializeField] private LayerMask obstaclesLayerMask;
 
@@ -112,9 +110,10 @@ public class PathFinding : Singleton<PathFinding>
 
     public int CalculateDistance(TilePosition tilePositionA, TilePosition tilePositionB)
     {
-        TilePosition tilePositionDistance = tilePositionA - tilePositionB;
-        int distance = Mathf.Abs(tilePositionDistance.x) + Mathf.Abs(tilePositionDistance.z);
-        return distance * MOVE_STRAIGHT_COST;
+        int xDistance = Mathf.Abs(tilePositionA.x - tilePositionB.x);
+        int zDistance = Mathf.Abs(tilePositionA.z - tilePositionB.z);
+        int distance = (int)Mathf.Sqrt(xDistance * xDistance + zDistance * zDistance);
+        return distance;
     }
 
     private PathNode GetlowstFCostNode(List<PathNode> pathNodes)
