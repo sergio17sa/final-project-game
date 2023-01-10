@@ -6,9 +6,12 @@ public class GameManager : Singleton<GameManager>
 {
     [Header("Setup")]
     public bool isActive;
-    public Text userName;
-    public Text score;
-    public int numIntentos;
+    public List<GameObject> players = new List<GameObject>();
+
+    public void AddPlayer(GameObject newPlayer)
+    {
+        players.Add(newPlayer);
+    }
     
     
     private  void Start()
