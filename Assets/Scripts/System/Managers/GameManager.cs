@@ -26,6 +26,12 @@ public class GameManager : MonoBehaviour
     public void AddPlayer(GameObject newPlayer)
     {
         players.Add(newPlayer);
+
+        foreach (GameObject item in players)
+        {
+            item.GetComponent<NetworkPlayer>().SetPlayerName();
+        }
+        
     }
     
     
