@@ -7,8 +7,11 @@ public class ShootArrowAction : BaseAction
 {
     [SerializeField] private int _maxArrowRange = 4;
     [SerializeField] private LayerMask obstaclesLayerMask;
+    [SerializeField] private Transform _arrowPrefab;
+    [SerializeField] private Transform _arrowPosition;
 
     private Character _targetCharacter;
+    private Transform _arrowTransform;
 
     private enum State
     {
@@ -29,6 +32,15 @@ public class ShootArrowAction : BaseAction
     private float _stateTimer;
     private bool _canShoot;
     private bool _canLoad;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        _arrowTransform = Instantiate(_arrowPrefab, _arrowPosition.position, Quaternion.identity);
+        _arrowTransform.SetParent(_arrowPosition);
+        _arrowTransform.gameObject.SetActive(false);
+    }
 
     private void Update()
     {
@@ -73,6 +85,9 @@ public class ShootArrowAction : BaseAction
     {
         //Trigger animation
         _character.GetAttack();
+
+        _arrowTransform.gameObject.SetActive(true);
+
         _canLoad = false;
     }
 
@@ -96,6 +111,13 @@ public class ShootArrowAction : BaseAction
 
     private void Shoot()
     {
+        ProjectileBehaviour projectileBehaviour = _arrowTransform.GetComponent<ProjectileBehaviour>();
+
+        Vector3 targetPositionOffset = _targetCharacter.transform.position;
+        targetPositionOffset.y = _arrowPosition.position.y;
+
+        projectileBehaviour.SetShoot(targetPositionOffset, _canShoot);
+
         _targetCharacter.GetDamage(50);
 
         _canShoot = false;
