@@ -189,6 +189,7 @@ public class RelayManager : MonoBehaviour
     /// </summary>
     public RelayServerData ConfigureTransportAndStartNgoAsPlayer()
     {
+        Debug.Log(joinAllocation.AllocationId);
         RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
         //Retrieve the Unity transport used by the NetworkManager
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
