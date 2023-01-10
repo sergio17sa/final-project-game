@@ -176,7 +176,8 @@ public class LobbyManager : MonoBehaviour
             };
             Lobby lobby = await Lobbies.Instance.QuickJoinLobbyAsync(quickJoinLobbyOptions);
             joinedLobby = lobby;
-            Debug.Log($"Joined successfull to {lobby.Name} with lobby code: {lobby.LobbyCode}");
+            Debug.Log($"Joined successfull to {lobby.Name} with lobby code: {lobby.LobbyCode} lobby ID: {lobby.Id}");
+            Debug.Log($"joined lobby ID {joinedLobby.Id}");
             PrintPlayersData(joinedLobby);
             StartCoroutine(PollForUpdates(2f));
         }
@@ -262,7 +263,8 @@ public class LobbyManager : MonoBehaviour
                 if (getLobbies.IsCompleted)
                 {
                     joinedLobby = getLobbies.Result;
-                    Debug.Log(getLobbies.Result);
+                    Debug.Log($" lobbies result {getLobbies.Result}");
+                    Debug.Log($" lobbies result {getLobbies.Result.Players.Count}");
 
                 }
 
@@ -327,8 +329,26 @@ public class LobbyManager : MonoBehaviour
         }
         catch (LobbyServiceException e)
         {
+            Debug.LogException(e);
+        }
+    }
 
-            Debug.Log("esta fallando aca");
+    public async void DeleteLobby()
+    {
+        try
+        {
+            if (hostLobby.Id != null)
+            {
+                await LobbyService.Instance.DeleteLobbyAsync(hostLobby.Id);
+            }
+
+            if (joinedLobby.Id != null)
+            {
+                await LobbyService.Instance.DeleteLobbyAsync(hostLobby.Id);
+            }
+        }
+        catch (LobbyServiceException e)
+        {
             Debug.LogException(e);
         }
     }
