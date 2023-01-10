@@ -697,6 +697,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2072045474, guid: c910b0a6380485544a5a5334371fc79e, type: 3}
+      propertyPath: _maxMoveDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 486469556058802108, guid: c910b0a6380485544a5a5334371fc79e, type: 3}
       propertyPath: m_Name
       value: Longbow
@@ -2391,6 +2395,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2809042415674878711, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: tileTypeMaterials.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809042415674878711, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: tileTypeMaterials.Array.data[0].material
+      value: 
+      objectReference: {fileID: 2100000, guid: dea1d26c9381e9f09bc970104c842a58, type: 2}
+    - target: {fileID: 2809042415674878711, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: tileTypeMaterials.Array.data[1].material
+      value: 
+      objectReference: {fileID: 2100000, guid: 696a102e902ac7d47b7bd8d463fcbe9e, type: 2}
+    - target: {fileID: 2809042415674878711, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: tileTypeMaterials.Array.data[2].material
+      value: 
+      objectReference: {fileID: 2100000, guid: a53e9f57e98acc74f8330c61d8a928e6, type: 2}
+    - target: {fileID: 2809042415674878711, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: tileTypeMaterials.Array.data[3].material
+      value: 
+      objectReference: {fileID: 2100000, guid: 42a66e2789529eb41815ef9e7bc530e8, type: 2}
+    - target: {fileID: 2809042415674878711, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: tileTypeMaterials.Array.data[1].tileColor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809042415674878711, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: tileTypeMaterials.Array.data[2].tileColor
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809042415674878711, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: tileTypeMaterials.Array.data[3].tileColor
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2809042416432111269, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
       propertyPath: m_IsActive
       value: 1
