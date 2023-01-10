@@ -8,7 +8,7 @@ public class NetworkPlayer : NetworkBehaviour
 {
     public void Start()
     {
-        GameManager.Instance.AddPlayer(this.gameObject);
+        //GameManager.Instance.AddPlayer(this.gameObject);
         SetPlayerName();
     }
 
