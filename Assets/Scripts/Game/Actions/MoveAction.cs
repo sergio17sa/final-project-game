@@ -11,9 +11,6 @@ public class MoveAction : BaseAction
 
     [SerializeField] private int _maxMoveDistance = 1;
 
-    public event EventHandler OnStartMoving;
-    public event EventHandler OnStopMoving;
-
     private List<Vector3> positionList;
     private int currentPositionIndex;
 
@@ -36,8 +33,6 @@ public class MoveAction : BaseAction
         }
 
         ActionStart(onActionComplete);
-
-        //OnStartMoving?.Invoke(this, EventArgs.Empty);
     }
 
     private void Move()
@@ -62,7 +57,7 @@ public class MoveAction : BaseAction
             if (currentPositionIndex >= positionList.Count)
             {
                 _character.GetMovement(0);
-                //OnStopMoving?.Invoke(this, EventArgs.Empty);
+
                 ActionComplete(this);
             }
         }
