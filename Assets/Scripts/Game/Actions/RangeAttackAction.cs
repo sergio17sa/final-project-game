@@ -3,15 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootArrowAction : BaseAction
+public enum AttackType { Shoot, Spell }
+
+public class RangeAttackAction : BaseAction
 {
-    [SerializeField] private int _maxArrowRange = 4;
+    [SerializeField] private int _maxAttackRange = 4;
     [SerializeField] private LayerMask obstaclesLayerMask;
-    [SerializeField] private Transform _arrowPrefab;
-    [SerializeField] private Transform _arrowPosition;
+    [SerializeField] private Transform _projectilePrefab;
+    [SerializeField] private Transform _spawnProjectilePosition;
 
     private Character _targetCharacter;
-    private Transform _arrowTransform;
+    private Transform _projectile;
+
+    [SerializeField] private AttackType _attackType;
 
     private enum State
     {
@@ -37,15 +41,15 @@ public class ShootArrowAction : BaseAction
     {
         base.Awake();
 
-        _arrowTransform = Instantiate(_arrowPrefab, _arrowPosition.position, _arrowPrefab.rotation);
-        _arrowTransform.SetParent(_arrowPosition);
+        _projectile = Instantiate(_projectilePrefab, _spawnProjectilePosition.position, Quaternion.identity);
+        _projectile.SetParent(_spawnProjectilePosition);
 
-        _arrowTransform.gameObject.SetActive(false);
+        _projectile.gameObject.SetActive(false);
     }
 
     private void Start()
     {
-        _arrowTransform.GetComponent<ProjectileBehaviour>().OnReachTarget += ProjectileBehaviour_OnReachTarget;
+        _projectile.GetComponent<ProjectileBehaviour>().OnReachTarget += ProjectileBehaviour_OnReachTarget;
     }
 
     private void Update()
@@ -66,11 +70,11 @@ public class ShootArrowAction : BaseAction
                 if (_stateTimer <= 0) TransitionToLoadState();
                 break;
             case State.Load:
-                if(_canLoad) LoadBow();
+                if(_canLoad) LoadAttack();
                 if (_stateTimer <= 0) TransitionToShootingState();
                 break;
             case State.Shooting:
-                if (_canShoot) Shoot();
+                if (_canShoot) LaunchAttack();
                 if (_stateTimer <= 0) TransitionToRestState();
                 break;
             case State.Rest:
@@ -87,22 +91,22 @@ public class ShootArrowAction : BaseAction
         transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
     }
 
-    private void LoadBow()
+    private void LoadAttack()
     {
         //Trigger animation
         _character.GetAttack();
 
-        _arrowTransform.gameObject.SetActive(true);
+        _projectile.gameObject.SetActive(true);
 
         _canLoad = false;
     }
 
-    private void Shoot()
+    private void LaunchAttack()
     {
-        ProjectileBehaviour projectileBehaviour = _arrowTransform.GetComponent<ProjectileBehaviour>();
+        ProjectileBehaviour projectileBehaviour = _projectile.GetComponent<ProjectileBehaviour>();
 
         Vector3 targetPositionOffset = _targetCharacter.transform.position;
-        targetPositionOffset.y = _arrowPosition.position.y;
+        targetPositionOffset.y = _spawnProjectilePosition.position.y;
 
         projectileBehaviour.SetShoot(targetPositionOffset, _canShoot);
 
@@ -129,7 +133,7 @@ public class ShootArrowAction : BaseAction
 
     public override string GetActionName()
     {
-        return "Shoot";
+        return _attackType == AttackType.Shoot ? "Shoot" : "Spell";
     }
 
     public override List<TilePosition> GetValidActionTiles()
@@ -142,26 +146,25 @@ public class ShootArrowAction : BaseAction
     {
         List<TilePosition> validTilePositions = new List<TilePosition>();
 
-        for (int x = -_maxArrowRange; x <= _maxArrowRange; x++)
+        for (int x = -_maxAttackRange; x <= _maxAttackRange; x++)
         {
-            for (int z = -_maxArrowRange; z <= _maxArrowRange; z++)
+            for (int z = -_maxAttackRange; z <= _maxAttackRange; z++)
             {
+                // Get the tiles around the player
                 TilePosition offsetTilePosition = new TilePosition(x, z);
                 TilePosition testTilePosition = characterTilePosition + offsetTilePosition;
 
+                //Ignore tiles out of bounds 
                 if (!GridManager.Instance.IsValidTilePosition(testTilePosition)) continue;
 
-
-                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
-                if (testDistance > _maxArrowRange) continue;
-
-
+                //Ignore tiles that does not have charactes on it
                 if (!GridManager.Instance.HasCharacterOnTilePosition(testTilePosition)) continue;
 
+                //Ignore targets that are on the same team
                 Character targetUnit = GridManager.Instance.GetCharacterAtTilePosition(testTilePosition);
-
                 if (targetUnit.GetCharacterTeam() == _character.GetCharacterTeam()) continue;
 
+                //Ignore tiles that are blocked by an obstacle
                 Vector3 characterWorldPosition = GridManager.Instance.GetWorldPosition(characterTilePosition);
                 Vector3 shootDir = (targetUnit.transform.position - characterWorldPosition).normalized;
 
@@ -172,11 +175,26 @@ public class ShootArrowAction : BaseAction
                         Vector3.Distance(characterWorldPosition, targetUnit.transform.position),
                         obstaclesLayerMask))
                 {
-                    // Blocked by an Obstacle
                     continue;
                 }
 
-                validTilePositions.Add(testTilePosition);
+                //Choose type of scope according to the type of the attack
+
+                if (_attackType == AttackType.Shoot)
+                {
+                    int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                    if (testDistance > _maxAttackRange) continue;
+
+                    validTilePositions.Add(testTilePosition);
+                }
+
+                if(_attackType == AttackType.Spell)
+                {
+                    if (testTilePosition.x == characterTilePosition.x || testTilePosition.z == characterTilePosition.z)
+                    {
+                        validTilePositions.Add(testTilePosition);
+                    }  
+                }
             }
         }
 
@@ -200,11 +218,12 @@ public class ShootArrowAction : BaseAction
     {
         _targetCharacter.GetDamage(50);
 
-        _arrowTransform.SetParent(_arrowPosition);
-        _arrowTransform.localPosition = new Vector3(0, 0, 0);
-        _arrowTransform.gameObject.SetActive(false);
+        _projectile.SetParent(_spawnProjectilePosition);
+        _projectile.localPosition = new Vector3(0, 0, 0);
+        _projectile.gameObject.SetActive(false);
     }
 
-    public int GetArrowRange() => _maxArrowRange;
+    public int GetAttackRange() => _maxAttackRange;
+    public AttackType GetAttackType() => _attackType;
 
 }
