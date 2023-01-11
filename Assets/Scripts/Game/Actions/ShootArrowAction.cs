@@ -23,7 +23,7 @@ public class ShootArrowAction : BaseAction
 
     //States duration
     private float _aimDuration = 0.5f;
-    private float _loadDuration = 2.5f;
+    private float _loadDuration = 2f;
     private float _shootDuration = 0.5f;
     private float _restDuration = 0.5f;
 
@@ -37,9 +37,15 @@ public class ShootArrowAction : BaseAction
     {
         base.Awake();
 
-        _arrowTransform = Instantiate(_arrowPrefab, _arrowPosition.position, Quaternion.identity);
+        _arrowTransform = Instantiate(_arrowPrefab, _arrowPosition.position, _arrowPrefab.rotation);
         _arrowTransform.SetParent(_arrowPosition);
+
         _arrowTransform.gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        _arrowTransform.GetComponent<ProjectileBehaviour>().OnReachTarget += ProjectileBehaviour_OnReachTarget;
     }
 
     private void Update()
@@ -57,7 +63,7 @@ public class ShootArrowAction : BaseAction
         {
             case State.Aiming:
                 Aim();
-                if (_stateTimer <= 0) TransitionToReloadState();
+                if (_stateTimer <= 0) TransitionToLoadState();
                 break;
             case State.Load:
                 if(_canLoad) LoadBow();
@@ -91,7 +97,19 @@ public class ShootArrowAction : BaseAction
         _canLoad = false;
     }
 
-    private void TransitionToReloadState()
+    private void Shoot()
+    {
+        ProjectileBehaviour projectileBehaviour = _arrowTransform.GetComponent<ProjectileBehaviour>();
+
+        Vector3 targetPositionOffset = _targetCharacter.transform.position;
+        targetPositionOffset.y = _arrowPosition.position.y;
+
+        projectileBehaviour.SetShoot(targetPositionOffset, _canShoot);
+
+        _canShoot = false;
+    }
+
+    private void TransitionToLoadState()
     {
         state = State.Load;
         _stateTimer = _loadDuration;
@@ -109,19 +127,6 @@ public class ShootArrowAction : BaseAction
         _stateTimer = _restDuration;
     }
 
-    private void Shoot()
-    {
-        ProjectileBehaviour projectileBehaviour = _arrowTransform.GetComponent<ProjectileBehaviour>();
-
-        Vector3 targetPositionOffset = _targetCharacter.transform.position;
-        targetPositionOffset.y = _arrowPosition.position.y;
-
-        projectileBehaviour.SetShoot(targetPositionOffset, _canShoot);
-
-        _targetCharacter.GetDamage(50);
-
-        _canShoot = false;
-    }
     public override string GetActionName()
     {
         return "Shoot";
@@ -189,6 +194,15 @@ public class ShootArrowAction : BaseAction
         _canLoad = true;
 
         ActionStart(onActionComplete);
+    }
+
+    private void ProjectileBehaviour_OnReachTarget(object sender, EventArgs e)
+    {
+        _targetCharacter.GetDamage(50);
+
+        _arrowTransform.SetParent(_arrowPosition);
+        _arrowTransform.localPosition = new Vector3(0, 0, 0);
+        _arrowTransform.gameObject.SetActive(false);
     }
 
     public int GetArrowRange() => _maxArrowRange;
