@@ -403,6 +403,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 1214138049498576460}
+--- !u!1 &2064057181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2064057182}
+  m_Layer: 7
+  m_Name: SpellPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2064057182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064057181}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3785658920074317304}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3783023793116059336
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,6 +3450,7 @@ GameObject:
   - component: {fileID: 378671009}
   - component: {fileID: 378671010}
   - component: {fileID: 378671012}
+  - component: {fileID: 378671019}
   m_Layer: 7
   m_Name: Wizard
   m_TagString: Untagged
@@ -3446,6 +3478,7 @@ Transform:
   - {fileID: 3789464228712527288}
   - {fileID: 1809285550}
   - {fileID: 1307566062}
+  - {fileID: 2064057182}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3590,7 +3623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   rotateSpeed: 30
-  _maxMoveDistance: 1
+  _maxMoveDistance: 2
 --- !u!114 &378671012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3617,6 +3650,25 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
+--- !u!114 &378671019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3783782984685763966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb8c08c92f40824b87af983cf9479e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxAttackRange: 5
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _projectilePrefab: {fileID: 3247716567979018144, guid: 419297b03d2db8942aadbab74a60fce1, type: 3}
+  _spawnProjectilePosition: {fileID: 2064057182}
+  _attackType: 1
 --- !u!1 &3783790248134570506
 GameObject:
   m_ObjectHideFlags: 0

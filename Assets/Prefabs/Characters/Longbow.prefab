@@ -798,12 +798,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb8c08c92f40824b87af983cf9479e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxArrowRange: 4
+  _maxAttackRange: 4
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  _arrowPrefab: {fileID: 6651667985999423544, guid: c6cb7477e62e17c4cbdf3bd0aa3fb641, type: 3}
-  _arrowPosition: {fileID: 3405388394749228274}
+  _projectilePrefab: {fileID: 6651667985999423544, guid: c6cb7477e62e17c4cbdf3bd0aa3fb641, type: 3}
+  _spawnProjectilePosition: {fileID: 3405388394749228274}
+  _attackType: 0
 --- !u!1 &486470574212576348
 GameObject:
   m_ObjectHideFlags: 0
