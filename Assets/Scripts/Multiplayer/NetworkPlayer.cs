@@ -47,7 +47,7 @@ public class NetworkPlayer : NetworkBehaviour
         {
             Debug.Log(OwnerClientId + " playerServer value: " + playerServer.Value.nameString);
             UIManager.Instance.playerServer.text = $"{playerServer.Value.nameString} {playerServer.Value.id.ToString()} {playerServer.Value.isReady.ToString()}";
-           
+
         };
 
         playerClient.OnValueChanged += (NetString previousValue, NetString newValue) =>
@@ -55,6 +55,11 @@ public class NetworkPlayer : NetworkBehaviour
             Debug.Log(OwnerClientId + " playerClient value: " + playerClient.Value.nameString);
             UIManager.Instance.playerClient.text = $"{playerClient.Value.nameString} {playerClient.Value.id.ToString()} {playerClient.Value.isReady.ToString()}";
         };
+
+       
+        {
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnectCallback;
+        }
     }
     private void Update()
     {
@@ -94,9 +99,17 @@ public class NetworkPlayer : NetworkBehaviour
         }
     }
 
-    void test()
+   
+
+    public void OnClientDisconnectCallback(ulong playerID)
     {
-        Debug.Log("ENTRA");
+        if(IsServer){
+            Debug.Log($"se desconecto {OwnerClientId} el cliente");
+        }
+    }
+
+    public void test()
+    {
         int randomId = Random.Range(0, 99);
 
         if (Input.GetKeyDown(KeyCode.F))

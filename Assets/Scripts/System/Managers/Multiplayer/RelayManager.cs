@@ -138,7 +138,7 @@ public class RelayManager : MonoBehaviour
             Debug.LogError(e.Message);
             throw;
         }
-
+ 
         ConfigureTransportAndStartNgoAsHost();
 
         return relayJoinCode;
