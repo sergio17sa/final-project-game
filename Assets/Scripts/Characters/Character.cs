@@ -18,6 +18,7 @@ public class Character : MonoBehaviour
     [SerializeField] private Team _team;
 
     public event EventHandler OnGetDamaged;
+    public static event EventHandler OnDead;
 
     private void Awake() 
     {
@@ -37,23 +38,6 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        //GetMoviment();
-
-        /*if (Input.GetKeyDown(KeyCode.A))
-        {
-            GetAttack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            GetDamage(20);
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            GetHealing(characterstats.healing);
-        }*/
-
         TilePosition newTilePosition = GridManager.Instance.GetTilePosition(transform.position);
 
         if(newTilePosition != CharacterTilePosition)
@@ -68,8 +52,16 @@ public class Character : MonoBehaviour
     public void GetDamage(float enemyDamage)
     {
         currentLife -= enemyDamage;
-        characterAnim.SetDamage(currentLife);
+
+        //Send event to update UI
         OnGetDamaged?.Invoke(this, EventArgs.Empty);
+
+        if (currentLife <= 0)
+        {
+            OnDead?.Invoke(this, EventArgs.Empty);
+        }
+
+        characterAnim.SetDamage(currentLife);
     }
 
     //Funcion para Curarse

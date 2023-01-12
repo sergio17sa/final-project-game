@@ -1,5 +1,61 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &927317112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 927317113}
+  - component: {fileID: 927317114}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &927317113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927317112}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2809042416896419511}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &927317114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927317112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0afb9c78ce78b48a8ccc9dff556f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _medievalTeam:
+  - {fileID: 8549923349657404279, guid: ba9e2671de4c0114e832f372d2b61808, type: 3}
+  - {fileID: 2940042362921352954, guid: 45806020b5209284f841f66a20b47aa6, type: 3}
+  - {fileID: 486469556058802108, guid: c910b0a6380485544a5a5334371fc79e, type: 3}
+  - {fileID: 3783782984685763966, guid: b44b97dc2fdf61c41a3a3bb5f1509290, type: 3}
+  _futureTeam:
+  - {fileID: 7871070135524757766, guid: 19bb0287e86974042b64b85a72c65e4d, type: 3}
+  _obstacles:
+  - {fileID: 467767051955192380, guid: e49829b15bdba3d4f9cb13f35c8f60f1, type: 3}
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &2809042414980856404
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,6 +283,7 @@ Transform:
   - {fileID: 2809042416330343908}
   - {fileID: 2809042415674878710}
   - {fileID: 2809042416432111268}
+  - {fileID: 927317113}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

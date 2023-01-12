@@ -80,7 +80,7 @@ public class GridVisualManager : Singleton<GridVisualManager>
         }
     }
 
-    private void ShowGridPositionRange(TilePosition gridPosition, int range, TileColor gridVisualType)
+    private void ShowTilePositionRange(TilePosition tilePosition, int range, TileColor tileColor, AttackType attackType)
     {
         List<TilePosition> tilePositions = new List<TilePosition>();
 
@@ -88,28 +88,33 @@ public class GridVisualManager : Singleton<GridVisualManager>
         {
             for (int z = -range; z <= range; z++)
             {
-                TilePosition testTilePosition = gridPosition + new TilePosition(x, z);
+                TilePosition testTilePosition = tilePosition + new TilePosition(x, z);
 
-                if (!GridManager.Instance.IsValidTilePosition(testTilePosition))
+                if (!GridManager.Instance.IsValidTilePosition(testTilePosition)) continue;
+
+                if (attackType == AttackType.Shoot)
                 {
-                    continue;
+                    int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                    if (testDistance > range) continue;
+
+                    tilePositions.Add(testTilePosition);
                 }
 
-                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
-                if (testDistance > range)
+                if (attackType == AttackType.Spell)
                 {
-                    continue;
+                    if (testTilePosition.x == tilePosition.x || testTilePosition.z == tilePosition.z)
+                    {
+                        tilePositions.Add(testTilePosition);
+                    }
                 }
-
-                tilePositions.Add(testTilePosition);
             }
         }
 
-        ShowTilePositionList(tilePositions, gridVisualType);
+        ShowTilePositionList(tilePositions, tileColor);
     }
 
 
-    private void ShowActionRangeSquare(TilePosition tilePosition, int range, TileColor gridVisualType)
+    private void ShowActionRangeSquare(TilePosition tilePosition, int range, TileColor tileColor)
     {
         List<TilePosition> tilePositions = new List<TilePosition>();
 
@@ -125,7 +130,7 @@ public class GridVisualManager : Singleton<GridVisualManager>
             }
         }
 
-        ShowTilePositionList(tilePositions, gridVisualType);
+        ShowTilePositionList(tilePositions, tileColor);
     }
 
 
@@ -155,13 +160,14 @@ public class GridVisualManager : Singleton<GridVisualManager>
                         TileColor.SoftRed
                         );
                     break;
-                case ShootArrowAction arrowAction:
+                case RangeAttackAction rangeAttackAction:
                     tileColor = TileColor.Red;
 
-                    ShowGridPositionRange(
+                    ShowTilePositionRange(
                         selectedCharacter.CharacterTilePosition,
-                        arrowAction.GetArrowRange(),
-                        TileColor.SoftRed
+                        rangeAttackAction.GetAttackRange(),
+                        TileColor.SoftRed,
+                        rangeAttackAction.GetAttackType()
                         );
                     break;
             }
