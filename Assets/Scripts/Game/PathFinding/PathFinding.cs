@@ -205,4 +205,9 @@ public class PathFinding : Singleton<PathFinding>
     }
 
     public bool IsWalkableTile(TilePosition tilePosition) => _gridSystem.GetTile(tilePosition).IsWalkable;
+
+    public void SetIsWalkableTile(TilePosition tilePosition, bool isWalkable)
+    {
+        _gridSystem.GetTile(tilePosition).IsWalkable = isWalkable;
+    }
 }

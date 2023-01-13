@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnManager : Singleton<SpawnManager>
@@ -15,6 +16,7 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] LayerMask obstaclesLayerMask;
 
     public event EventHandler OnGameFinished;
+    public event EventHandler OnSpawnsFinished;
 
     protected override void Awake()
     {
@@ -60,6 +62,8 @@ public class SpawnManager : Singleton<SpawnManager>
             _spawnedFutureTeam.Add(newCharacter);
             validFutureTiles.Remove(tilePosition);
         }
+
+        OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
     }
 
 
@@ -102,6 +106,8 @@ public class SpawnManager : Singleton<SpawnManager>
     private void Character_OnDead(object sender, EventArgs e)
     {
         Character character= (Character)sender;
+
+        GridManager.Instance.ClearCharacterAtTilePosition(character.CharacterTilePosition);
 
         if(character.GetCharacterTeam() == Team.Team1)
         {
