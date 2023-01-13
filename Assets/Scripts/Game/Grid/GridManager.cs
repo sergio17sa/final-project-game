@@ -16,20 +16,20 @@ public class GridManager : Singleton<GridManager>
 
     public event EventHandler OnCharacterMove;
 
-    protected override void Awake() 
+    protected override void Awake()
     {
         base.Awake();
-        
-        _gridSystem = new GridSystem<Tile>(_gridWidth, _gridHeight, _cellSize, 
+
+        _gridSystem = new GridSystem<Tile>(_gridWidth, _gridHeight, _cellSize,
                 (GridSystem<Tile> tile, TilePosition tilePosition) => new Tile(tile, tilePosition)
             );
-        
+
         //_gridSystem.CreateDebugTiles(_tileDebug);
     }
 
     private void Start()
     {
-        PathFinding.Instance.Setup(_gridWidth, _gridHeight, _cellSize);
+        SpawnManager.Instance.OnSpawnsFinished += SpawnManager_OnSpawnsFinished;
     }
 
     public void SetCharacterOnTile(TilePosition tilePosition, Character character)
@@ -44,15 +44,18 @@ public class GridManager : Singleton<GridManager>
         return tile.CharacterOnTile;
     }
 
+    public TilePosition GetTilePosition(Vector3 worldPosition) => _gridSystem.GetTilePosition(worldPosition);
+
+    public Vector3 GetWorldPosition(TilePosition tilePosition) => _gridSystem.GetWorldPosition(tilePosition);
+
+    public int GetWidth() => _gridWidth;
+    public int GetHeight() => _gridHeight;
+
     public void ClearCharacterAtTilePosition(TilePosition tilePosition)
     {
         Tile tile = _gridSystem.GetTile(tilePosition);
         tile.CharacterOnTile = null;
     }
-
-    public TilePosition GetTilePosition(Vector3 worldPosition) => _gridSystem.GetTilePosition(worldPosition);
-
-    public Vector3 GetWorldPosition(TilePosition tilePosition) => _gridSystem.GetWorldPosition(tilePosition);
 
     public bool IsValidTilePosition(TilePosition tilePosition) => _gridSystem.IsValidTilePosition(tilePosition);
 
@@ -69,8 +72,8 @@ public class GridManager : Singleton<GridManager>
 
         OnCharacterMove?.Invoke(this, EventArgs.Empty);
     }
-
-    public int GetWidth () => _gridWidth;
-    public int GetHeight () => _gridHeight;
-
+    private void SpawnManager_OnSpawnsFinished(object sender, EventArgs e)
+    {
+        PathFinding.Instance.Setup(_gridWidth, _gridHeight, _cellSize);
+    }
 }
