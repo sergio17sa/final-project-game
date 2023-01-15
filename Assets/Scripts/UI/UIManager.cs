@@ -17,8 +17,9 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Color[] colorsPie;
     [SerializeField] private Image widge, wonGames, lostGames, tiesGames, levelImg;
     [SerializeField] private TMP_Text wonGamesText, lostGamesText, tiesGamesText, pointsNextLevel;
-    [SerializeField] private GameObject pieGraph;
+    [SerializeField] private GameObject pieGraph, barGraph;
     [SerializeField] private Sprite BeginnerImg, advancedImg, expertImg, masterImg;
+    [SerializeField] private BarScript barPrefab;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class UIManager : Singleton<UIManager>
         StatisticsManager.Instance.levelRange();
         SetTextStatistics();
         ChangeSpriteLevel();
+        BarsGraphMaker(StatisticsManager.Instance.stats.lastTenMatches);
     }
 
     public void SetPercentBar()
@@ -99,4 +101,23 @@ public class UIManager : Singleton<UIManager>
                 }
         }
     }
+
+
+    public void BarsGraphMaker(double[] lastMatches)
+    {
+        float total = 0;
+
+        for (int i = 0; i < lastMatches.Length; i++)
+        {
+            BarScript newBar = Instantiate(barPrefab) as BarScript;
+            newBar.transform.SetParent(barGraph.transform);
+            total += (float)lastMatches[i];
+            newBar.bar.fillAmount = ((float)lastMatches[i] / total);
+            newBar.points.text = $"{lastMatches[i].ToString()}-";
+            
+        }
+
+    }
+
+
 }
