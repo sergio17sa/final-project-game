@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerStats : ScriptableObject
 {
     public string playerName;
-    public double points, victories, losses, ties, matches, victoriesPercent, lossesPercent, tiesPercent, pointToNetxLevel;
+    public double points, victories, losses, ties, matches, victoriesPercent, lossesPercent, tiesPercent, pointToNetxLevel, PointsPerMatch;
     public List<string> levels = new List<string>();
 
     public double[] lastTenMatches = new double[10];

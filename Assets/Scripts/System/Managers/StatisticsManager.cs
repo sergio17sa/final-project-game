@@ -10,9 +10,9 @@ public class StatisticsManager : MonoBehaviour
     //[SerializeField] private PlayerStatsSave playerStatsSave;
     public PlayerStats stats;
     [SerializeField] private List<Character> characters;
-    [SerializeField] private int pointsPerVictory = 480, pointsPerTie = 230;
+    [SerializeField] private int pointsPerVictory = 624, pointsPerTie = 214, pointsPerKill = 124;
     private int victoryPerMatch = 1, lossPerMatch = 1, tiesPerMatch = 1, match;
-    [SerializeField] private bool victory, loss, tie;
+    [SerializeField] private bool victory, loss, tie, kill;
     private string levelToPrint = "";
     [SerializeField] private string level1 = "Beginner", level2 = "Advanced", level3 = "Expert", level4 = "Master";
     [SerializeField] private float[] beginnerLevel = new float[2] { 0, 1439 }, advancedLevel = new float[2] { 1440, 3839 }, expertLevel = new float[2] { 3840, 7199 }, MasterLevel = new float[2] { 7200, int.MaxValue };
@@ -34,6 +34,7 @@ public class StatisticsManager : MonoBehaviour
         victory = false;
         loss = false;
         tie = false;
+        kill = false;
         LoadPlayerData();
         SetNullStats();
         levelRange();
@@ -59,8 +60,10 @@ public class StatisticsManager : MonoBehaviour
             stats.points += pointsPerVictory;
             stats.victories += victoryPerMatch;
             stats.matches += victoryPerMatch;
+            stats.PointsPerMatch += pointsPerVictory;
             PercentMatches();
-            SaveLastTenMatches(stats.points);
+            SaveLastTenMatches(stats.PointsPerMatch);
+            stats.PointsPerMatch = 0;
             victory = false;
         }
 
@@ -69,6 +72,8 @@ public class StatisticsManager : MonoBehaviour
             stats.losses += lossPerMatch;
             stats.matches = lossPerMatch;
             PercentMatches();
+            SaveLastTenMatches(stats.PointsPerMatch);
+            stats.PointsPerMatch = 0;
             loss = false;
         }
 
@@ -77,9 +82,17 @@ public class StatisticsManager : MonoBehaviour
             stats.ties += tiesPerMatch;
             stats.points += pointsPerTie;
             stats.matches = tiesPerMatch;
+            stats.PointsPerMatch += pointsPerTie;
             PercentMatches();
-            SaveLastTenMatches(stats.points);
+            SaveLastTenMatches(stats.PointsPerMatch);
+            stats.PointsPerMatch = 0;
             tie = false;
+        }
+
+        if (kill)
+        {
+            stats.PointsPerMatch += pointsPerKill;
+            kill = false;
         }
 
         SavePlayerData();
@@ -134,14 +147,13 @@ public class StatisticsManager : MonoBehaviour
     public void PercentMatches()
     {
         stats.matches = stats.victories + stats.losses + stats.ties;
-        stats.victoriesPercent = Math.Round((stats.victories / stats.matches) * 100);
-        stats.lossesPercent = Math.Round((stats.losses / stats.matches) * 100);
-        stats.tiesPercent = Math.Round((stats.ties / stats.matches) * 100);
+        stats.victoriesPercent = (stats.victories / stats.matches);
+        stats.lossesPercent = (stats.losses / stats.matches);
+        stats.tiesPercent = (stats.ties / stats.matches);
     }
 
     public void levelRange()
     {
-
         if (stats.levelsRange.Count == 0)
         {
             stats.levelsRange.Add(stats.levels[0], beginnerLevel);
@@ -152,7 +164,7 @@ public class StatisticsManager : MonoBehaviour
     }
 
 
-    public void SaveLastTenMatches(double points)
+    public void SaveLastTenMatches(double pointsPerMatch  )
     {
 
         for (int i = 0; i < stats.lastTenMatches.Length; i++)
@@ -163,12 +175,10 @@ public class StatisticsManager : MonoBehaviour
             }
             else
             {
-                stats.lastTenMatches[stats.lastTenMatches.Length - 1] = points;
+                stats.lastTenMatches[stats.lastTenMatches.Length - 1] = pointsPerMatch;
             }
         }
     }
-
-
 
 
     [ContextMenu("ToggleWin")]
@@ -192,6 +202,18 @@ public class StatisticsManager : MonoBehaviour
         tie = !tie;
         StatsStorage();
     }
+
+    [ContextMenu("ToggleKill")]
+    public void ToggleKill()
+    {
+        if (!victory || !loss || !tie)
+        {
+            kill = !kill;
+            StatsStorage();
+        }
+    }
+
+
 
 
 
