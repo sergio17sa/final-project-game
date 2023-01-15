@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 3783782984685763966, guid: b44b97dc2fdf61c41a3a3bb5f1509290, type: 3}
   _futureTeam:
   - {fileID: 7871070135524757766, guid: 19bb0287e86974042b64b85a72c65e4d, type: 3}
+  - {fileID: 6615823800167427085, guid: d34a811a14b658b448cb3f8dadef8a04, type: 3}
   _obstacles:
   - {fileID: 467767051955192380, guid: e49829b15bdba3d4f9cb13f35c8f60f1, type: 3}
   obstaclesLayerMask:
