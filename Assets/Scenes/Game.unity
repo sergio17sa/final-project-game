@@ -1763,7 +1763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1544060658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2042,6 +2042,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 927317114, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: _futureTeam.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 927317114, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: _futureTeam.Array.data[2]
+      value: 
+      objectReference: {fileID: 3952430398348442102, guid: 34506ded587ff6c4a87a8be0d1cbd29a, type: 3}
+    - target: {fileID: 927317114, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: _futureTeam.Array.data[3]
+      value: 
+      objectReference: {fileID: 6273680258552125420, guid: a4abdafd1caec7f4c8d8f6bd61dcbc83, type: 3}
     - target: {fileID: 2809042416896419508, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
       propertyPath: m_Name
       value: Managers

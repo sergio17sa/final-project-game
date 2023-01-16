@@ -18,7 +18,7 @@ public class SwordAction : BaseAction
 
     //States duration
     private float _aimDuration = 0.5f;
-    private float _slashDuration = 0.5f;
+    [SerializeField] private float _slashDuration = 0.5f;
     private float _restDuration = 0.1f;
 
     //State machine varibles
@@ -83,7 +83,7 @@ public class SwordAction : BaseAction
     }
     public override string GetActionName()
     {
-        return "Slash";
+        return "Attack";
     }
 
     public override List<TilePosition> GetValidActionTiles()

@@ -27,7 +27,7 @@ public class RangeAttackAction : BaseAction
 
     //States duration
     private float _aimDuration = 0.5f;
-    private float _loadDuration = 2f;
+    [SerializeField] private float _loadDuration = 2f;
     private float _shootDuration = 0.5f;
     private float _restDuration = 0.5f;
 
@@ -70,7 +70,7 @@ public class RangeAttackAction : BaseAction
                 if (_stateTimer <= 0) TransitionToLoadState();
                 break;
             case State.Load:
-                if(_canLoad) LoadAttack();
+                if (_canLoad) LoadAttack();
                 if (_stateTimer <= 0) TransitionToShootingState();
                 break;
             case State.Shooting:
@@ -133,7 +133,7 @@ public class RangeAttackAction : BaseAction
 
     public override string GetActionName()
     {
-        return _attackType == AttackType.Shoot ? "Shoot" : "Spell";
+        return "Attack";
     }
 
     public override List<TilePosition> GetValidActionTiles()

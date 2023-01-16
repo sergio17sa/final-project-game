@@ -57,7 +57,7 @@ public class SpawnManager : Singleton<SpawnManager>
         foreach (GameObject futureCharacter in _futureTeam)
         {
             Vector3 tilePosition = validFutureTiles[UnityEngine.Random.Range(0, validFutureTiles.Count - 1)];
-            GameObject newCharacter = Instantiate(futureCharacter, tilePosition, Quaternion.identity);
+            GameObject newCharacter = Instantiate(futureCharacter, tilePosition, futureCharacter.transform.rotation);
 
             _spawnedFutureTeam.Add(newCharacter);
             validFutureTiles.Remove(tilePosition);
