@@ -101,7 +101,7 @@ public class UIManager : Singleton<UIManager>
         level.text = $"LEVEL: {levelStr}";
         points.text = $"POINTS: {StatisticsManager.Instance.stats.points.ToString()}";
         pointsNextLevel.text = StatisticsManager.Instance.stats.pointToNetxLevel.ToString();
-        PlayerNameStats.text = StatisticsManager.Instance.stats.playerName;
+        PlayerNameStats.text = StatisticsManager.Instance.stats.playerName.ToUpper();
     }
 
 
