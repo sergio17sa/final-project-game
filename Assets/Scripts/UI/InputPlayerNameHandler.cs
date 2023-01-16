@@ -10,7 +10,6 @@ public class InputPlayerNameHandler : MonoBehaviour
     [SerializeField] private TMP_InputField inputPlayerName;
     [SerializeField] private GameObject panelInputPlayerName;
     [SerializeField] private GameObject paneljoinBtn;
-    [SerializeField] private StatisticsUI statisticsUI;
 
     private void Start()
     {
@@ -36,7 +35,6 @@ public class InputPlayerNameHandler : MonoBehaviour
         StatisticsManager.Instance.stats.playerName = inputPlayerName.text;
         StatisticsManager.Instance.SavePlayerData();
         HideInputPlayerName();
-        statisticsUI.SetPlayerStats();
     }
     
     
