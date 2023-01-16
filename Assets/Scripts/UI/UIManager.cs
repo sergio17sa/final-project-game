@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
 using TMPro;
+using System;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -16,19 +17,43 @@ public class UIManager : Singleton<UIManager>
     private List<double> valuesPie = new List<double>();
     [SerializeField] private Color[] colorsPie;
     [SerializeField] private Image widge, wonGames, lostGames, tiesGames, levelImg;
-    [SerializeField] private TMP_Text wonGamesText, lostGamesText, tiesGamesText, pointsNextLevel;
-    [SerializeField] private GameObject pieGraph, barGraph;
+    [SerializeField] private TMP_Text wonGamesText, lostGamesText, tiesGamesText, pointsNextLevel, PlayerNameStats;
+    [SerializeField] private GameObject pieGraph, barGraph, panelInputPlayerName, paneljoinBtn;
     [SerializeField] private Sprite BeginnerImg, advancedImg, expertImg, masterImg;
     [SerializeField] private BarScript barPrefab;
+    [SerializeField] private TMP_InputField inputPlayerName;
+
 
     private void Start()
     {
+        HideInputPlayerName();
         SetPercentBar();
         PieGraphMaker();
         StatisticsManager.Instance.levelRange();
         SetTextStatistics();
         ChangeSpriteLevel();
         BarsGraphMaker(StatisticsManager.Instance.stats.lastTenMatches);
+    }
+
+    public void HideInputPlayerName()
+    {
+        if (String.IsNullOrEmpty(StatisticsManager.Instance.stats.playerName))
+        {
+            panelInputPlayerName.SetActive(true);
+            paneljoinBtn.SetActive(false);
+        }
+        else
+        {
+            panelInputPlayerName.SetActive(false);
+            paneljoinBtn.SetActive(true);
+        }
+    }
+
+    public void SubmitPlayerName()
+    {
+        StatisticsManager.Instance.stats.playerName = inputPlayerName.text;
+        StatisticsManager.Instance.SavePlayerData();
+        HideInputPlayerName();
     }
 
     public void SetPercentBar()
@@ -59,6 +84,10 @@ public class UIManager : Singleton<UIManager>
             Image newWedge = Instantiate(widge) as Image;
             newWedge.transform.SetParent(pieGraph.transform, false);
             newWedge.color = colorsPie[i];
+           if (total == 0)
+           {
+               total = 1;
+           }
             newWedge.fillAmount = (float)(valuesPie[i] / total);
             newWedge.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, zRotation));
             zRotation -= newWedge.fillAmount * 360;
@@ -72,6 +101,7 @@ public class UIManager : Singleton<UIManager>
         level.text = $"LEVEL: {levelStr}";
         points.text = $"POINTS: {StatisticsManager.Instance.stats.points.ToString()}";
         pointsNextLevel.text = StatisticsManager.Instance.stats.pointToNetxLevel.ToString();
+        PlayerNameStats.text = StatisticsManager.Instance.stats.playerName;
     }
 
 
@@ -106,7 +136,6 @@ public class UIManager : Singleton<UIManager>
     public void BarsGraphMaker(double[] lastMatches)
     {
         float total = 0;
-
         for (int i = 0; i < lastMatches.Length; i++)
         {
             BarScript newBar = Instantiate(barPrefab) as BarScript;
@@ -114,10 +143,6 @@ public class UIManager : Singleton<UIManager>
             total += (float)lastMatches[i];
             newBar.bar.fillAmount = ((float)lastMatches[i] / total);
             newBar.points.text = $"{lastMatches[i].ToString()}-";
-            
         }
-
     }
-
-
 }

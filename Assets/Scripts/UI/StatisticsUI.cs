@@ -37,8 +37,10 @@ public class StatisticsUI : MonoBehaviour
         bool pointsToNextLevelIsEmmpty = string.IsNullOrEmpty(StatisticsManager.Instance.stats.pointToNetxLevel.ToString());
         bool numberPointsIsEmmpty = string.IsNullOrEmpty(StatisticsManager.Instance.stats.points.ToString());
 
-        if (!playerNameIsEmmpty) playerName.text = StatisticsManager.Instance.stats.playerName;
-        else playerName.text = initialPlayerName;
+        if (!playerNameIsEmmpty) return;
+        
+        // playerName.text = StatisticsManager.Instance.stats.playerName;
+        // else playerName.text = initialPlayerName;
 
         if (!MatchesNumberIsEmmpty)
         {
