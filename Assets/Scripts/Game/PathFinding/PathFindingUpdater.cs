@@ -18,6 +18,8 @@ public class PathFindingUpdater : MonoBehaviour
         MoveAction moveAction = (MoveAction)sender;
         Character character = moveAction.GetComponent<Character>();
 
+        Debug.Log("Start moving" + character.name);
+
         PathFinding.Instance.SetIsWalkableTile(character.CharacterTilePosition, true);
     }
 
@@ -25,6 +27,8 @@ public class PathFindingUpdater : MonoBehaviour
     {
         MoveAction moveAction = (MoveAction)sender;
         Character character = moveAction.GetComponent<Character>();
+
+        Debug.Log("Start moving" + character.name);
 
         PathFinding.Instance.SetIsWalkableTile(character.CharacterTilePosition, false);
     }
