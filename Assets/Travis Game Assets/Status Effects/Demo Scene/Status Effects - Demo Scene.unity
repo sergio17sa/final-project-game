@@ -326,6 +326,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurretRobotsAttackParticle
       objectReference: {fileID: 0}
+    - target: {fileID: 1350305269323967170, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -522,6 +526,10 @@ PrefabInstance:
     - target: {fileID: 1966176302490596671, guid: 3223b4c8bd7423f44a78530352e91215, type: 3}
       propertyPath: m_Name
       value: SwordAttackParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966176302490596671, guid: 3223b4c8bd7423f44a78530352e91215, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3223b4c8bd7423f44a78530352e91215, type: 3}
@@ -3299,6 +3307,10 @@ PrefabInstance:
     - target: {fileID: 4666837058563641390, guid: 3724318f11b3f9149aeffd5276818606, type: 3}
       propertyPath: m_Name
       value: WizardAttackParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4666837058563641390, guid: 3724318f11b3f9149aeffd5276818606, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4708242166491311944, guid: 3724318f11b3f9149aeffd5276818606, type: 3}
       propertyPath: m_RootOrder
@@ -6537,6 +6549,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TankRobotsAttackParticle
       objectReference: {fileID: 0}
+    - target: {fileID: 2209609124815927345, guid: 558a094e437157e43b1dbd046b2d9646, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2251515113044903767, guid: 558a094e437157e43b1dbd046b2d9646, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -6787,6 +6803,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongbowAttackParticle
       objectReference: {fileID: 0}
+    - target: {fileID: 1769983579545068631, guid: c637e0f549703e4458a6245e1a3c2733, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1802803701226969905, guid: c637e0f549703e4458a6245e1a3c2733, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -7032,6 +7052,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WarriorAttackParticle
       objectReference: {fileID: 0}
+    - target: {fileID: 3504525156476542479, guid: a4f93c03e1799f94ab1652d9b72dee61, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3546151317852266857, guid: a4f93c03e1799f94ab1652d9b72dee61, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -7159,6 +7183,10 @@ PrefabInstance:
     - target: {fileID: 7949851840451387030, guid: 311ec3d4cfd1a8e47b9b7b22e171c388, type: 3}
       propertyPath: m_Name
       value: SamiraiAttackParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949851840451387030, guid: 311ec3d4cfd1a8e47b9b7b22e171c388, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8054524083796009456, guid: 311ec3d4cfd1a8e47b9b7b22e171c388, type: 3}
       propertyPath: m_RootOrder

@@ -10,6 +10,7 @@ public class Tags
     public const string MAINPANEL_TAG = "MainPanel";
     public const string VOLUMENMASTER_TAG= "MasterVolumen";
     public const string ITEM_TAG = "Item";
+    public string MOUSE_BUTTON = "Fire1";	
 }
 
 public enum CharacterType
