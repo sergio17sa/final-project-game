@@ -45,6 +45,7 @@ public class CharacterSelectedVisual : MonoBehaviour
     private  void OnDisable()
     {
         CharacterActionManager.Instance.OnSelectedCharacter -= CharacterActionManager_OnSelectedCharacter;
+        TurnSystemManager.Instance.OnTurnChanged -= TurnSystemManager_OnTurnChanged;
     }
 
     

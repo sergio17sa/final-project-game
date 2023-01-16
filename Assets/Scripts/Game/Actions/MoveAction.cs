@@ -6,13 +6,16 @@ using UnityEngine;
 public class MoveAction : BaseAction
 {
     [Header("Setup Move and Rotation")]
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] float rotateSpeed = 30f;
+    [SerializeField] private float _moveSpeed = 2f;
+    [SerializeField] private float _rotateSpeed = 30f;
 
     [SerializeField] private int _maxMoveDistance = 1;
 
     private List<Vector3> positionList;
     private int currentPositionIndex;
+
+    public static event EventHandler OnStartMoving;
+    public static event EventHandler OnStopMoving;
 
     private void Update()
     {
@@ -33,22 +36,25 @@ public class MoveAction : BaseAction
         }
 
         ActionStart(onActionComplete);
+        OnStartMoving?.Invoke(this, EventArgs.Empty);
     }
 
     private void Move()
     {
-        if (!_isActive) return;
-
+        if (!_isActive)
+        {
+            return;
+        }
 
         Vector3 targetPosition = positionList[currentPositionIndex];
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * _rotateSpeed);
 
         float stoppingDistance = .1f;
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            transform.position += moveDirection * _moveSpeed * Time.deltaTime;
             _character.GetMovement(1);
         }
         else
@@ -56,9 +62,11 @@ public class MoveAction : BaseAction
             currentPositionIndex++;
             if (currentPositionIndex >= positionList.Count)
             {
-                _character.GetMovement(0);
+                OnStopMoving?.Invoke(this, EventArgs.Empty);
 
                 ActionComplete(this);
+
+                _character.GetMovement(0);
             }
         }
     }
