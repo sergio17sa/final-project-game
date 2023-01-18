@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.TextCore.Text;
 
 public class ActionButtonUI : MonoBehaviour
 {
@@ -15,24 +16,55 @@ public class ActionButtonUI : MonoBehaviour
     public void SetButtonAction(BaseAction baseAction)
     {
         _baseAction = baseAction;
-        _buttonText.text= baseAction.GetActionName().ToUpper();
+        _buttonText.text = baseAction.GetActionName().ToUpper();
         _button.onClick.AddListener(() =>
         {
             CharacterActionManager.Instance.SetSelectedAction(baseAction);
         });
     }
 
-    public void UpdateSelectedVisual()
+    private void SetButtonColor()
     {
-        BaseAction selectedBaseAction = CharacterActionManager.Instance.GetSelectedAction(); 
-        if(selectedBaseAction == _baseAction)
+        BaseAction selectedBaseAction = CharacterActionManager.Instance.GetSelectedAction();
+
+        if (selectedBaseAction == _baseAction)
         {
             _buttonImage.color = Color.green;
         }
-        else 
+        else
         {
             _buttonImage.color = Color.white;
         }
-        
     }
+
+    private void SetInteractable()
+    {
+        Character selectedCharacter = CharacterActionManager.Instance.GetSelectedCharacter();
+        if (selectedCharacter.ActionsTaken.Contains(_baseAction))
+        {
+            gameObject.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            gameObject.GetComponent<Button>().interactable = true;
+        }
+
+        /*if (selectedCharacter.ActionsTaken.Count > 0 && _baseAction is HealAction)
+        {
+            gameObject.GetComponent<Button>().interactable = false;
+        }
+
+        if (selectedCharacter.ActionsTaken.Contains(selectedCharacter.GetComponent<HealAction>()) && _baseAction is not HealAction)
+        {
+            gameObject.GetComponent<Button>().interactable = false;
+        }*/
+    }
+
+    public void UpdateSelectedVisual()
+    {
+        SetInteractable();
+        SetButtonColor();
+    }
+
+    
 }
