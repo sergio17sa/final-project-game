@@ -30,6 +30,7 @@ public class GridVisualManager : Singleton<GridVisualManager>
         CreateVisualTiles();
 
         CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
+        TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
         GridManager.Instance.OnCharacterMove += GridManager_OnCharacterMove;
 
         UpdateTileVisual();
@@ -179,6 +180,19 @@ public class GridVisualManager : Singleton<GridVisualManager>
         }
     }
 
+    private Material GetTileColor(TileColor tileColor)
+    {
+        foreach (TileTypeMaterial tileTypeMaterial in tileTypeMaterials)
+        {
+            if (tileTypeMaterial.tileColor == tileColor)
+            {
+                return tileTypeMaterial.material;
+            }
+        }
+
+        return null;
+    }
+
     private void CharacterActionManager_OnSelectedActionChanged(object sender, EventArgs e)
     {
         BaseAction selectedAction = CharacterActionManager.Instance.GetSelectedAction();
@@ -198,16 +212,8 @@ public class GridVisualManager : Singleton<GridVisualManager>
         UpdateTileVisual();
     }
 
-    private Material GetTileColor(TileColor tileColor)
+    private void TurnSystemManager_OnTurnChanged(object sender, EventArgs e)
     {
-        foreach (TileTypeMaterial tileTypeMaterial in tileTypeMaterials)
-        {
-            if (tileTypeMaterial.tileColor == tileColor)
-            {
-                return tileTypeMaterial.material;
-            }
-        }
-
-        return null;
+        HideAllTilePositions();
     }
 }

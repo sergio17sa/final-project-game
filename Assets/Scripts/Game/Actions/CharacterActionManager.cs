@@ -145,6 +145,7 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     private void TurnSystemManager_OnTurnChanged(object sender, EventArgs e)
     {
         _selectedCharacter = null;
+        _selectedAction = null;
     }
 
     private void BaseAction_OnActionPerformed(object sender, EventArgs e)
