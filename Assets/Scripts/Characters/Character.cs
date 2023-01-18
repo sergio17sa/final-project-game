@@ -32,11 +32,8 @@ public class Character : MonoBehaviour
         BaseActions = GetComponents<BaseAction>();
 
         RemainingActions = new List<BaseAction>();
-        
-        for(int i = 0; i < BaseActions.Length; i++)
-        {
-            RemainingActions.Add(BaseActions[i]);
-        }
+
+        AddRemainingActions();
 
         ActionsTaken = new List<BaseAction>();
 
@@ -139,19 +136,26 @@ public class Character : MonoBehaviour
         ActionsTaken.Add(action);
     }
 
+    private void AddRemainingActions()
+    {
+        for (int i = 0; i < BaseActions.Length; i++)
+        {
+            RemainingActions.Add(BaseActions[i]);
+        }
+    }
+
     public Team GetCharacterTeam() => _team;
 
     private void TurnSystemManager_OnTurnChanged(object sender, EventArgs e)
     {
         ActionsTaken.Clear();
+        RemainingActions.Clear();
+
         ActionsCounter = BaseActions.Length;
 
         if (IsHealing) HealCharacter();
 
-        for (int i = 0; i < BaseActions.Length; i++)
-        {
-            RemainingActions.Add(BaseActions[i]);
-        }
+        AddRemainingActions();
     }
 
     public float GetNormalizeHealth() => currentLife / (float)characterstats.initialLife;

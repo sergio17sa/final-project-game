@@ -50,7 +50,7 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
 
                     //if (character.IsHealing) return false;
 
-                    if(character.GetCharacterTeam() != TurnSystemManager.Instance.GetTeamTurn()) return false;
+                    if (character.GetCharacterTeam() != TurnSystemManager.Instance.GetTeamTurn()) return false;
 
                     SetSelectedCharacter(character);
                     return true;
@@ -115,12 +115,20 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     private void SetSelectedCharacter(Character character)
     {
         _selectedCharacter = character;
+        BaseAction action;
 
-        BaseAction action = 
+        if (_selectedCharacter.RemainingActions.Count <= 0)
+        {
+            action = null;
+        }
+        else
+        {
+            action =
             character.RemainingActions.Contains(
-                character.GetAction<MoveAction>()) 
-                    ? character.GetAction<MoveAction>() 
+                character.GetAction<MoveAction>())
+                    ? character.GetAction<MoveAction>()
                     : character.RemainingActions[0];
+        }
 
         SetSelectedAction(action);
 
@@ -141,7 +149,7 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
 
     private void BaseAction_OnActionPerformed(object sender, EventArgs e)
     {
-        SetSelectedAction(_selectedCharacter.RemainingActions[0]);
+        SetSelectedCharacter(_selectedCharacter);
     }
 
 }

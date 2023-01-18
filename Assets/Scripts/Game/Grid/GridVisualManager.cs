@@ -181,7 +181,16 @@ public class GridVisualManager : Singleton<GridVisualManager>
 
     private void CharacterActionManager_OnSelectedActionChanged(object sender, EventArgs e)
     {
-        UpdateTileVisual();
+        BaseAction selectedAction = CharacterActionManager.Instance.GetSelectedAction();
+
+        if(selectedAction == null)
+        {
+            HideAllTilePositions();
+        }
+        else
+        {
+            UpdateTileVisual();
+        }
     }
 
     private void GridManager_OnCharacterMove(object sender, EventArgs e)
