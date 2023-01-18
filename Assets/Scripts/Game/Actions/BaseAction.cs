@@ -10,6 +10,8 @@ public abstract class BaseAction : NetworkBehaviour
     protected bool _isActive;
     protected Action _onActionComplete;
 
+    public static event EventHandler OnActionPerformed;
+
     protected virtual void Awake()
     {
         _character = GetComponent<Character>();
@@ -43,6 +45,9 @@ public abstract class BaseAction : NetworkBehaviour
     {
         _isActive = false;
         _onActionComplete();
+        _character.RemainingActions.Remove(action);
         _character.AddActionTaken(action);
+
+        OnActionPerformed?.Invoke(this, EventArgs.Empty);
     }
 }
