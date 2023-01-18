@@ -23,6 +23,7 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     private void Start()
     {
         TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
+        BaseAction.OnActionPerformed += BaseAction_OnActionPerformed;
     }
 
     private void Update()
@@ -45,8 +46,9 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
             {
                 if (raycastHit.transform.TryGetComponent<Character>(out Character character))
                 {
-
                     if (character == _selectedCharacter) return false;
+
+                    //if (character.IsHealing) return false;
 
                     if(character.GetCharacterTeam() != TurnSystemManager.Instance.GetTeamTurn()) return false;
 
@@ -69,6 +71,15 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
             if (!_selectedAction.IsValidActionTile(mouseTilePosition)) return;
 
             if (_selectedCharacter.ActionsTaken.Contains(_selectedAction)) return;
+
+            //if (_selectedCharacter.IsHealing) return;
+
+            /*if(_selectedCharacter.ActionsTaken.Contains(_selectedCharacter.GetAction<HealAction>())) return;
+
+            if (_selectedAction.GetActionName() == "Heal" && _selectedCharacter.currentLife == 100) return;
+
+            if (_selectedAction.GetActionName() == "Heal" && _selectedCharacter.ActionsTaken.Count > 0) return;*/
+
 
             SetBusy();
             _selectedAction.TakeAction(mouseTilePosition, ClearBusy);
@@ -94,6 +105,8 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
 
     public void SetSelectedAction(BaseAction baseAction)
     {
+        if (isBusy) return;
+
         _selectedAction = baseAction;
 
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
@@ -103,7 +116,13 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     {
         _selectedCharacter = character;
 
-        SetSelectedAction(character.GetAction<MoveAction>());
+        BaseAction action = 
+            character.RemainingActions.Contains(
+                character.GetAction<MoveAction>()) 
+                    ? character.GetAction<MoveAction>() 
+                    : character.RemainingActions[0];
+
+        SetSelectedAction(action);
 
         OnSelectedCharacter?.Invoke(this, EventArgs.Empty);
     }
@@ -119,4 +138,10 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
     {
         _selectedCharacter = null;
     }
+
+    private void BaseAction_OnActionPerformed(object sender, EventArgs e)
+    {
+        SetSelectedAction(_selectedCharacter.RemainingActions[0]);
+    }
+
 }

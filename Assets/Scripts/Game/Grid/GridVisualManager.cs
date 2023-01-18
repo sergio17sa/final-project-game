@@ -151,6 +151,9 @@ public class GridVisualManager : Singleton<GridVisualManager>
                 case MoveAction moveAction:
                     tileColor = TileColor.White;
                     break;
+                case HealAction heal:
+                    tileColor = TileColor.Blue;
+                    break;
                 case SwordAction swordAction:
                     tileColor = TileColor.Red;
 
