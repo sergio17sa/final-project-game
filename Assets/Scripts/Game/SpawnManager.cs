@@ -9,6 +9,8 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private List<GameObject> _medievalTeam;
     [SerializeField] private List<GameObject> _futureTeam;
     [SerializeField] private List<GameObject> _obstacles;
+    [SerializeField] private List<GameObject> _props;
+
 
     private List<GameObject> _spawnedMedievalTeam;
     private List<GameObject> _spawnedFutureTeam;
@@ -17,6 +19,9 @@ public class SpawnManager : Singleton<SpawnManager>
 
     public event EventHandler OnGameFinished;
     public event EventHandler OnSpawnsFinished;
+
+    private int numberOfObstacles = 15;
+    private int numberOfProps = 80;
 
     protected override void Awake()
     {
@@ -29,39 +34,11 @@ public class SpawnManager : Singleton<SpawnManager>
     {
         Character.OnDead += Character_OnDead;
 
-        List<Vector3> validList = ValidTiles(0, 10);
+        SpawnObstacles();
 
+        SpawnProps();
 
-        for(int i = 0; i <= 10; i++)
-        {
-            Vector3 tilePosition = validList[UnityEngine.Random.Range(0, validList.Count - 1)];
-
-            Instantiate(_obstacles[0], tilePosition, Quaternion.identity);
-
-            validList.Remove(tilePosition);
-        }
-
-        List<Vector3> validMedievalTiles = ValidTiles(0, 2);
-        List<Vector3> validFutureTiles = ValidTiles(8, 10);
-
-        foreach (GameObject medievalCharacter in _medievalTeam)
-        {
-            Vector3 tilePosition = validMedievalTiles[UnityEngine.Random.Range(0, validMedievalTiles.Count - 1)];
-
-            GameObject newCharacter = Instantiate(medievalCharacter, tilePosition, Quaternion.identity);
-
-            _spawnedMedievalTeam.Add(newCharacter);
-            validMedievalTiles.Remove(tilePosition);
-        }
-
-        foreach (GameObject futureCharacter in _futureTeam)
-        {
-            Vector3 tilePosition = validFutureTiles[UnityEngine.Random.Range(0, validFutureTiles.Count - 1)];
-            GameObject newCharacter = Instantiate(futureCharacter, tilePosition, futureCharacter.transform.rotation);
-
-            _spawnedFutureTeam.Add(newCharacter);
-            validFutureTiles.Remove(tilePosition);
-        }
+        TeamsSpawn();
 
         OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
     }
@@ -101,6 +78,62 @@ public class SpawnManager : Singleton<SpawnManager>
         }
 
         return validTilePositions;
+    }
+
+
+    private void SpawnObstacles()
+    {
+        List<Vector3> validList = ValidTiles(0, 10);
+
+        for (int i = 0; i <= numberOfObstacles; i++)
+        {
+            Vector3 tilePosition = validList[UnityEngine.Random.Range(0, validList.Count - 1)];
+
+            int randomIndex = UnityEngine.Random.Range(0, _obstacles.Count);
+
+            Instantiate(_obstacles[randomIndex], tilePosition, Quaternion.identity);
+
+            validList.Remove(tilePosition);
+        }
+    }
+
+    private void SpawnProps()
+    {
+        List<Vector3> validList = ValidTiles(0, 10);
+
+        for (int i = 0; i <= numberOfProps; i++)
+        {
+            Vector3 tilePosition = validList[UnityEngine.Random.Range(0, validList.Count - 1)];
+
+            int randomIndex = UnityEngine.Random.Range(0, _props.Count);
+
+            Instantiate(_props[randomIndex], tilePosition, Quaternion.identity);
+        }
+    }
+
+    private void TeamsSpawn()
+    {
+        List<Vector3> validMedievalTiles = ValidTiles(0, 2);
+        List<Vector3> validFutureTiles = ValidTiles(8, 10);
+
+        foreach (GameObject medievalCharacter in _medievalTeam)
+        {
+            Vector3 tilePosition = validMedievalTiles[UnityEngine.Random.Range(0, validMedievalTiles.Count - 1)];
+
+            GameObject newCharacter = Instantiate(medievalCharacter, tilePosition, Quaternion.identity);
+
+            _spawnedMedievalTeam.Add(newCharacter);
+            validMedievalTiles.Remove(tilePosition);
+        }
+
+        foreach (GameObject futureCharacter in _futureTeam)
+        {
+            Vector3 tilePosition = validFutureTiles[UnityEngine.Random.Range(0, validFutureTiles.Count - 1)];
+            GameObject newCharacter = Instantiate(futureCharacter, tilePosition, futureCharacter.transform.rotation);
+
+            _spawnedFutureTeam.Add(newCharacter);
+            validFutureTiles.Remove(tilePosition);
+        }
     }
 
     private void Character_OnDead(object sender, EventArgs e)

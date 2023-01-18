@@ -30,6 +30,7 @@ public class GridVisualManager : Singleton<GridVisualManager>
         CreateVisualTiles();
 
         CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
+        TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
         GridManager.Instance.OnCharacterMove += GridManager_OnCharacterMove;
 
         UpdateTileVisual();
@@ -151,6 +152,9 @@ public class GridVisualManager : Singleton<GridVisualManager>
                 case MoveAction moveAction:
                     tileColor = TileColor.White;
                     break;
+                case HealAction heal:
+                    tileColor = TileColor.Blue;
+                    break;
                 case SwordAction swordAction:
                     tileColor = TileColor.Red;
 
@@ -176,16 +180,6 @@ public class GridVisualManager : Singleton<GridVisualManager>
         }
     }
 
-    private void CharacterActionManager_OnSelectedActionChanged(object sender, EventArgs e)
-    {
-        UpdateTileVisual();
-    }
-
-    private void GridManager_OnCharacterMove(object sender, EventArgs e)
-    {
-        UpdateTileVisual();
-    }
-
     private Material GetTileColor(TileColor tileColor)
     {
         foreach (TileTypeMaterial tileTypeMaterial in tileTypeMaterials)
@@ -197,5 +191,29 @@ public class GridVisualManager : Singleton<GridVisualManager>
         }
 
         return null;
+    }
+
+    private void CharacterActionManager_OnSelectedActionChanged(object sender, EventArgs e)
+    {
+        BaseAction selectedAction = CharacterActionManager.Instance.GetSelectedAction();
+
+        if(selectedAction == null)
+        {
+            HideAllTilePositions();
+        }
+        else
+        {
+            UpdateTileVisual();
+        }
+    }
+
+    private void GridManager_OnCharacterMove(object sender, EventArgs e)
+    {
+        UpdateTileVisual();
+    }
+
+    private void TurnSystemManager_OnTurnChanged(object sender, EventArgs e)
+    {
+        HideAllTilePositions();
     }
 }
