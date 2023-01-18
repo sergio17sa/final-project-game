@@ -6,8 +6,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using IngameDebugConsole;
 using System.Collections;
-using Unity.Netcode;
-using Unity.Services.Authentication;
+using Unity.Services.Core;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -43,6 +42,7 @@ public class LobbyManager : MonoBehaviour
         DebugLogConsole.AddCommandInstance("PrintPlayers", "PrintPlayers", "PrintPlayers", this);
         DebugLogConsole.AddCommandInstance("StartGameCreatingLobby", "StartGameCreatingLobby", "StartGameCreatingLobby", this);
         DebugLogConsole.AddCommandInstance("StartGameQuick", "StartGameQuick", "StartGameQuick", this);
+        DebugLogConsole.AddCommandInstance("deleteLobby", "delete", "DeleteLobby", this);
     }
 
 
@@ -123,6 +123,11 @@ public class LobbyManager : MonoBehaviour
 
             queryResponse = await Lobbies.Instance.QueryLobbiesAsync(queryLobbiesOptions);
 
+            foreach (var lobby in queryResponse.Results)
+            {
+                Debug.Log(lobby.Id.GetType());
+            }
+
             Debug.Log($"Lobbies Quantity {queryResponse.Results.Count}");
             // foreach (Lobby lobby in queryResponse.Results)
             // {
@@ -178,8 +183,7 @@ public class LobbyManager : MonoBehaviour
             };
             Lobby lobby = await Lobbies.Instance.QuickJoinLobbyAsync(quickJoinLobbyOptions);
             joinedLobby = lobby;
-            Debug.Log($"Joined successfull to {lobby.Name} with lobby code: {lobby.LobbyCode} lobby ID: {lobby.Id}");
-            Debug.Log($"joined lobby ID {joinedLobby.Id}");
+            Debug.Log($"Joined successfull to {lobby.Name} with lobby code: {lobby.LobbyCode}");
             PrintPlayersData(joinedLobby);
             StartCoroutine(PollForUpdates(2f));
         }
@@ -260,14 +264,12 @@ public class LobbyManager : MonoBehaviour
             {
                 if (getLobbies.IsFaulted)
                 {
-                    Debug.Log("fallo la corrutina");
                     Debug.LogException(getLobbies.Exception);
                 }
                 if (getLobbies.IsCompleted)
                 {
                     joinedLobby = getLobbies.Result;
-                    Debug.Log($" lobbies result {getLobbies.Result}");
-                    Debug.Log($" lobbies result {getLobbies.Result.Players.Count}");
+                    Debug.Log(getLobbies.Result.Id);
 
                 }
 
@@ -340,39 +342,25 @@ public class LobbyManager : MonoBehaviour
     {
         try
         {
-            if (hostLobby.Id != null)
+            if (IsLobbyHost())
             {
-                await LobbyService.Instance.DeleteLobbyAsync(hostLobby.Id);
-                StopCoroutine("PollForUpdates");
-                
 
+                StopAllCoroutines();
+                await Lobbies.Instance.DeleteLobbyAsync(joinedLobby.Id);
+                Debug.Log("lobby deleted!!!");
+                return;
             }
 
-            if (joinedLobby.Id != null)
-            {
-                await LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
-                StopCoroutine("PollForUpdates");
-            }
         }
         catch (LobbyServiceException e)
         {
-            Debug.Log("entro al delete");
             Debug.LogException(e);
         }
-    }
-
-    public async void RemovePlayerFromLobby()
-    {
-        try
-        {
-            //Ensure you sign-in before calling Authentication Instance
-            //See IAuthenticationService interface
-            string playerId = AuthenticationService.Instance.PlayerId;
-            await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, joinedLobby.Players[1].Id);
-        }
-        catch (LobbyServiceException e)
+        catch (RequestFailedException e)
         {
             Debug.Log(e);
         }
     }
+
+
 }

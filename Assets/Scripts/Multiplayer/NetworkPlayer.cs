@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
+using TMPro;
 
 public class NetworkPlayer : NetworkBehaviour
 {
-
     private NetworkVariable<NetString> playerServer = new NetworkVariable<NetString>(
         new NetString
         {
             nameString = "0",
             id = 0,
-            isReady = false,
+            isReady = false
         }, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     private NetworkVariable<NetString> playerClient = new NetworkVariable<NetString>(
@@ -28,8 +28,6 @@ public class NetworkPlayer : NetworkBehaviour
         public string nameString;
         public int id;
         public bool isReady;
-
-        public Vector3 vector3;
 
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
@@ -47,7 +45,6 @@ public class NetworkPlayer : NetworkBehaviour
         {
             Debug.Log(OwnerClientId + " playerServer value: " + playerServer.Value.nameString);
             UIManager.Instance.playerServer.text = $"{playerServer.Value.nameString} {playerServer.Value.id.ToString()} {playerServer.Value.isReady.ToString()}";
-
         };
 
         playerClient.OnValueChanged += (NetString previousValue, NetString newValue) =>
@@ -56,7 +53,11 @@ public class NetworkPlayer : NetworkBehaviour
             UIManager.Instance.playerClient.text = $"{playerClient.Value.nameString} {playerClient.Value.id.ToString()} {playerClient.Value.isReady.ToString()}";
         };
 
-       
+
+    }
+
+    private void Start()
+    {
         {
             NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnectCallback;
         }
@@ -65,6 +66,18 @@ public class NetworkPlayer : NetworkBehaviour
     {
         if (!IsOwner) return;
         test();
+
+        if (NetworkManager.ShutdownInProgress)
+        {
+            Debug.Log("Network shutdown in progress");
+            UIManager.Instance.connection.text = "el rival ha perdido la conexion";
+            NetworkManager.Shutdown();
+            LobbyManager.Instance.StopAllCoroutines();
+        }
+        else
+        {
+            Debug.Log("esta vivo el server");
+        }
         Vector3 moveDir = new Vector3(0, 0, 0);
 
         if (Input.GetKey(KeyCode.W)) moveDir.z += 1f;
@@ -76,6 +89,17 @@ public class NetworkPlayer : NetworkBehaviour
         transform.Translate(moveDir * speed * Time.deltaTime);
     }
 
+    public override void OnDestroy()
+    {
+        NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnectCallback;
+    }
+    public void OnClientDisconnectCallback(ulong playerID)
+    {
+        NetworkManager.Shutdown();
+        NetworkManagerServer.Instance.StopAllCoroutines();
+    }
+
+
     public void SetPlayerName(int id, bool isReady)
     {
 
@@ -83,7 +107,7 @@ public class NetworkPlayer : NetworkBehaviour
         {
             playerServer.Value = new NetString
             {
-                nameString = StatisticsManager.Instance.stats.playerName,
+                nameString = "Player Server",
                 id = id,
                 isReady = isReady
             };
@@ -92,23 +116,14 @@ public class NetworkPlayer : NetworkBehaviour
         {
             playerClient.Value = new NetString
             {
-                nameString = StatisticsManager.Instance.stats.playerName,
+                nameString = "Player Client",
                 id = id,
                 isReady = isReady
             };
         }
     }
 
-   
-
-    public void OnClientDisconnectCallback(ulong playerID)
-    {
-        if(IsServer){
-            Debug.Log($"se desconecto {OwnerClientId} el cliente");
-        }
-    }
-
-    public void test()
+    void test()
     {
         int randomId = Random.Range(0, 99);
 

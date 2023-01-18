@@ -18,6 +18,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Color[] colorsPie;
     [SerializeField] private Image widge, wonGames, lostGames, tiesGames, levelImg;
     [SerializeField] private TMP_Text wonGamesText, lostGamesText, tiesGamesText, pointsNextLevel, PlayerNameStats;
+    public TMP_Text connection;
     [SerializeField] private GameObject pieGraph, barGraph, panelInputPlayerName, paneljoinBtn;
     [SerializeField] private Sprite BeginnerImg, advancedImg, expertImg, masterImg;
     [SerializeField] private BarScript barPrefab;
