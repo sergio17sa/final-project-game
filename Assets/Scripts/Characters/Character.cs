@@ -11,23 +11,38 @@ public class Character : MonoBehaviour
     public CharacterStadistics characterstats;
     public float currentLife;
 
-    public TilePosition CharacterTilePosition { get; private set;}
+    public TilePosition CharacterTilePosition { get; private set; }
 
     public BaseAction[] BaseActions { get; private set; }
     public List<BaseAction> ActionsTaken { get; private set; }
+    public List<BaseAction> RemainingActions { get; private set; }
 
     [SerializeField] private Team _team;
 
     public event EventHandler OnGetDamaged;
+    public event EventHandler OnHeal;
+    public static event EventHandler OnDead;
 
-    private void Awake() 
+    public bool IsHealing { get; set; }
+    private int _turnsHealing = 0;
+
+    public int ActionsCounter { get; set; }
+
+    private void Awake()
     {
         BaseActions = GetComponents<BaseAction>();
+
+        RemainingActions = new List<BaseAction>();
+
+        AddRemainingActions();
+
         ActionsTaken = new List<BaseAction>();
+
+        ActionsCounter = BaseActions.Length;
 
         currentLife = characterstats.initialLife;
     }
-    
+
     private void Start()
     {
         CharacterTilePosition = GridManager.Instance.GetTilePosition(transform.position);
@@ -38,26 +53,9 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        //GetMoviment();
-
-        /*if (Input.GetKeyDown(KeyCode.A))
-        {
-            GetAttack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            GetDamage(20);
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            GetHealing(characterstats.healing);
-        }*/
-
         TilePosition newTilePosition = GridManager.Instance.GetTilePosition(transform.position);
 
-        if(newTilePosition != CharacterTilePosition)
+        if (newTilePosition != CharacterTilePosition)
         {
             TilePosition lastTilePosition = CharacterTilePosition;
             CharacterTilePosition = newTilePosition;
@@ -69,8 +67,16 @@ public class Character : MonoBehaviour
     public void GetDamage(float enemyDamage)
     {
         currentLife -= enemyDamage;
-        characterAnim.SetDamage(currentLife);
+
+        //Send event to update UI
         OnGetDamaged?.Invoke(this, EventArgs.Empty);
+
+        if (currentLife <= 0)
+        {
+            OnDead?.Invoke(this, EventArgs.Empty);
+        }
+
+        characterAnim.SetDamage(currentLife);
     }
 
     //Funcion para Curarse
@@ -79,20 +85,21 @@ public class Character : MonoBehaviour
         characterParticles.CallStartParticle(3, false); 
         currentLife += healing;
         characterAnim.SetHealing();
+        OnHeal?.Invoke(this, EventArgs.Empty);
 
         if (currentLife > characterstats.initialLife)
         {
             currentLife = characterstats.initialLife;
         }
     }
-    
+
     //Funcion para Atacar
     public void GetAttack()
     {
         characterParticles.CallStartParticle(2, false);
         characterAnim.SetAttack();
     }
-    
+
     //Funcion para moverse
     public void GetMovement(float move)
     {
@@ -101,9 +108,9 @@ public class Character : MonoBehaviour
 
     public T GetAction<T>() where T : BaseAction
     {
-        foreach(BaseAction baseAction in BaseActions)
+        foreach (BaseAction baseAction in BaseActions)
         {
-            if(baseAction is T)
+            if (baseAction is T)
             {
                 return (T)baseAction;
             }
@@ -111,15 +118,49 @@ public class Character : MonoBehaviour
         return null;
     }
 
-    public void AddActionTaken(BaseAction action) => ActionsTaken.Add(action);
+    private void HealCharacter()
+    {
+        if (_turnsHealing <= 2)
+        {
+            HealAction healAction = GetAction<HealAction>();
+            ActionsTaken.Add(healAction);
+            _turnsHealing++;
+        }
+        else
+        {
+            _turnsHealing = 0;
+            IsHealing = false;
+        }
+    }
+
+    public void AddActionTaken(BaseAction action)
+    {
+        ActionsCounter--;
+        ActionsTaken.Add(action);
+    }
+
+    private void AddRemainingActions()
+    {
+        for (int i = 0; i < BaseActions.Length; i++)
+        {
+            RemainingActions.Add(BaseActions[i]);
+        }
+    }
 
     public Team GetCharacterTeam() => _team;
 
     private void TurnSystemManager_OnTurnChanged(object sender, EventArgs e)
     {
         ActionsTaken.Clear();
+        RemainingActions.Clear();
+
+        ActionsCounter = BaseActions.Length;
+
+        if (IsHealing) HealCharacter();
+
+        AddRemainingActions();
     }
 
-    public float GetNormalizeHealth() => currentLife/ (float)characterstats.initialLife;
+    public float GetNormalizeHealth() => currentLife / (float)characterstats.initialLife;
 
 }

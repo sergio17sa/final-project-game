@@ -9,13 +9,81 @@ public class SwordAction : BaseAction
     [SerializeField] private int _maxSwordDistance = 1;
     private Character _targetCharacter;
 
+    private enum State
+    {
+        Aiming,
+        Slash,
+        Rest
+    }
+
+    //States duration
+    private float _aimDuration = 0.5f;
+    [SerializeField] private float _slashDuration = 0.5f;
+    private float _restDuration = 0.1f;
+
+    //State machine varibles
+    private State state;
+    private float _stateTimer;
+    private bool _canAtack;
+
     private void Update()
     {
         if (!_isActive) return;
+
+        UpdateStateMachine();
+    }
+
+    private void UpdateStateMachine()
+    {
+        _stateTimer -= Time.deltaTime;
+
+        switch (state)
+        {
+            case State.Aiming:
+                Aim();
+                if (_stateTimer <= 0) TransitionToSlashState();
+                break;
+            case State.Slash:
+                if(_canAtack) Slash();
+                if (_stateTimer <= 0) TransitionToRestState();
+                break;
+            case State.Rest:
+                _targetCharacter.GetDamage(50);
+                ActionComplete(this);
+                if (_stateTimer <= 0) ActionComplete(this);
+                break;
+        }
+    }
+
+    private void Aim()
+    {
+        Vector3 aimDir = (_targetCharacter.transform.position - _character.transform.position).normalized;
+
+        float rotateSpeed = 10f;
+        transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);
+    }
+
+    private void Slash()
+    {
+        //Trigger animation
+        _character.GetAttack();
+        _canAtack = false;
+    }
+
+    private void TransitionToSlashState()
+    {
+        state = State.Slash;
+        _stateTimer = _slashDuration;
+    }
+
+    private void TransitionToRestState()
+    {
+        state = State.Rest;
+        _stateTimer = _restDuration;
     }
     public override string GetActionName()
     {
-        return "Slash";
+        return "Attack";
     }
 
     public override List<TilePosition> GetValidActionTiles()
@@ -50,17 +118,13 @@ public class SwordAction : BaseAction
     {
         _targetCharacter = GridManager.Instance.GetCharacterAtTilePosition(tilePosition);
 
-        /*Vector3 aimDir = (_targetCharacter.transform.position - _character.transform.position).normalized;
+        state = State.Aiming;
 
-        float rotateSpeed = 10f;
-        transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateSpeed);*/
+        _stateTimer = _aimDuration;
+        _canAtack = true;
 
         ActionStart(onActionComplete);
-        
-        _character.GetAttack();
-        _targetCharacter.GetDamage(50);
-
-        ActionComplete(this);
+         
     }
 
     public int GetSwordRange() => _maxSwordDistance;

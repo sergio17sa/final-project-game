@@ -26,7 +26,7 @@ public class TurnSystemUI : MonoBehaviour
 
     private void UpdateText()
     {
-        _turnCounterText.text = $"Turn number: {TurnSystemManager.Instance.TurnCounter}";
+        _turnCounterText.text = $"End Turn {TurnSystemManager.Instance.TurnCounter}";
         _teamTurnText.text = $"{TurnSystemManager.Instance.GetTeamTurn()}";
     }
 

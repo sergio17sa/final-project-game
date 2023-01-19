@@ -30,6 +30,7 @@ public class GridVisualManager : Singleton<GridVisualManager>
         CreateVisualTiles();
 
         CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
+        TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
         GridManager.Instance.OnCharacterMove += GridManager_OnCharacterMove;
 
         UpdateTileVisual();
@@ -80,7 +81,7 @@ public class GridVisualManager : Singleton<GridVisualManager>
         }
     }
 
-    private void ShowGridPositionRange(TilePosition gridPosition, int range, TileColor gridVisualType)
+    private void ShowTilePositionRange(TilePosition tilePosition, int range, TileColor tileColor, AttackType attackType)
     {
         List<TilePosition> tilePositions = new List<TilePosition>();
 
@@ -88,28 +89,33 @@ public class GridVisualManager : Singleton<GridVisualManager>
         {
             for (int z = -range; z <= range; z++)
             {
-                TilePosition testTilePosition = gridPosition + new TilePosition(x, z);
+                TilePosition testTilePosition = tilePosition + new TilePosition(x, z);
 
-                if (!GridManager.Instance.IsValidTilePosition(testTilePosition))
+                if (!GridManager.Instance.IsValidTilePosition(testTilePosition)) continue;
+
+                if (attackType == AttackType.Shoot)
                 {
-                    continue;
+                    int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                    if (testDistance > range) continue;
+
+                    tilePositions.Add(testTilePosition);
                 }
 
-                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
-                if (testDistance > range)
+                if (attackType == AttackType.Spell)
                 {
-                    continue;
+                    if (testTilePosition.x == tilePosition.x || testTilePosition.z == tilePosition.z)
+                    {
+                        tilePositions.Add(testTilePosition);
+                    }
                 }
-
-                tilePositions.Add(testTilePosition);
             }
         }
 
-        ShowTilePositionList(tilePositions, gridVisualType);
+        ShowTilePositionList(tilePositions, tileColor);
     }
 
 
-    private void ShowActionRangeSquare(TilePosition tilePosition, int range, TileColor gridVisualType)
+    private void ShowActionRangeSquare(TilePosition tilePosition, int range, TileColor tileColor)
     {
         List<TilePosition> tilePositions = new List<TilePosition>();
 
@@ -125,7 +131,7 @@ public class GridVisualManager : Singleton<GridVisualManager>
             }
         }
 
-        ShowTilePositionList(tilePositions, gridVisualType);
+        ShowTilePositionList(tilePositions, tileColor);
     }
 
 
@@ -146,6 +152,9 @@ public class GridVisualManager : Singleton<GridVisualManager>
                 case MoveAction moveAction:
                     tileColor = TileColor.White;
                     break;
+                case HealAction heal:
+                    tileColor = TileColor.Blue;
+                    break;
                 case SwordAction swordAction:
                     tileColor = TileColor.Red;
 
@@ -155,29 +164,20 @@ public class GridVisualManager : Singleton<GridVisualManager>
                         TileColor.SoftRed
                         );
                     break;
-                case ShootArrowAction arrowAction:
+                case RangeAttackAction rangeAttackAction:
                     tileColor = TileColor.Red;
 
-                    ShowGridPositionRange(
+                    ShowTilePositionRange(
                         selectedCharacter.CharacterTilePosition,
-                        arrowAction.GetArrowRange(),
-                        TileColor.SoftRed
+                        rangeAttackAction.GetAttackRange(),
+                        TileColor.SoftRed,
+                        rangeAttackAction.GetAttackType()
                         );
                     break;
             }
 
             ShowTilePositionList(selectedAction.GetValidActionTiles(), tileColor);
         }
-    }
-
-    private void CharacterActionManager_OnSelectedActionChanged(object sender, EventArgs e)
-    {
-        UpdateTileVisual();
-    }
-
-    private void GridManager_OnCharacterMove(object sender, EventArgs e)
-    {
-        UpdateTileVisual();
     }
 
     private Material GetTileColor(TileColor tileColor)
@@ -191,5 +191,29 @@ public class GridVisualManager : Singleton<GridVisualManager>
         }
 
         return null;
+    }
+
+    private void CharacterActionManager_OnSelectedActionChanged(object sender, EventArgs e)
+    {
+        BaseAction selectedAction = CharacterActionManager.Instance.GetSelectedAction();
+
+        if(selectedAction == null)
+        {
+            HideAllTilePositions();
+        }
+        else
+        {
+            UpdateTileVisual();
+        }
+    }
+
+    private void GridManager_OnCharacterMove(object sender, EventArgs e)
+    {
+        UpdateTileVisual();
+    }
+
+    private void TurnSystemManager_OnTurnChanged(object sender, EventArgs e)
+    {
+        HideAllTilePositions();
     }
 }

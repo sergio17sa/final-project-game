@@ -15,7 +15,14 @@ public class CharacterAnimationController : MonoBehaviour
 
     public void SetMove(float move)
     {
-        anim.SetFloat("Move", move);
+        if (move != 0)
+        {
+            anim.SetFloat("Move", move, 0.1f, Time.deltaTime);
+        }
+        else
+        {
+            anim.SetFloat("Move", move);
+        }
     }
 
     public void SetDamage(float life)
@@ -33,6 +40,7 @@ public class CharacterAnimationController : MonoBehaviour
             brain.characterParticles.CallStartParticle(4, false);
             index = RandomIndex(brain.characterstats.maxDamageIndex);
             anim.SetInteger("Index", index);
+            Debug.Log(index + " " + gameObject.name);
             anim.SetTrigger("Damage");
         }
     }

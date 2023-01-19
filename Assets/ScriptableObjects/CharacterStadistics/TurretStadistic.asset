@@ -18,5 +18,5 @@ MonoBehaviour:
   initialLife: 100
   powerAttack: 20
   healing: 20
-  maxDamageIndex: 2
-  maxAttackIndex: 0
+  maxDamageIndex: 0
+  maxAttackIndex: 2

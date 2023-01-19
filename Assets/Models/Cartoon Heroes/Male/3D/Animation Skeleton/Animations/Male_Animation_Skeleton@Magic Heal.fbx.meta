@@ -39,8 +39,8 @@ ModelImporter:
       name: Magic Heal
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
-      lastFrame: 160
+      firstFrame: 47
+      lastFrame: 104
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

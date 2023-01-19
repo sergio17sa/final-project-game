@@ -184,7 +184,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerServer: {fileID: 3066640546621688939}
   playerClient: {fileID: 1720519813504923034}
+  matches: {fileID: 0}
+  level: {fileID: 0}
+  points: {fileID: 0}
   networkUI: {fileID: 3759823078594667493}
+  colorsPie:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  widge: {fileID: 5048947553790112331, guid: f5e57722329a8824ca2cbb122ce7281b, type: 3}
+  wonGames: {fileID: 0}
+  lostGames: {fileID: 0}
+  tiesGames: {fileID: 0}
+  levelImg: {fileID: 0}
+  wonGamesText: {fileID: 0}
+  lostGamesText: {fileID: 0}
+  tiesGamesText: {fileID: 0}
+  pointsNextLevel: {fileID: 0}
+  PlayerNameStats: {fileID: 0}
+  pieGraph: {fileID: 0}
+  barGraph: {fileID: 0}
+  panelInputPlayerName: {fileID: 0}
+  paneljoinBtn: {fileID: 0}
+  BeginnerImg: {fileID: 21300000, guid: 4fee4be58ebc7cb47b7864ad8b1187ae, type: 3}
+  advancedImg: {fileID: 21300000, guid: 855420c58a0f4a54aabd48542e0a2470, type: 3}
+  expertImg: {fileID: 21300000, guid: f03a65f6c89b7da46928d77e09da6a27, type: 3}
+  masterImg: {fileID: 21300000, guid: 5ba552dd67ecf9544bf828e44a2ee636, type: 3}
+  barPrefab: {fileID: 2968364444407993563, guid: c026ba4e6ff89b841a14828642f425dd, type: 3}
+  inputPlayerName: {fileID: 0}
 --- !u!114 &3759823078594667493
 MonoBehaviour:
   m_ObjectHideFlags: 0

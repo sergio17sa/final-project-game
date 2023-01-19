@@ -47,7 +47,7 @@ public class NetworkPlayer : NetworkBehaviour
         {
             Debug.Log(OwnerClientId + " playerServer value: " + playerServer.Value.nameString);
             UIManager.Instance.playerServer.text = $"{playerServer.Value.nameString} {playerServer.Value.id.ToString()} {playerServer.Value.isReady.ToString()}";
-           
+
         };
 
         playerClient.OnValueChanged += (NetString previousValue, NetString newValue) =>
@@ -55,6 +55,11 @@ public class NetworkPlayer : NetworkBehaviour
             Debug.Log(OwnerClientId + " playerClient value: " + playerClient.Value.nameString);
             UIManager.Instance.playerClient.text = $"{playerClient.Value.nameString} {playerClient.Value.id.ToString()} {playerClient.Value.isReady.ToString()}";
         };
+
+       
+        {
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnectCallback;
+        }
     }
     private void Update()
     {
@@ -94,13 +99,7 @@ public class NetworkPlayer : NetworkBehaviour
         }
     }
 
-<<<<<<< Updated upstream
-    void test()
-=======
-    private void OnPlayerDisconnected()
-    {
-        
-    }
+   
 
     public void OnClientDisconnectCallback(ulong playerID)
     {
@@ -110,9 +109,7 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     public void test()
->>>>>>> Stashed changes
     {
-        Debug.Log("ENTRA");
         int randomId = Random.Range(0, 99);
 
         if (Input.GetKeyDown(KeyCode.F))

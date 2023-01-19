@@ -6,6 +6,8 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using IngameDebugConsole;
 using System.Collections;
+using Unity.Netcode;
+using Unity.Services.Authentication;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -258,6 +260,7 @@ public class LobbyManager : MonoBehaviour
             {
                 if (getLobbies.IsFaulted)
                 {
+                    Debug.Log("fallo la corrutina");
                     Debug.LogException(getLobbies.Exception);
                 }
                 if (getLobbies.IsCompleted)
@@ -340,16 +343,36 @@ public class LobbyManager : MonoBehaviour
             if (hostLobby.Id != null)
             {
                 await LobbyService.Instance.DeleteLobbyAsync(hostLobby.Id);
+                StopCoroutine("PollForUpdates");
+                
+
             }
 
             if (joinedLobby.Id != null)
             {
-                await LobbyService.Instance.DeleteLobbyAsync(hostLobby.Id);
+                await LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
+                StopCoroutine("PollForUpdates");
             }
         }
         catch (LobbyServiceException e)
         {
+            Debug.Log("entro al delete");
             Debug.LogException(e);
+        }
+    }
+
+    public async void RemovePlayerFromLobby()
+    {
+        try
+        {
+            //Ensure you sign-in before calling Authentication Instance
+            //See IAuthenticationService interface
+            string playerId = AuthenticationService.Instance.PlayerId;
+            await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, joinedLobby.Players[1].Id);
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
         }
     }
 }
