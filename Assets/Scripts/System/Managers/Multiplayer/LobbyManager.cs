@@ -13,6 +13,12 @@ public class LobbyManager : MonoBehaviour
 
     public static LobbyManager Instance;
 
+    private int maxPLayers = 2;
+    private Lobby hostLobby, joinedLobby;
+    private QueryResponse queryResponse;
+    private int randomName;
+    private string playerName = "playernametest1", startGame = "0";
+
     private void Awake()
     {
         if (Instance != null)
@@ -24,12 +30,6 @@ public class LobbyManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this);
     }
-    private int maxPLayers = 2;
-    private Lobby hostLobby, joinedLobby;
-    private QueryResponse queryResponse;
-    private int randomName;
-    private string playerName = "playernametest1", startGame = "0";
-
 
     private void Start()
     {

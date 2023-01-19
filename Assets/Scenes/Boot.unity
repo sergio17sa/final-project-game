@@ -746,54 +746,6 @@ PrefabInstance:
       propertyPath: panelInputPlayerName
       value: 
       objectReference: {fileID: 753813477}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[0].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[0].b
-      value: 0.043137256
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[0].g
-      value: 0.58431375
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[0].r
-      value: 0.7803922
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[1].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[1].b
-      value: 0.24313727
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[1].g
-      value: 0.10196079
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[1].r
-      value: 0.6862745
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[2].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[2].b
-      value: 0.82745105
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[2].g
-      value: 0.83921576
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546067040192, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: colorsPie.Array.data[2].r
-      value: 0.039215688
-      objectReference: {fileID: 0}
     - target: {fileID: 3066640546067040193, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
       propertyPath: m_Name
       value: UIManager
@@ -840,10 +792,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3066640546067040207, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066640546102202022, guid: d3348a8ff038fb54295f227aa3e02357, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1679,10 +1627,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1921702063}
-    - target: {fileID: 480872840181432859, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3843495346311729801, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
       propertyPath: m_Name
       value: GameCanvas
@@ -1779,10 +1723,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1921702063}
-    - target: {fileID: 6508388802608172613, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8293678283903168556, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

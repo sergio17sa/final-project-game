@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
 using TMPro;
+using Unity.Networking;
 
 public class NetworkPlayer : NetworkBehaviour
 {

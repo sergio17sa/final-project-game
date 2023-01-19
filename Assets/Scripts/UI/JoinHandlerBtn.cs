@@ -35,7 +35,7 @@ public class JoinHandlerBtn : MonoBehaviour
 
     public void StartBtnTransition()
     {
-       // SceneManager.LoadSceneAsync(1);
+        //SceneManager.LoadSceneAsync(1);
         StartCoroutine("JoinBtnTrasition");
     }
 }

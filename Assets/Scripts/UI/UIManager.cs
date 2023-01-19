@@ -6,24 +6,37 @@ using Unity.Netcode;
 using TMPro;
 using System;
 
-public class UIManager : Singleton<UIManager>
+public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
     public TMP_Text playerServer;
+    public TMP_Text connection;
     public TMP_Text playerClient;
     [SerializeField] TMP_Text matches, level, points;
     public NetworkUIController networkUI;
+
     private float barLength = 1.4f, percentMultiplier = 100f;
     private string levelStr;
     private List<double> valuesPie = new List<double>();
+
     [SerializeField] private Color[] colorsPie;
     [SerializeField] private Image widge, wonGames, lostGames, tiesGames, levelImg;
     [SerializeField] private TMP_Text wonGamesText, lostGamesText, tiesGamesText, pointsNextLevel, PlayerNameStats;
-    public TMP_Text connection;
     [SerializeField] private GameObject pieGraph, barGraph, panelInputPlayerName, paneljoinBtn;
     [SerializeField] private Sprite BeginnerImg, advancedImg, expertImg, masterImg;
     [SerializeField] private BarScript barPrefab;
     [SerializeField] private TMP_InputField inputPlayerName;
 
+     private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(this);
+    }
 
     private void Start()
     {

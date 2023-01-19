@@ -6420,7 +6420,7 @@ GameObject:
   - component: {fileID: 3830083213646276511}
   - component: {fileID: 18108137753983249}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: player server
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6697,7 +6697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6547177206151620789
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8363,6 +8363,7 @@ RectTransform:
   - {fileID: 862719452291079822}
   - {fileID: 369675548}
   - {fileID: 1759635988}
+  - {fileID: 4622507041789554699}
   m_Father: {fileID: 3843495346311729805}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8442,7 +8443,6 @@ RectTransform:
   m_Children:
   - {fileID: 6421388934957773193}
   - {fileID: 3843495345832790229}
-  - {fileID: 4622507041789554699}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9134,7 +9134,7 @@ GameObject:
   - component: {fileID: 5968714374333352857}
   - component: {fileID: 4249029863296295705}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: player client
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10120,7 +10120,7 @@ GameObject:
   - component: {fileID: 7789099483267908743}
   - component: {fileID: 3110145782577792946}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: connection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10143,7 +10143,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 132.9}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7789099483267908743
@@ -10174,7 +10174,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'conection
+  m_text: 'connection
 
 '
   m_isRightToLeft: 0
@@ -10413,13 +10413,13 @@ RectTransform:
   - {fileID: 3718378113003359476}
   - {fileID: 2649373144711288174}
   - {fileID: 8024110686208672617}
-  m_Father: {fileID: 3843495346311729805}
-  m_RootOrder: 2
+  m_Father: {fileID: 3843495345832790229}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 658.3032, y: -0.5}
+  m_SizeDelta: {x: -1316.6064, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2020164578802647065
 CanvasRenderer:
@@ -10442,7 +10442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

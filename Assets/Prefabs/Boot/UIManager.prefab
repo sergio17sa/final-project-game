@@ -47,15 +47,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerServer: {fileID: 0}
+  connection: {fileID: 0}
   playerClient: {fileID: 0}
   matches: {fileID: 0}
   level: {fileID: 0}
   points: {fileID: 0}
   networkUI: {fileID: 3759823078594667493}
   colorsPie:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.7803922, g: 0.58431375, b: 0.043137256, a: 1}
+  - {r: 0.6862745, g: 0.10196079, b: 0.24313727, a: 1}
+  - {r: 0.039215688, g: 0.83921576, b: 0.82745105, a: 1}
   widge: {fileID: 5048947553790112331, guid: f5e57722329a8824ca2cbb122ce7281b, type: 3}
   wonGames: {fileID: 0}
   lostGames: {fileID: 0}
@@ -66,7 +67,6 @@ MonoBehaviour:
   tiesGamesText: {fileID: 0}
   pointsNextLevel: {fileID: 0}
   PlayerNameStats: {fileID: 0}
-  connection: {fileID: 0}
   pieGraph: {fileID: 0}
   barGraph: {fileID: 0}
   panelInputPlayerName: {fileID: 0}
