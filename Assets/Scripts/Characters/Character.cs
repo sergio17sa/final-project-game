@@ -7,6 +7,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public CharacterAnimationController characterAnim;
+    public CharacterParticlesController characterParticles;
     public CharacterStadistics characterstats;
     public float currentLife;
 
@@ -75,6 +76,7 @@ public class Character : MonoBehaviour
     //Funcion para Curarse
     public void GetHealing(float healing)
     {
+        characterParticles.CallStartParticle(3, false); 
         currentLife += healing;
         characterAnim.SetHealing();
 
@@ -87,6 +89,7 @@ public class Character : MonoBehaviour
     //Funcion para Atacar
     public void GetAttack()
     {
+        characterParticles.CallStartParticle(2, false);
         characterAnim.SetAttack();
     }
     

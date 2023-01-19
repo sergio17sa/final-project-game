@@ -94,7 +94,23 @@ public class NetworkPlayer : NetworkBehaviour
         }
     }
 
+<<<<<<< Updated upstream
     void test()
+=======
+    private void OnPlayerDisconnected()
+    {
+        
+    }
+
+    public void OnClientDisconnectCallback(ulong playerID)
+    {
+        if(IsServer){
+            Debug.Log($"se desconecto {OwnerClientId} el cliente");
+        }
+    }
+
+    public void test()
+>>>>>>> Stashed changes
     {
         Debug.Log("ENTRA");
         int randomId = Random.Range(0, 99);

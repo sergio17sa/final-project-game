@@ -12,9 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83413eda54c5fa4fb89960c761caf62, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
   playerName: moscow17
   points: 1920
   victories: 4
+=======
+  playerName: 
+  points: 0
+  victories: 0
+  losses: 0
+  ties: 0
+  matches: 0
+  victoriesPercent: 0
+  lossesPercent: 0
+  tiesPercent: 0
+  pointToNetxLevel: 602
+  PointsPerMatch: 0
+>>>>>>> Stashed changes
   levels:
   - Begginer
   - Advanced
@@ -24,3 +38,17 @@ MonoBehaviour:
   - Advanced
   - Expert
   - Master
+<<<<<<< Updated upstream
+=======
+  lastTenMatches:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+>>>>>>> Stashed changes

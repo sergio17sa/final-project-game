@@ -8,7 +8,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Boot.unity
     guid: 2dcd9d045d59ab744bc20f767072587f
+<<<<<<< Updated upstream
   - enabled: 0
+=======
+  - enabled: 1
+    path: Assets/Scenes/Game 1.unity
+    guid: 6a1642dd82eeb55469be74702e059ed6
+  - enabled: 1
+>>>>>>> Stashed changes
     path: Assets/Scenes/Game.unity
     guid: 64d25eb36e1e6574bb62d248c2c5232a
   - enabled: 0
