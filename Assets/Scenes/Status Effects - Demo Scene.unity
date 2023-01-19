@@ -315,67 +315,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41523700}
   m_CullTransparentMesh: 1
---- !u!1001 &44407995
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1350305269323967170, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_Name
-      value: TurretRobotsAttackParticle
-      objectReference: {fileID: 0}
-    - target: {fileID: 1350305269323967170, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
 --- !u!1 &53811219
 GameObject:
   m_ObjectHideFlags: 0
@@ -4116,63 +4055,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516105375}
   m_CullTransparentMesh: 0
---- !u!1001 &1536401662
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1350305269323967170, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_Name
-      value: SniperRobotsAttackParticle
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_RootOrder
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1380874071143536036, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2658226e68499374880270c0b3e24fe3, type: 3}
 --- !u!1 &1548541816
 GameObject:
   m_ObjectHideFlags: 0
@@ -6792,6 +6674,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 780003669715408139, guid: 2f77993eac95be84786eceb7d8ba3a2d, type: 3}
   m_PrefabInstance: {fileID: 5003009081990534050}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5198980285248962611
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6528885178963659279, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_Name
+      value: SniperRobotsAttackParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561644192309409129, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3ce04583f148ef146b0f12d8b8b3aac7, type: 3}
 --- !u!1001 &5440999202824256088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7102,6 +7041,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4f93c03e1799f94ab1652d9b72dee61, type: 3}
+--- !u!1001 &6831378576978587038
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5508133120949656551, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_Name
+      value: TurretRobotsAttackParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612671757181707393, guid: 4284f4ec5841a3946885b36692748712, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4284f4ec5841a3946885b36692748712, type: 3}
 --- !u!4 &6928541083493287046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1572651080627812713, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
