@@ -76,6 +76,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &779127514464200900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1791713007646525551}
+  m_Layer: 7
+  m_Name: Particles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1791713007646525551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779127514464200900}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3210606507608837975}
+  m_Father: {fileID: 6613024307811808053}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1102505815591890576
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +507,7 @@ GameObject:
   - component: {fileID: 6210816297640384903}
   - component: {fileID: 5528531074115360844}
   - component: {fileID: 6954040871255635023}
+  - component: {fileID: -558289079598963299}
   m_Layer: 7
   m_Name: Tank
   m_TagString: Untagged
@@ -500,6 +533,7 @@ Transform:
   - {fileID: 6618207131134096193}
   - {fileID: 2783576364739889459}
   - {fileID: 8054094153562892805}
+  - {fileID: 1791713007646525551}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -536,6 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterAnim: {fileID: 1779467125460976783}
+  characterParticles: {fileID: -558289079598963299}
   characterstats: {fileID: 11400000, guid: fb474de8c99836e42894a6a4c969854d, type: 2}
   currentLife: 0
   _team: 1
@@ -643,6 +678,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.616397, y: 12.007583, z: 7.89}
   m_Center: {x: 0.16900441, y: 6.232101, z: 0}
+--- !u!114 &-558289079598963299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6615823800167427085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc761756b6aac3544ade442a25239620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterEffects:
+  - {fileID: 798485050929169170}
+  - {fileID: 798485050929169170}
+  - {fileID: 798485050929169170}
+  - {fileID: 798485050929169170}
+  - {fileID: 798485050929169170}
+  - {fileID: 798485050929169170}
 --- !u!1 &6615873338777708681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2858,3 +2912,82 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 3451042549739806639}
+--- !u!1001 &3724653412187506688
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1791713007646525551}
+    m_Modifications:
+    - target: {fileID: 2209609124815927345, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_Name
+      value: TankRobotsAttackParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 9.623089
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 9.623089
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 9.623089
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+--- !u!198 &798485050929169170 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4081503053473499922, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+  m_PrefabInstance: {fileID: 3724653412187506688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3210606507608837975 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2251515113044903767, guid: 1402828398441dd4cb923ee2eaa4632a, type: 3}
+  m_PrefabInstance: {fileID: 3724653412187506688}
+  m_PrefabAsset: {fileID: 0}

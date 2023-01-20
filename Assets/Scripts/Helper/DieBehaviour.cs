@@ -4,19 +4,37 @@ using UnityEngine;
 
 public class DieBehaviour : StateMachineBehaviour
 {
+    bool isCountDown;
+    float countDown;
+   
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        isCountDown = false;
+        countDown = 5f;
+    }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Die") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
-            animator.enabled = false;
-            Destroy(animator.gameObject);
+            isCountDown = true;
+
+            if (countDown <= 0)
+            {
+                animator.enabled = false;
+                Destroy(animator.gameObject);
+            }
+        }
+
+
+        if (isCountDown)
+        {
+            if (countDown >= 0)
+            {
+                countDown--;
+            }
         }
     }
 

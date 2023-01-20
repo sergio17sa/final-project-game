@@ -30,12 +30,14 @@ public class CharacterAnimationController : MonoBehaviour
         if (life <= 0)
         {
             SoundManager.Instance?.PlayNewSound(soundsCharacter[3].name);
+            brain.characterParticles.CallStartParticle(5, false);
             anim.SetBool("Die", true);
 
         }
         else
         {
             SoundManager.Instance?.PlayNewSound(soundsCharacter[0].name);
+            brain.characterParticles.CallStartParticle(4, false);
             index = RandomIndex(brain.characterstats.maxDamageIndex);
             anim.SetInteger("Index", index);
             Debug.Log(index + " " + gameObject.name);
@@ -53,17 +55,11 @@ public class CharacterAnimationController : MonoBehaviour
    
     public void SetHealing()
     {
-        switch (brain.characterstats.characterType)
+        SoundManager.Instance?.PlayNewSound(soundsCharacter[2].name);
+        
+        if (brain.characterstats.characterType == CharacterType.MEDIEVAL)
         {
-            case CharacterType.MEDIEVAL:
-
-                SoundManager.Instance?.PlayNewSound(soundsCharacter[2].name);
-                anim.SetTrigger("Healing");
-                break;
-
-            case CharacterType.FUTURE:
-                break;
-
+            anim.SetTrigger("Healing");
         }
     }
 
