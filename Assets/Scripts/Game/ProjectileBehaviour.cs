@@ -14,7 +14,7 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (!_canShoot && _targetPosition != null) return;
 
-        transform.rotation = Quaternion.Euler(90, 0, 0);
+
 
         Vector3 moveDirection = (_targetPosition - transform.position).normalized;
 
@@ -23,7 +23,9 @@ public class ProjectileBehaviour : MonoBehaviour
         float distanceBeforeMoving = Vector3.Distance(transform.position, _targetPosition);
 
         float moveSpeed = 20f;
+        
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.Euler(90, 0, 0);
 
         float distanceAfterMoving = Vector3.Distance(transform.position, _targetPosition);
 

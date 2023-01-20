@@ -4228,6 +4228,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CyberDamage
       objectReference: {fileID: 0}
+    - target: {fileID: 5659291355382750488, guid: 57c8aece8a164564baf21197e56c15da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5659291355382750491, guid: 57c8aece8a164564baf21197e56c15da, type: 3}
       propertyPath: m_RootOrder
       value: 4

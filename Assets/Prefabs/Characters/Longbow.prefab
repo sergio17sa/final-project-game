@@ -5733,6 +5733,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MedievalVortex_Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 8093726059914938112, guid: 92e5493356a4ff443818121c0428c9f3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92e5493356a4ff443818121c0428c9f3, type: 3}
 --- !u!198 &1609545841363556613 stripped

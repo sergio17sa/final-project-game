@@ -221,7 +221,9 @@ public class RangeAttackAction : BaseAction
         _projectile.SetParent(_spawnProjectilePosition);
         _projectile.localPosition = new Vector3(0, 0, 0);
         _projectile.gameObject.SetActive(false);
-        Instantiate(projectileHitEffect, _targetCharacter.gameObject.transform.position, Quaternion.identity);
+        
+        Vector3 spawnPosition = new Vector3(_targetCharacter.gameObject.transform.position.x, _targetCharacter.gameObject.transform.position.y + 2.5f, _targetCharacter.gameObject.transform.position.z);
+        Instantiate(projectileHitEffect, spawnPosition, Quaternion.identity);
     }
 
     public int GetAttackRange() => _maxAttackRange;

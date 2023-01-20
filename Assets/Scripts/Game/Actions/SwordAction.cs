@@ -68,7 +68,8 @@ public class SwordAction : BaseAction
     {
         //Trigger animation
         _character.GetAttack();
-        Instantiate(projectileHitEffect, _targetCharacter.gameObject.transform.position, Quaternion.identity);
+        Vector3 spawnPosition = new Vector3(_targetCharacter.gameObject.transform.position.x, _targetCharacter.gameObject.transform.position.y + 2, _targetCharacter.gameObject.transform.position.z);
+        Instantiate(projectileHitEffect, spawnPosition , Quaternion.identity);
         _canAtack = false;
     }
 
