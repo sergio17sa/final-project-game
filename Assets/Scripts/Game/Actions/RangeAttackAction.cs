@@ -11,6 +11,7 @@ public class RangeAttackAction : BaseAction
     [SerializeField] private LayerMask obstaclesLayerMask;
     [SerializeField] private Transform _projectilePrefab;
     [SerializeField] private Transform _spawnProjectilePosition;
+    [SerializeField] private GameObject projectileHitEffect;
 
     private Character _targetCharacter;
     private Transform _projectile;
@@ -217,10 +218,10 @@ public class RangeAttackAction : BaseAction
     private void ProjectileBehaviour_OnReachTarget(object sender, EventArgs e)
     {
         _targetCharacter.GetDamage(50);
-
         _projectile.SetParent(_spawnProjectilePosition);
         _projectile.localPosition = new Vector3(0, 0, 0);
         _projectile.gameObject.SetActive(false);
+        Instantiate(projectileHitEffect, _targetCharacter.gameObject.transform.position, Quaternion.identity);
     }
 
     public int GetAttackRange() => _maxAttackRange;

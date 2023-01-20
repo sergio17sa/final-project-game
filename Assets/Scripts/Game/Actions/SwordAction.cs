@@ -6,6 +6,7 @@ using UnityEngine;
 public class SwordAction : BaseAction
 {
 
+    [SerializeField] GameObject projectileHitEffect;
     [SerializeField] private int _maxSwordDistance = 1;
     private Character _targetCharacter;
 
@@ -48,7 +49,7 @@ public class SwordAction : BaseAction
                 if (_stateTimer <= 0) TransitionToRestState();
                 break;
             case State.Rest:
-                _targetCharacter.GetDamage(50);
+                _targetCharacter.GetDamage(GetComponent<Character>().characterstats.powerAttack);
                 ActionComplete(this);
                 if (_stateTimer <= 0) ActionComplete(this);
                 break;
@@ -67,6 +68,7 @@ public class SwordAction : BaseAction
     {
         //Trigger animation
         _character.GetAttack();
+        Instantiate(projectileHitEffect, _targetCharacter.gameObject.transform.position, Quaternion.identity);
         _canAtack = false;
     }
 

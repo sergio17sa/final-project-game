@@ -83,7 +83,7 @@ public class Character : MonoBehaviour
     public void GetHealing(float healing)
     {
         currentLife += healing;
-        characterParticles.CallStartParticle(3, false);
+        characterParticles.StartParticle(3);
         characterAnim.SetHealing();
         OnHeal?.Invoke(this, EventArgs.Empty);
 
@@ -96,7 +96,7 @@ public class Character : MonoBehaviour
     //Funcion para Atacar
     public void GetAttack()
     {
-        characterParticles.CallStartParticle(2, false);
+        characterParticles.StartParticle(2);
         characterAnim.SetAttack();
     }
 

@@ -6,12 +6,6 @@ using UnityEngine;
 public class CharacterSelectedVisual : MonoBehaviour
 {
     [SerializeField] private Character _character;
-    private MeshRenderer _meshRenderer;
-
-    private void Awake() 
-    {
-        _meshRenderer = GetComponent<MeshRenderer>();
-    }
 
      private void Start()
     {
@@ -29,17 +23,17 @@ public class CharacterSelectedVisual : MonoBehaviour
     {
         if (CharacterActionManager.Instance.GetSelectedCharacter() == _character)
         {
-            _meshRenderer.enabled = true;
+            _character.characterParticles.StartParticle(1);
         }
         else
         {
-            _meshRenderer.enabled = false;
+            _character.characterParticles.StopParticle(1);
         }
     }
 
     private void TurnSystemManager_OnTurnChanged(object sender, EventArgs eventArgs)
     {
-        _meshRenderer.enabled = false;
+        _character.characterParticles.StopParticle(1);
     }
 
     private  void OnDisable()

@@ -17,7 +17,7 @@ public class HealAction : BaseAction
 
     private void HealCharacter()
     {
-        _character.GetHealing(20);
+        _character.GetHealing(_character.characterstats.healing);
         _character.IsHealing = true;
         ActionComplete(this);
     }

@@ -8,35 +8,16 @@ public class CharacterParticlesController : MonoBehaviour
     List <ParticleSystem> characterEffects = new List<ParticleSystem>();
     int lastParticle;
 
-    public void CallStartParticle(int index, bool isLooping)
-    {
-        lastParticle = index;
-
-        if (isLooping)
-        {
-            StartParticleLooping();
-        }
-        else
-        {
-            StartParticle();
-        }
-    }
-
-    public void StopParticleLooping(int index)
+    public void StopParticle(int index)
     {
         lastParticle = index;
         characterEffects[lastParticle].Stop();
         characterEffects[lastParticle].gameObject.SetActive(false);
     }
-
-    void StartParticleLooping()
+   
+    public  void StartParticle(int index)
     {
-        characterEffects [lastParticle].gameObject.SetActive(true);
-        characterEffects[lastParticle].Play();
-    }
-
-    void StartParticle()
-    {
+        lastParticle = index;
         characterEffects[lastParticle].gameObject.SetActive(true);
         characterEffects[lastParticle].Play();
     }

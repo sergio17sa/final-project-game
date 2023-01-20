@@ -30,14 +30,14 @@ public class CharacterAnimationController : MonoBehaviour
         if (life <= 0)
         {
             SoundManager.Instance?.PlayNewSound(soundsCharacter[3].name);
-            brain.characterParticles.CallStartParticle(5, false);
+            brain.characterParticles.StartParticle(5);
             anim.SetBool("Die", true);
 
         }
         else
         {
             SoundManager.Instance?.PlayNewSound(soundsCharacter[0].name);
-            brain.characterParticles.CallStartParticle(4, false);
+            brain.characterParticles.StartParticle(4);
             index = RandomIndex(brain.characterstats.maxDamageIndex);
             anim.SetInteger("Index", index);
             Debug.Log(index + " " + gameObject.name);
