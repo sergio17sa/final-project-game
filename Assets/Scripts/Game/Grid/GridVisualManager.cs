@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class GridVisualManager : Singleton<GridVisualManager>
+public class GridVisualManager : NetworkSingleton<GridVisualManager>
 {
     [SerializeField] private Transform gridTileVisual;
     private TileVisual[,] _tileVisualArray;
@@ -24,20 +25,27 @@ public class GridVisualManager : Singleton<GridVisualManager>
 
     [SerializeField] private List<TileTypeMaterial> tileTypeMaterials;
 
+    private bool canSpawn = true;
+
     private void Start()
     {
+        NetworkManager.Singleton.OnServerStarted += () =>
+        {
+            CreateVisualTiles();
+        };
+        
 
-        CreateVisualTiles();
-
-        CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
-        TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
+        //CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
+        //TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
         GridManager.Instance.OnCharacterMove += GridManager_OnCharacterMove;
-
-        UpdateTileVisual();
+        //UpdateTileVisual();
     }
 
     private void CreateVisualTiles()
     {
+        if (!IsServer) return;
+        //if (!canSpawn) return;
+
         _tileVisualArray = new TileVisual[
             GridManager.Instance.GetWidth(),
             GridManager.Instance.GetHeight()
@@ -53,6 +61,7 @@ public class GridVisualManager : Singleton<GridVisualManager>
                     GridManager.Instance.GetWorldPosition(tilePosition),
                     Quaternion.identity
                     );
+                gridSystenVisualSingleTransform.GetComponent<NetworkObject>().Spawn();
                 _tileVisualArray[x, z] = gridSystenVisualSingleTransform.GetComponent<TileVisual>();
             }
         }

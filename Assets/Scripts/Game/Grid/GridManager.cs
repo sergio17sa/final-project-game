@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class GridManager : Singleton<GridManager>
+public class GridManager : MonoBehaviour
 {
+    public static GridManager Instance;
+
     [SerializeField] private Transform _tileDebug;
 
     [Header("Setup size of the Grid and Tiles")]
@@ -16,9 +19,15 @@ public class GridManager : Singleton<GridManager>
 
     public event EventHandler OnCharacterMove;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        if(Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
 
         _gridSystem = new GridSystem<Tile>(_gridWidth, _gridHeight, _cellSize,
                 (GridSystem<Tile> tile, TilePosition tilePosition) => new Tile(tile, tilePosition)
@@ -29,7 +38,7 @@ public class GridManager : Singleton<GridManager>
 
     private void Start()
     {
-        SpawnManager.Instance.OnSpawnsFinished += SpawnManager_OnSpawnsFinished;
+        //SpawnManager.Instance.OnSpawnsFinished += SpawnManager_OnSpawnsFinished;
     }
 
     public void SetCharacterOnTile(TilePosition tilePosition, Character character)
@@ -74,6 +83,6 @@ public class GridManager : Singleton<GridManager>
     }
     private void SpawnManager_OnSpawnsFinished(object sender, EventArgs e)
     {
-        PathFinding.Instance.Setup(_gridWidth, _gridHeight, _cellSize);
+        //PathFinding.Instance.Setup(_gridWidth, _gridHeight, _cellSize);
     }
 }

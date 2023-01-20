@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SpawnManager : Singleton<SpawnManager>
+
+public class SpawnManager : NetworkSingleton<SpawnManager>
 {
     [SerializeField] private List<GameObject> _medievalTeam;
     [SerializeField] private List<GameObject> _futureTeam;
@@ -20,32 +22,54 @@ public class SpawnManager : Singleton<SpawnManager>
     public event EventHandler OnGameFinished;
     public event EventHandler OnSpawnsFinished;
 
-    private int numberOfObstacles = 15;
+    private int numberOfObstacles = 2;
     private int numberOfProps = 80;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _spawnedMedievalTeam = new List<GameObject>();
         _spawnedFutureTeam = new List<GameObject>();
     }
 
+    private bool canSpawn = true;
+
     private void Start()
     {
-        Character.OnDead += Character_OnDead;
+        //Character.OnDead += Character_OnDead;
 
-        SpawnObstacles();
+        //SpawnObstacles();
 
-        SpawnProps();
+        //SpawnProps();
 
-        TeamsSpawn();
+        //TeamsSpawn();
 
-        OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
+        //OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKey(KeyCode.G) && canSpawn)
+        {
+            SpawnObstacles();
+        }
+    }
+
+    public void SpawnObjects()
+    {
+        if (!IsServer) return;
+
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject go = Instantiate(_obstacles[0], 
+                new Vector3(UnityEngine.Random.Range(-10, 10), 10.0f, UnityEngine.Random.Range(-10, 10)), Quaternion.identity);
+
+            go.GetComponent<NetworkObject>().Spawn();
+        }
     }
 
 
     //Refactor later
-    private List<Vector3> ValidTiles(int minZ, int maxZ)
+    public List<Vector3> ValidTiles(int minZ, int maxZ)
     {
         List<Vector3> validTilePositions = new List<Vector3>();
 
@@ -81,8 +105,11 @@ public class SpawnManager : Singleton<SpawnManager>
     }
 
 
-    private void SpawnObstacles()
+    public void SpawnObstacles()
     {
+
+        if (!IsServer) return;
+
         List<Vector3> validList = ValidTiles(0, 10);
 
         for (int i = 0; i <= numberOfObstacles; i++)
@@ -91,10 +118,13 @@ public class SpawnManager : Singleton<SpawnManager>
 
             int randomIndex = UnityEngine.Random.Range(0, _obstacles.Count);
 
-            Instantiate(_obstacles[randomIndex], tilePosition, Quaternion.identity);
+            GameObject g = Instantiate(_obstacles[randomIndex], tilePosition, Quaternion.identity);
+            g.GetComponent<NetworkObject>().Spawn();
 
             validList.Remove(tilePosition);
         }
+
+        canSpawn = false;
     }
 
     private void SpawnProps()
