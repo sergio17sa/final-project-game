@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -22,7 +21,7 @@ public class SpawnManager : NetworkSingleton<SpawnManager>
     public event EventHandler OnGameFinished;
     public event EventHandler OnSpawnsFinished;
 
-    private int numberOfObstacles = 2;
+    private int numberOfObstacles = 15;
     private int numberOfProps = 80;
 
     private void Awake()
@@ -35,38 +34,12 @@ public class SpawnManager : NetworkSingleton<SpawnManager>
 
     private void Start()
     {
-        //Character.OnDead += Character_OnDead;
+        Character.OnDead += Character_OnDead;
 
-        //SpawnObstacles();
+        NetworkManager.Singleton.OnServerStarted += NetworkManager_OnServerStarted;
 
-        //SpawnProps();
-
-        //TeamsSpawn();
-
-        //OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
+        OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
     }
-
-    private void Update()
-    {
-        if(Input.GetKey(KeyCode.G) && canSpawn)
-        {
-            SpawnObstacles();
-        }
-    }
-
-    public void SpawnObjects()
-    {
-        if (!IsServer) return;
-
-        for (int i = 0; i < 2; i++)
-        {
-            GameObject go = Instantiate(_obstacles[0], 
-                new Vector3(UnityEngine.Random.Range(-10, 10), 10.0f, UnityEngine.Random.Range(-10, 10)), Quaternion.identity);
-
-            go.GetComponent<NetworkObject>().Spawn();
-        }
-    }
-
 
     //Refactor later
     public List<Vector3> ValidTiles(int minZ, int maxZ)
@@ -103,7 +76,6 @@ public class SpawnManager : NetworkSingleton<SpawnManager>
 
         return validTilePositions;
     }
-
 
     public void SpawnObstacles()
     {
@@ -164,6 +136,12 @@ public class SpawnManager : NetworkSingleton<SpawnManager>
             _spawnedFutureTeam.Add(newCharacter);
             validFutureTiles.Remove(tilePosition);
         }
+    }
+
+    private void NetworkManager_OnServerStarted()
+    {
+        SpawnObstacles();
+        SpawnProps();
     }
 
     private void Character_OnDead(object sender, EventArgs e)
