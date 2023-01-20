@@ -37,8 +37,6 @@ public class SpawnManager : NetworkSingleton<SpawnManager>
         Character.OnDead += Character_OnDead;
 
         NetworkManager.Singleton.OnServerStarted += NetworkManager_OnServerStarted;
-
-        OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
     }
 
     //Refactor later
@@ -109,7 +107,8 @@ public class SpawnManager : NetworkSingleton<SpawnManager>
 
             int randomIndex = UnityEngine.Random.Range(0, _props.Count);
 
-            Instantiate(_props[randomIndex], tilePosition, Quaternion.identity);
+            GameObject newProp = Instantiate(_props[randomIndex], tilePosition, Quaternion.identity);
+            newProp.GetComponent<NetworkObject>().Spawn();
         }
     }
 
@@ -124,6 +123,8 @@ public class SpawnManager : NetworkSingleton<SpawnManager>
 
             GameObject newCharacter = Instantiate(medievalCharacter, tilePosition, Quaternion.identity);
 
+            newCharacter.GetComponent<NetworkObject>().Spawn();
+
             _spawnedMedievalTeam.Add(newCharacter);
             validMedievalTiles.Remove(tilePosition);
         }
@@ -132,6 +133,8 @@ public class SpawnManager : NetworkSingleton<SpawnManager>
         {
             Vector3 tilePosition = validFutureTiles[UnityEngine.Random.Range(0, validFutureTiles.Count - 1)];
             GameObject newCharacter = Instantiate(futureCharacter, tilePosition, futureCharacter.transform.rotation);
+
+            newCharacter.GetComponent<NetworkObject>().Spawn();
 
             _spawnedFutureTeam.Add(newCharacter);
             validFutureTiles.Remove(tilePosition);
@@ -142,6 +145,9 @@ public class SpawnManager : NetworkSingleton<SpawnManager>
     {
         SpawnObstacles();
         SpawnProps();
+        TeamsSpawn();
+
+        OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
     }
 
     private void Character_OnDead(object sender, EventArgs e)

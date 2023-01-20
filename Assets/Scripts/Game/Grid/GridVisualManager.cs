@@ -65,6 +65,7 @@ public class GridVisualManager : NetworkSingleton<GridVisualManager>
     }
     public void HideAllTilePositions()
     {
+        if (!IsServer) return;
         for (int x = 0; x < _tileVisualArray.GetLength(0); x++)
         {
             for (int z = 0; z < _tileVisualArray.GetLength(1); z++)
