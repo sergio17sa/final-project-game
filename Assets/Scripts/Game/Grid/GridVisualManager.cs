@@ -25,8 +25,6 @@ public class GridVisualManager : NetworkSingleton<GridVisualManager>
 
     [SerializeField] private List<TileTypeMaterial> tileTypeMaterials;
 
-    private bool canSpawn = true;
-
     private void Start()
     {
         NetworkManager.Singleton.OnServerStarted += () =>
@@ -34,17 +32,16 @@ public class GridVisualManager : NetworkSingleton<GridVisualManager>
             CreateVisualTiles();
         };
         
-
-        //CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
-        //TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
+        CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
+        TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
         GridManager.Instance.OnCharacterMove += GridManager_OnCharacterMove;
-        //UpdateTileVisual();
+
+        // UpdateTileVisual();
     }
 
     private void CreateVisualTiles()
     {
         if (!IsServer) return;
-        //if (!canSpawn) return;
 
         _tileVisualArray = new TileVisual[
             GridManager.Instance.GetWidth(),

@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class GridManager : MonoBehaviour
+public class GridManager : Singleton<GridManager>
 {
-    public static GridManager Instance;
-
     [SerializeField] private Transform _tileDebug;
 
     [Header("Setup size of the Grid and Tiles")]
@@ -19,15 +17,9 @@ public class GridManager : MonoBehaviour
 
     public event EventHandler OnCharacterMove;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if(Instance != null)
-        {
-            Destroy(this);
-            return;
-        }
-
-        Instance = this;
+        base.Awake();
 
         _gridSystem = new GridSystem<Tile>(_gridWidth, _gridHeight, _cellSize,
                 (GridSystem<Tile> tile, TilePosition tilePosition) => new Tile(tile, tilePosition)
