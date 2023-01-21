@@ -30,7 +30,8 @@ public class GridManager : Singleton<GridManager>
 
     private void Start()
     {
-        SpawnManager.Instance.OnSpawnsFinished += SpawnManager_OnSpawnsFinished;
+        //SpawnManager.Instance.OnSpawnsFinished += SpawnManager_OnSpawnsFinished;
+        GridVisualManager.Instance.OnSpawnsFinished += SpawnManager_OnSpawnsFinished;
     }
 
     public void SetCharacterOnTile(TilePosition tilePosition, Character character)
@@ -75,6 +76,7 @@ public class GridManager : Singleton<GridManager>
     }
     private void SpawnManager_OnSpawnsFinished(object sender, EventArgs e)
     {
+        Debug.Log("Pathfinding creado");
         PathFinding.Instance.Setup(_gridWidth, _gridHeight, _cellSize);
     }
 }

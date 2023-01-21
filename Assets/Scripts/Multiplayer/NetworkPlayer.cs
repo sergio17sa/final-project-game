@@ -77,7 +77,7 @@ public class NetworkPlayer : NetworkBehaviour
         }
         else
         {
-            Debug.Log("esta vivo el server");
+            //Debug.Log("esta vivo el server");
         }
         Vector3 moveDir = new Vector3(0, 0, 0);
 

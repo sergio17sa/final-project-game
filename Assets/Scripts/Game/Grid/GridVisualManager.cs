@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class GridVisualManager : NetworkSingleton<GridVisualManager>
+public class GridVisualManager : Singleton<GridVisualManager>
 {
     [SerializeField] private Transform gridTileVisual;
     private TileVisual[,] _tileVisualArray;
+
+    public event EventHandler OnSpawnsFinished;
 
     [Serializable]
     public struct TileTypeMaterial
@@ -26,12 +28,7 @@ public class GridVisualManager : NetworkSingleton<GridVisualManager>
     [SerializeField] private List<TileTypeMaterial> tileTypeMaterials;
 
     private void Start()
-    {
-        NetworkManager.Singleton.OnServerStarted += () =>
-        {
-            CreateVisualTiles();
-        };
-        
+    { 
         CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
         TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
         GridManager.Instance.OnCharacterMove += GridManager_OnCharacterMove;
@@ -39,10 +36,17 @@ public class GridVisualManager : NetworkSingleton<GridVisualManager>
         // UpdateTileVisual();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            CreateVisualTiles();
+            OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     private void CreateVisualTiles()
     {
-        if (!IsServer) return;
-
         _tileVisualArray = new TileVisual[
             GridManager.Instance.GetWidth(),
             GridManager.Instance.GetHeight()
@@ -58,14 +62,13 @@ public class GridVisualManager : NetworkSingleton<GridVisualManager>
                     GridManager.Instance.GetWorldPosition(tilePosition),
                     Quaternion.identity
                     );
-                gridSystenVisualSingleTransform.GetComponent<NetworkObject>().Spawn();
+                
                 _tileVisualArray[x, z] = gridSystenVisualSingleTransform.GetComponent<TileVisual>();
             }
         }
     }
     public void HideAllTilePositions()
     {
-        if (!IsServer) return;
         for (int x = 0; x < _tileVisualArray.GetLength(0); x++)
         {
             for (int z = 0; z < _tileVisualArray.GetLength(1); z++)

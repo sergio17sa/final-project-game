@@ -147,7 +147,7 @@ public class SpawnManager : NetworkSingleton<SpawnManager>
         SpawnProps();
         TeamsSpawn();
 
-        OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
+        //OnSpawnsFinished?.Invoke(this, EventArgs.Empty);
     }
 
     private void Character_OnDead(object sender, EventArgs e)
