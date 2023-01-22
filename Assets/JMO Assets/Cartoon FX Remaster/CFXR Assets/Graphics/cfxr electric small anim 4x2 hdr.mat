@@ -94,7 +94,7 @@ Material:
     - _CFXR_DITHERED_SHADOWS: 0
     - _CFXR_OVERLAYBLEND: 0
     - _CFXR_OVERLAYTEX: 0
-    - _Cutoff: 0.5
+    - _Cutoff: 0.475
     - _DetailNormalMapScale: 1
     - _DirLightScreenAtten: 1
     - _DirectLightingRamp: 1
