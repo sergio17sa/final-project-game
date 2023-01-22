@@ -6,6 +6,12 @@ using System.IO;
 
 public class BaseDataManager : Singleton<BaseDataManager>
 {
+    private void Awake()
+    {
+        base.Awake();
+        StatisticsManager.Instance.LoadPlayerData();
+    }
+
     public bool Load(string savePath, MonoBehaviour saveObject)
     {
         if (File.Exists(string.Concat(Application.persistentDataPath, savePath)))
@@ -34,11 +40,12 @@ public class BaseDataManager : Singleton<BaseDataManager>
             JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), saveObject);
             file.Close();
 
-            Debug.Log("load " + saveObject.name + saveObject.name + " " + Application.persistentDataPath);
+            Debug.Log("load " + saveObject.name + " " + Application.persistentDataPath);
             return true;
         }
         else
         {
+            StatisticsManager.Instance.isNewPlayer = true;
             return false;
         }
     }

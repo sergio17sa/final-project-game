@@ -7,6 +7,7 @@ using System;
 public class StatisticsManager : MonoBehaviour
 {
     public static StatisticsManager Instance;
+    public bool isNewPlayer;
     //[SerializeField] private PlayerStatsSave playerStatsSave;
     public PlayerStats stats;
     [SerializeField] private List<Character> characters;
@@ -35,7 +36,6 @@ public class StatisticsManager : MonoBehaviour
         loss = false;
         tie = false;
         kill = false;
-        LoadPlayerData();
         SetNullStats();
         levelRange();
     }

@@ -566,6 +566,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &803586003 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3884642329143793049, guid: 1b1b41b6b9b1c6c42a999c1bc7c247d1, type: 3}
+  m_PrefabInstance: {fileID: 1811671658793893300}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3183aa3aa484941b3a8a5e49c9b75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &887592266 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1137516535683775944, guid: 07a16f41808e73a4b99af9715c2dcd6f, type: 3}
@@ -1660,9 +1671,93 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1921702063}
     - target: {fileID: 1269864048, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269864048, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269864048, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1009612209}
+    - target: {fileID: 1269864048, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1009612209}
+    - target: {fileID: 1269864048, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269864048, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: LoadStadistics
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269864048, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269864048, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795505889, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 803586003}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 1009612209}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: LoadPlayerData
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: LoadStadistics
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: StatisticsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965092932, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 342913451861252197, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 

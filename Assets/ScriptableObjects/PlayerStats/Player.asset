@@ -12,19 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83413eda54c5fa4fb89960c761caf62, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  playerName: sergio123
-  points: 1190
-  victories: 2
+  playerName: 
+  points: 0
+  victories: 0
   losses: 0
-  ties: 1
-  matches: 3
-  victoriesPercent: 67
+  ties: 0
+  matches: 0
+  victoriesPercent: 0
   lossesPercent: 0
-  tiesPercent: 33
-  pointToNetxLevel: 1611
-  levels:
-  - Beginner
-  - Advanced
-  - Expert
-  - Master
-  lastTenMatches: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  tiesPercent: 0
+  pointToNetxLevel: 0
+  PointsPerMatch: 0
+  levels: []
+  lastTenMatches:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0

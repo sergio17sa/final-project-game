@@ -27,6 +27,10 @@ public class UIManager : Singleton<UIManager>
     private void Start()
     {
         HideInputPlayerName();
+    }
+
+    public void LoadStadistics()
+    {
         SetPercentBar();
         PieGraphMaker();
         StatisticsManager.Instance.levelRange();
@@ -92,6 +96,8 @@ public class UIManager : Singleton<UIManager>
             newWedge.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, zRotation));
             zRotation -= newWedge.fillAmount * 360;
         }
+
+        valuesPie.Clear();
     }
 
     public void SetTextStatistics()
