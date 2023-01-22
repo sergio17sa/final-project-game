@@ -44,6 +44,8 @@ public class ActionButtonUI : MonoBehaviour
     private void SetInteractable()
     {
         Character selectedCharacter = CharacterActionManager.Instance.GetSelectedCharacter();
+        if(selectedCharacter == null) return;
+
         if (selectedCharacter.ActionsTaken.Contains(_baseAction))
         {
             gameObject.GetComponent<Button>().interactable = false;

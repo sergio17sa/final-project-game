@@ -65,6 +65,7 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
         if (Input.GetMouseButtonDown(0))
         {
             if (!_selectedCharacter) return;
+            if (!_selectedAction) return;
 
             TilePosition mouseTilePosition = GridManager.Instance.GetTilePosition(MousePosition.GetPosition());
 
@@ -114,6 +115,8 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
 
     private void SetSelectedCharacter(Character character)
     {
+        if(character == null) return;
+
         _selectedCharacter = character;
         BaseAction action;
 
