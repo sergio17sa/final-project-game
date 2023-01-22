@@ -15,9 +15,6 @@ public class TurnSystemManager : Singleton<TurnSystemManager>
     private Team _teamTurn;
     public int TurnCounter { get; private set; } = 0;
     public GameObject camera1, camera2;
-
-    public bool camera;
-
     protected override void Awake()
     {
         base.Awake();
