@@ -1762,6 +1762,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1921702063}
+    - target: {fileID: 730309574571986033, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
+      propertyPath: m_text
+      value: "\nDeveloper Team:\n\nOscar Alarcon\n\nAndres lara \n\nSergio Salgado\n\nMusic
+        by: \r\n\nBenjamin Tissot"
+      objectReference: {fileID: 0}
     - target: {fileID: 3843495346311729801, guid: c89dcc983a958a84e8e6b77c906ea64a, type: 3}
       propertyPath: m_Name
       value: GameCanvas
