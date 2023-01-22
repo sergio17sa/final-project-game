@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnManager : Singleton<SpawnManager>
@@ -11,9 +10,8 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private List<GameObject> _obstacles;
     [SerializeField] private List<GameObject> _props;
 
-
-    private List<GameObject> _spawnedMedievalTeam;
-    private List<GameObject> _spawnedFutureTeam;
+    public List<GameObject> SpawnedMedievalTeam { get; private set; }
+    public List<GameObject> SpawnedFutureTeam { get; private set; }
 
     [SerializeField] LayerMask obstaclesLayerMask;
 
@@ -26,8 +24,8 @@ public class SpawnManager : Singleton<SpawnManager>
     protected override void Awake()
     {
         base.Awake();
-        _spawnedMedievalTeam = new List<GameObject>();
-        _spawnedFutureTeam = new List<GameObject>();
+        SpawnedMedievalTeam = new List<GameObject>();
+        SpawnedFutureTeam = new List<GameObject>();
     }
 
     private void Start()
@@ -122,7 +120,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
             GameObject newCharacter = Instantiate(medievalCharacter, tilePosition, Quaternion.identity);
 
-            _spawnedMedievalTeam.Add(newCharacter);
+            SpawnedMedievalTeam.Add(newCharacter);
             validMedievalTiles.Remove(tilePosition);
         }
 
@@ -130,8 +128,11 @@ public class SpawnManager : Singleton<SpawnManager>
         {
             Vector3 tilePosition = validFutureTiles[UnityEngine.Random.Range(0, validFutureTiles.Count - 1)];
             GameObject newCharacter = Instantiate(futureCharacter, tilePosition, futureCharacter.transform.rotation);
+            
+            newCharacter.tag = "EnemyAI";
+            newCharacter.AddComponent<EnemyAI>();
 
-            _spawnedFutureTeam.Add(newCharacter);
+            SpawnedFutureTeam.Add(newCharacter);
             validFutureTiles.Remove(tilePosition);
         }
     }
@@ -144,13 +145,13 @@ public class SpawnManager : Singleton<SpawnManager>
 
         if(character.GetCharacterTeam() == Team.Team1)
         {
-            _spawnedMedievalTeam.Remove(character.gameObject);
+            SpawnedMedievalTeam.Remove(character.gameObject);
         } else
         {
-            _spawnedFutureTeam.Remove(character.gameObject);
+            SpawnedFutureTeam.Remove(character.gameObject);
         }
 
-        if(_spawnedMedievalTeam.Count == 0 || _spawnedFutureTeam.Count == 0)
+        if(SpawnedMedievalTeam.Count == 0 || SpawnedFutureTeam.Count == 0)
         {
             Debug.Log("Game Finished");
             OnGameFinished?.Invoke(this, EventArgs.Empty);

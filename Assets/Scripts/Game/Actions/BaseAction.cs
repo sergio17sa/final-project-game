@@ -30,11 +30,6 @@ public abstract class BaseAction : NetworkBehaviour
 
     public abstract List<TilePosition> GetValidActionTiles();
 
-    public virtual int GetActionPoinsCost()
-    {
-        return 1;
-    }
-
     protected void ActionStart(Action onActionComplete)
     {
         _isActive = true;
@@ -50,4 +45,32 @@ public abstract class BaseAction : NetworkBehaviour
 
         OnActionPerformed?.Invoke(this, EventArgs.Empty);
     }
+
+    public EnemyAIAction GetBestAIAction()
+    {
+        List<EnemyAIAction> enemyAIActions= new List<EnemyAIAction>();
+
+        List<TilePosition> validActionTiles = GetValidActionTiles();
+
+        foreach (TilePosition tilePosition in validActionTiles)
+        {
+            EnemyAIAction enemyAIAction = GetEnemyAIAction(tilePosition);
+
+            enemyAIActions.Add(enemyAIAction);
+        }
+
+        if(enemyAIActions.Count > 0)
+        {
+            enemyAIActions.Sort((EnemyAIAction a, EnemyAIAction b) => b.actionValue - a.actionValue);
+
+            return enemyAIActions[0];
+        } 
+        else
+        {
+            return null;
+        }
+        
+    }
+
+    public abstract EnemyAIAction GetEnemyAIAction(TilePosition tilePosition); 
 }

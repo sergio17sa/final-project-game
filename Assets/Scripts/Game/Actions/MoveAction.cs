@@ -115,4 +115,28 @@ public class MoveAction : BaseAction
     {
         return "Move";
     }
+
+    public override EnemyAIAction GetEnemyAIAction(TilePosition tilePosition)
+    {
+
+        int targetCount = _character.GetAction<SwordAction>() ?
+            _character.GetAction<SwordAction>().GetTargetsAtPosition(tilePosition) :
+            _character.GetAction<RangeAttackAction>().GetTargetsAtPosition(tilePosition);
+
+        if(targetCount == 0)
+        {
+            TilePosition randomTileposition = GetValidActionTiles()[UnityEngine.Random.Range(0, GetValidActionTiles().Count)];
+            return new EnemyAIAction
+            {
+                tilePosition = randomTileposition,
+                actionValue = targetCount * 10
+            };
+        }
+
+        return new EnemyAIAction
+        {
+            tilePosition = tilePosition,
+            actionValue = targetCount * 10
+        };
+    }
 }

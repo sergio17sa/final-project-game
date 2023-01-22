@@ -35,4 +35,14 @@ public class HealAction : BaseAction
             unitTilePosition,
         };
     }
+
+    public override EnemyAIAction GetEnemyAIAction(TilePosition gridPosition)
+    {
+        return new EnemyAIAction
+        {
+            tilePosition = gridPosition,
+            actionValue = 0,
+        };
+    }
+
 }

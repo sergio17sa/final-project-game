@@ -140,10 +140,10 @@ public class RangeAttackAction : BaseAction
     public override List<TilePosition> GetValidActionTiles()
     {
         TilePosition characterTilePosition = _character.CharacterTilePosition;
-        return GetValidShootActionTiles(characterTilePosition);
+        return GetValidAttackTiles(characterTilePosition);
     }
 
-    public List<TilePosition> GetValidShootActionTiles(TilePosition characterTilePosition)
+    private List<TilePosition> GetValidAttackTiles(TilePosition characterTilePosition)
     {
         List<TilePosition> validTilePositions = new List<TilePosition>();
 
@@ -189,12 +189,12 @@ public class RangeAttackAction : BaseAction
                     validTilePositions.Add(testTilePosition);
                 }
 
-                if(_attackType == AttackType.Spell)
+                if (_attackType == AttackType.Spell)
                 {
                     if (testTilePosition.x == characterTilePosition.x || testTilePosition.z == characterTilePosition.z)
                     {
                         validTilePositions.Add(testTilePosition);
-                    }  
+                    }
                 }
             }
         }
@@ -221,7 +221,7 @@ public class RangeAttackAction : BaseAction
         _projectile.SetParent(_spawnProjectilePosition);
         _projectile.localPosition = new Vector3(0, 0, 0);
         _projectile.gameObject.SetActive(false);
-        
+
         Vector3 spawnPosition = new Vector3(_targetCharacter.gameObject.transform.position.x, _targetCharacter.gameObject.transform.position.y + 2.5f, _targetCharacter.gameObject.transform.position.z);
         Instantiate(projectileHitEffect, spawnPosition, Quaternion.identity);
     }
@@ -229,4 +229,17 @@ public class RangeAttackAction : BaseAction
     public int GetAttackRange() => _maxAttackRange;
     public AttackType GetAttackType() => _attackType;
 
+    public int GetTargetsAtPosition(TilePosition tilePosition)
+    {
+        return GetValidAttackTiles(tilePosition).Count;
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(TilePosition tilePosition)
+    {
+        return new EnemyAIAction
+        {
+            tilePosition = tilePosition,
+            actionValue = 100,
+        };
+    }
 }

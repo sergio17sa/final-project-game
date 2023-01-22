@@ -91,16 +91,20 @@ public class SwordAction : BaseAction
 
     public override List<TilePosition> GetValidActionTiles()
     {
-        List<TilePosition> validGridPositionList = new List<TilePosition>();
+        TilePosition characterTilePosition = _character.CharacterTilePosition;
+        return GetValidAttackTiles(characterTilePosition);
+    }
 
-        TilePosition unitGridPosition = _character.CharacterTilePosition;
+    private List<TilePosition> GetValidAttackTiles(TilePosition characterTilePosition)
+    {
+        List<TilePosition> validGridPositionList = new List<TilePosition>();
 
         for (int x = -_maxSwordDistance; x <= _maxSwordDistance; x++)
         {
             for (int z = -_maxSwordDistance; z <= _maxSwordDistance; z++)
             {
                 TilePosition offsetGridPosition = new TilePosition(x, z);
-                TilePosition testGridPosition = unitGridPosition + offsetGridPosition;
+                TilePosition testGridPosition = characterTilePosition + offsetGridPosition;
 
                 if (!GridManager.Instance.IsValidTilePosition(testGridPosition)) continue;
 
@@ -131,4 +135,19 @@ public class SwordAction : BaseAction
     }
 
     public int GetSwordRange() => _maxSwordDistance;
+
+    public int GetTargetsAtPosition(TilePosition tilePosition)
+    {
+        return GetValidAttackTiles(tilePosition).Count;
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(TilePosition tilePosition)
+    {
+        return new EnemyAIAction
+        {
+            tilePosition = tilePosition,
+            actionValue = 100,
+        };
+    }
+
 }
