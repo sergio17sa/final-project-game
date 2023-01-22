@@ -2750,6 +2750,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 927317114, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: _isAIGame
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 927317114, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
       propertyPath: _props.Array.size
       value: 2
       objectReference: {fileID: 0}

@@ -10,6 +10,8 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private List<GameObject> _obstacles;
     [SerializeField] private List<GameObject> _props;
 
+    [SerializeField] private bool _isAIGame = false;
+
     public List<GameObject> SpawnedMedievalTeam { get; private set; }
     public List<GameObject> SpawnedFutureTeam { get; private set; }
 
@@ -128,9 +130,13 @@ public class SpawnManager : Singleton<SpawnManager>
         {
             Vector3 tilePosition = validFutureTiles[UnityEngine.Random.Range(0, validFutureTiles.Count - 1)];
             GameObject newCharacter = Instantiate(futureCharacter, tilePosition, futureCharacter.transform.rotation);
-            
-            newCharacter.tag = "EnemyAI";
-            newCharacter.AddComponent<EnemyAI>();
+
+            if (_isAIGame)
+            {
+                newCharacter.tag = "EnemyAI";
+                newCharacter.AddComponent<EnemyAI>();
+            }
+
 
             SpawnedFutureTeam.Add(newCharacter);
             validFutureTiles.Remove(tilePosition);
@@ -139,19 +145,20 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void Character_OnDead(object sender, EventArgs e)
     {
-        Character character= (Character)sender;
+        Character character = (Character)sender;
 
         GridManager.Instance.ClearCharacterAtTilePosition(character.CharacterTilePosition);
 
-        if(character.GetCharacterTeam() == Team.Team1)
+        if (character.GetCharacterTeam() == Team.Team1)
         {
             SpawnedMedievalTeam.Remove(character.gameObject);
-        } else
+        }
+        else
         {
             SpawnedFutureTeam.Remove(character.gameObject);
         }
 
-        if(SpawnedMedievalTeam.Count == 0 || SpawnedFutureTeam.Count == 0)
+        if (SpawnedMedievalTeam.Count == 0 || SpawnedFutureTeam.Count == 0)
         {
             Debug.Log("Game Finished");
             OnGameFinished?.Invoke(this, EventArgs.Empty);
