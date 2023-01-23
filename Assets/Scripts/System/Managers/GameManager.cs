@@ -22,7 +22,7 @@ public abstract class GameManager : Singleton<GameManager>
     public static GameMode gameMode;
 
 
-    protected void Start()
+    protected virtual void Start()
     {
         StartCoroutine(StartGame());
 
@@ -73,39 +73,13 @@ public abstract class GameManager : Singleton<GameManager>
     
     public void Kill () => StatisticsManager.Instance.ToggleKill();
 
-    public void Loss () => StatisticsManager.Instance.ToggleLoss(); 
+    public void Loss () => StatisticsManager.Instance.ToggleLoss();
 
-    private void Character_OnDead(object sender, EventArgs e)
+    protected abstract void Character_OnDead(object sender, EventArgs e);
+
+    private void OnDisable()
     {
-        Character character = (Character)sender;
-
-        GridManager.Instance.ClearCharacterAtTilePosition(character.CharacterTilePosition);
-
-        if (character.GetCharacterTeam() == Team.Team1)
-        {
-            _spawnManager.SpawnedMedievalTeam.Remove(character.gameObject);
-        }
-        else
-        {
-            _spawnManager.SpawnedFutureTeam.Remove(character.gameObject);
-            Kill();
-        }
-
-        if (_spawnManager.SpawnedMedievalTeam.Count == 0 || _spawnManager.SpawnedFutureTeam.Count == 0)
-        {
-            //EndMatch();
-            
-            if (_spawnManager.SpawnedMedievalTeam.Count > 0) 
-            {
-                Victory();
-                Debug.Log("Medieval team wins");
-            }
-
-            if (_spawnManager.SpawnedFutureTeam.Count > 0)
-            {
-                Loss();
-                Debug.Log("Future team wins");
-            }
-        }
+        Character.OnDead -= Character_OnDead;
+        ScenesManager.Instance.RestartMainMenu();
     }
 }

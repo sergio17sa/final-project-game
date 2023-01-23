@@ -23,7 +23,6 @@ public class GameManagerMultiplayerLocal : GameManager
         yield return null;
     }
 
-
     private void OnDisable()
     {
         TurnSystemManager.Instance.OnTurnChanged -= ToggleCamera;
@@ -41,6 +40,11 @@ public class GameManagerMultiplayerLocal : GameManager
             camera1.SetActive(false);
             camera2.SetActive(true);
         }
+    }
+
+    protected override void Character_OnDead(object sender, EventArgs e)
+    {
+        throw new NotImplementedException();
     }
 
 }
