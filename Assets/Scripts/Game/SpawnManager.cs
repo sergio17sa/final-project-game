@@ -10,17 +10,12 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private List<GameObject> _obstacles;
     [SerializeField] private List<GameObject> _props;
 
-    [SerializeField] private bool _isAIGame = false;
-
     public List<GameObject> SpawnedMedievalTeam { get; set; }
     public List<GameObject> SpawnedFutureTeam { get; set; }
 
     [SerializeField] LayerMask obstaclesLayerMask;
 
     public event EventHandler OnSpawnsFinished;
-    public static event EventHandler OnVictory;
-    public static event EventHandler OnKill;
-    public static event EventHandler OnLoss;
 
     private int numberOfObstacles = 15;
     private int numberOfProps = 80;
@@ -31,7 +26,6 @@ public class SpawnManager : Singleton<SpawnManager>
         SpawnedMedievalTeam = new List<GameObject>();
         SpawnedFutureTeam = new List<GameObject>();
     }
-
 
     private void Start()
     {
@@ -131,8 +125,6 @@ public class SpawnManager : Singleton<SpawnManager>
         {
             Vector3 tilePosition = validFutureTiles[UnityEngine.Random.Range(0, validFutureTiles.Count - 1)];
             GameObject newCharacter = Instantiate(futureCharacter, tilePosition, futureCharacter.transform.rotation);
-
-            Debug.Log($"{GameManager.gameMode}");
 
             if (GameManager.gameMode == GameManager.GameMode.IAMode)
             {
