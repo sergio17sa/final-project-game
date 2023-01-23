@@ -18,9 +18,6 @@ public abstract class GameManager : Singleton<GameManager>
     protected void Start()
     {
         StartCoroutine(StartGame());
-        SpawnManager.OnVictory += victory;
-        SpawnManager.OnKill += kill;
-        SpawnManager.OnLoss += Loss;
     }
 
     protected abstract IEnumerator StartGame();
