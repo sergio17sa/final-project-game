@@ -31,9 +31,9 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
             instance = (T)this;
     }
 
-    protected virtual void OnDestroy()
-    {
-        if (instance == this)
-            instance = null;
-    }
+    //protected virtual void OnDestroy()
+    //{
+    //    if (instance == this)
+    //        instance = null;
+    //}
 }

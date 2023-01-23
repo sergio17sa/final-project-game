@@ -52,17 +52,18 @@ public class ScenesManager : Singleton<ScenesManager>
     {
         _currentLevelName = string.Empty;
         _loadOperations = new List<AsyncOperation>();
-        EditPrefabsGame();
+        EditMenuPrefabs();
     }
 
     /// <summary>
     /// Método que permite editar los prefabs necesarios para la correcta ejecución del juego
     /// </summary>
-    void EditPrefabsGame()
+    void EditMenuPrefabs()
     {
         SoundManager.Instance.CreateSoundsLevel(MusicLevel.MAINMENU);
         SoundManager.Instance.PlayNewSound("MainBackGround");
         slider = loadingPanel.GetComponentInChildren<UnityEngine.UI.Slider>();
+        UIManager.Instance.panelMainButtons.SetActive(true);
     }
 
     /// <summary>
@@ -86,13 +87,13 @@ public class ScenesManager : Singleton<ScenesManager>
     {
         if (_loadOperations.Contains(ao))
             _loadOperations.Remove(ao);
-
+        //_currentLevelName = null;
         Debug.Log("[GameManager] Escena descargada completamente");
     }
 
     public void RestartMainMenu()
     {
-        SceneManager.LoadScene("Boot");
+        SceneManager.LoadSceneAsync("Boot", LoadSceneMode.Single);
     }
 
     /// <summary>
@@ -154,8 +155,6 @@ public class ScenesManager : Singleton<ScenesManager>
 
         SoundManager.Instance.DeleteSoundsLevel();
 
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(_currentLevelName));
-
         switch (CurrentLevelName)
         {
             case "Game":
@@ -168,6 +167,9 @@ public class ScenesManager : Singleton<ScenesManager>
                 SoundManager.Instance.PlayNewSound("LevelBackGround");
                 break;
         }
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(_currentLevelName));
+
     }
 
     /// <summary>

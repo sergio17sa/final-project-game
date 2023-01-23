@@ -19,7 +19,14 @@ public class GameManagerMultiplayerLocal : GameManager
     protected override IEnumerator StartGame()
     {
         TurnSystemManager.Instance.OnTurnChanged += ToggleCamera;
+        isActive = true;
         yield return null;
+    }
+
+
+    private void OnDisable()
+    {
+        TurnSystemManager.Instance.OnTurnChanged -= ToggleCamera;
     }
 
     private void ToggleCamera(object sender, EventArgs e)

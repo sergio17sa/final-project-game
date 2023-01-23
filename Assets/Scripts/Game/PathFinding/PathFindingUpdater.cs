@@ -13,6 +13,14 @@ public class PathFindingUpdater : MonoBehaviour
         Character.OnDead += Character_OnDead;
     }
 
+    private void OnDisable()
+    {
+        MoveAction.OnStartMoving -= MoveAction_OnStartMoving;
+        MoveAction.OnStopMoving -= MoveAction_OnStopMoving;
+        Character.OnDead -= Character_OnDead;
+    }
+
+
     private void MoveAction_OnStartMoving(object sender, EventArgs e)
     {
         MoveAction moveAction = (MoveAction)sender;

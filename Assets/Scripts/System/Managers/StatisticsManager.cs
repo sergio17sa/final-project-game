@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[DefaultExecutionOrder(2)]
 public class StatisticsManager : Singleton<StatisticsManager>
 {
     public PlayerStats stats;
