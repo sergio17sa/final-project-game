@@ -88,7 +88,7 @@ public abstract class GameManager : Singleton<GameManager>
         else
         {
             _spawnManager.SpawnedFutureTeam.Remove(character.gameObject);
-            //Kill();
+            Kill();
         }
 
         if (_spawnManager.SpawnedMedievalTeam.Count == 0 || _spawnManager.SpawnedFutureTeam.Count == 0)
@@ -97,13 +97,13 @@ public abstract class GameManager : Singleton<GameManager>
             
             if (_spawnManager.SpawnedMedievalTeam.Count > 0) 
             {
-                //Victory();
+                Victory();
                 Debug.Log("Medieval team wins");
             }
 
             if (_spawnManager.SpawnedFutureTeam.Count > 0)
             {
-                //Loss();
+                Loss();
                 Debug.Log("Future team wins");
             }
         }
