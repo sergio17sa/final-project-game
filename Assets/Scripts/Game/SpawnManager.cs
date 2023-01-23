@@ -12,8 +12,8 @@ public class SpawnManager : Singleton<SpawnManager>
 
     [SerializeField] private bool _isAIGame = false;
 
-    public List<GameObject> SpawnedMedievalTeam { get; private set; }
-    public List<GameObject> SpawnedFutureTeam { get; private set; }
+    public List<GameObject> SpawnedMedievalTeam { get; set; }
+    public List<GameObject> SpawnedFutureTeam { get; set; }
 
     [SerializeField] LayerMask obstaclesLayerMask;
 
@@ -35,8 +35,6 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void Start()
     {
-        Character.OnDead += Character_OnDead;
-
         SpawnObstacles();
 
         SpawnProps();
@@ -134,42 +132,18 @@ public class SpawnManager : Singleton<SpawnManager>
             Vector3 tilePosition = validFutureTiles[UnityEngine.Random.Range(0, validFutureTiles.Count - 1)];
             GameObject newCharacter = Instantiate(futureCharacter, tilePosition, futureCharacter.transform.rotation);
 
-            if (_isAIGame)
+            Debug.Log($"{GameManager.gameMode}");
+
+            if (GameManager.gameMode == GameManager.GameMode.IAMode)
             {
                 newCharacter.tag = "EnemyAI";
                 newCharacter.AddComponent<EnemyAI>();
             }
-
 
             SpawnedFutureTeam.Add(newCharacter);
             validFutureTiles.Remove(tilePosition);
         }
     }
 
-    private void Character_OnDead(object sender, EventArgs e)
-    {
-        Character character = (Character)sender;
-
-        GridManager.Instance.ClearCharacterAtTilePosition(character.CharacterTilePosition);
-
-        if (character.GetCharacterTeam() == Team.Team1)
-        {
-            SpawnedMedievalTeam.Remove(character.gameObject);
-        }
-        else
-        {
-            SpawnedFutureTeam.Remove(character.gameObject);
-            OnKill?.Invoke(this, EventArgs.Empty);
-        }
-
-        if (SpawnedMedievalTeam.Count == 0 || SpawnedFutureTeam.Count == 0)
-        {
-            GameManager.Instance.EndMatch();
-            
-            if (SpawnedMedievalTeam.Count > 0) OnVictory?.Invoke(this, EventArgs.Empty);
-
-            if (SpawnedFutureTeam.Count > 0) OnLoss?.Invoke(this, EventArgs.Empty);
-
-        }
-    }
+    
 }
