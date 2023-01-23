@@ -14,7 +14,6 @@ public class TurnSystemManager : Singleton<TurnSystemManager>
     public event EventHandler OnTurnChanged;
     private Team _teamTurn;
     public int TurnCounter { get; private set; } = 0;
-    public GameObject camera1, camera2;
     protected override void Awake()
     {
         base.Awake();
@@ -25,8 +24,6 @@ public class TurnSystemManager : Singleton<TurnSystemManager>
     {
         TurnCounter++;
         SetTeamTurn();
-        Debug.Log(TurnCounter);
-        OnTurnChanged += ToggleCamera;
         OnTurnChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -38,14 +35,4 @@ public class TurnSystemManager : Singleton<TurnSystemManager>
 
     public Team GetTeamTurn() => _teamTurn;
 
-    private void ToggleCamera(object sender, EventArgs e)
-    {
-        if(TurnCounter % 2 != 0){
-            camera1.SetActive(true);
-            camera2.SetActive(false);
-        } else {
-            camera1.SetActive(false);
-            camera2.SetActive(true);
-        }
-    }
 }
