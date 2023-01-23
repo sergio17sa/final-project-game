@@ -32,6 +32,12 @@ public class GridManager : Singleton<GridManager>
         SpawnManager.Instance.OnSpawnsFinished += SpawnManager_OnSpawnsFinished;
     }
 
+    private void OnDisable()
+    {
+        SpawnManager.Instance.OnSpawnsFinished -= SpawnManager_OnSpawnsFinished;
+    }
+
+
     public void SetCharacterOnTile(TilePosition tilePosition, Character character)
     {
         Tile tile = _gridSystem.GetTile(tilePosition);

@@ -26,7 +26,6 @@ public class GridVisualManager : Singleton<GridVisualManager>
 
     private void Start()
     {
-
         CreateVisualTiles();
 
         CharacterActionManager.Instance.OnSelectedActionChanged += CharacterActionManager_OnSelectedActionChanged;
@@ -35,6 +34,14 @@ public class GridVisualManager : Singleton<GridVisualManager>
 
         UpdateTileVisual();
     }
+
+    private void OnDisable()
+    {
+        CharacterActionManager.Instance.OnSelectedActionChanged -= CharacterActionManager_OnSelectedActionChanged;
+        TurnSystemManager.Instance.OnTurnChanged -= TurnSystemManager_OnTurnChanged;
+        GridManager.Instance.OnCharacterMove -= GridManager_OnCharacterMove;
+    }
+
 
     private void CreateVisualTiles()
     {

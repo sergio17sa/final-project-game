@@ -9,6 +9,10 @@ public class Character : MonoBehaviour
     public CharacterAnimationController characterAnim;
     public CharacterParticlesController characterParticles;
     public CharacterStadistics characterstats;
+    public CharacterSelectedVisual characterVisual;
+    public CharacterUI uiCharacter;
+    public CharacterActionsUI characterActionsUI;
+    public MoveAction moveActionCharacter;
     public float currentLife;
 
     public TilePosition CharacterTilePosition { get; private set; }
@@ -47,8 +51,11 @@ public class Character : MonoBehaviour
     {
         CharacterTilePosition = GridManager.Instance.GetTilePosition(transform.position);
         GridManager.Instance.SetCharacterOnTile(CharacterTilePosition, this);
-
         TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
+    }
+    private void OnDisable()
+    {
+        TurnSystemManager.Instance.OnTurnChanged -= TurnSystemManager_OnTurnChanged;
     }
 
     void Update()

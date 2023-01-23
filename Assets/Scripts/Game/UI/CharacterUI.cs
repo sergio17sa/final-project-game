@@ -64,9 +64,10 @@ public class CharacterUI : MonoBehaviour
     {
         _character.OnGetDamaged -= Character_OnGetDamaged;
         _character.OnHeal -= Character_OnHeal;
-
+        Debug.Log("Finish2");
+        
+        BaseAction.OnActionPerformed -= BaseAction_OnActionPerformed;
         TurnSystemManager.Instance.OnTurnChanged -= TurnSystemManager_OnTurnChanged;
-
     }
 
 }

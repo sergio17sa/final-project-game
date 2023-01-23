@@ -4,12 +4,14 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+[DefaultExecutionOrder(-1)]
 public class BaseDataManager : Singleton<BaseDataManager>
 {
     void Awake() 
     {
         base.Awake();
         StatisticsManager.Instance.LoadPlayerData();
+        Debug.Log("first");
     }
 
     public bool Load(string savePath, MonoBehaviour saveObject)

@@ -26,6 +26,13 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
         BaseAction.OnActionPerformed += BaseAction_OnActionPerformed;
     }
 
+    private void OnDisable()
+    {
+        TurnSystemManager.Instance.OnTurnChanged -= TurnSystemManager_OnTurnChanged;
+        BaseAction.OnActionPerformed -= BaseAction_OnActionPerformed;
+        Debug.Log("Finish3");
+    }
+
     private void Update()
     {
         if (isBusy) return;

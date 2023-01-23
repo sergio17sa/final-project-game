@@ -36,11 +36,10 @@ public class CharacterSelectedVisual : MonoBehaviour
         _character.characterParticles.StopParticle(1);
     }
 
-    private  void OnDisable()
+    public void OnDisable()
     {
+        Debug.Log("Finish");
         CharacterActionManager.Instance.OnSelectedCharacter -= CharacterActionManager_OnSelectedCharacter;
         TurnSystemManager.Instance.OnTurnChanged -= TurnSystemManager_OnTurnChanged;
     }
-
-    
 }

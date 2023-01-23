@@ -28,6 +28,15 @@ public class CharacterActionsUI : MonoBehaviour
 
         CreateActionButtons();
     }
+
+    private void OnDisable()
+    {
+        CharacterActionManager.Instance.OnSelectedCharacter -= CharacterActionManager_OnSelectedCharacter;
+        CharacterActionManager.Instance.OnSelectedActionChanged -= CharacterActionManager_OnSelectedActionChanged;
+        TurnSystemManager.Instance.OnTurnChanged -= TurnSystemManager_OnTurnChanged;
+        BaseAction.OnActionPerformed -= BaseAction_OnActionPerformed;
+    }
+
     private void CreateActionButtons()
     {
         for (int i = 0; i < numberOfActionButtons; i++)
