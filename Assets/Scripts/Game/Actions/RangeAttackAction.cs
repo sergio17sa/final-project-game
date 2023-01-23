@@ -165,26 +165,13 @@ public class RangeAttackAction : BaseAction
                 Character targetUnit = GridManager.Instance.GetCharacterAtTilePosition(testTilePosition);
                 if (targetUnit.GetCharacterTeam() == _character.GetCharacterTeam()) continue;
 
-                //Ignore tiles that are blocked by an obstacle
-                Vector3 characterWorldPosition = GridManager.Instance.GetWorldPosition(characterTilePosition);
-                Vector3 shootDir = (targetUnit.transform.position - characterWorldPosition).normalized;
-
-                float CharacterShoulderHeight = 1.7f;
-                if (Physics.Raycast(
-                        characterWorldPosition + Vector3.up * CharacterShoulderHeight,
-                        shootDir,
-                        Vector3.Distance(characterWorldPosition, targetUnit.transform.position),
-                        obstaclesLayerMask))
-                {
-                    continue;
-                }
-
                 //Choose type of scope according to the type of the attack
-
                 if (_attackType == AttackType.Shoot)
                 {
                     int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
                     if (testDistance > _maxAttackRange) continue;
+
+                    if(IsTargetBlocked(targetUnit, characterTilePosition, validTilePositions)) continue;
 
                     validTilePositions.Add(testTilePosition);
                 }
@@ -193,6 +180,8 @@ public class RangeAttackAction : BaseAction
                 {
                     if (testTilePosition.x == characterTilePosition.x || testTilePosition.z == characterTilePosition.z)
                     {
+                        if (IsTargetBlocked(targetUnit, characterTilePosition, validTilePositions)) continue;
+
                         validTilePositions.Add(testTilePosition);
                     }
                 }
@@ -232,6 +221,36 @@ public class RangeAttackAction : BaseAction
     public int GetTargetsAtPosition(TilePosition tilePosition)
     {
         return GetValidAttackTiles(tilePosition).Count;
+    }
+
+    private bool IsTargetBlocked(Character targetUnit, TilePosition characterTilePosition, List<TilePosition> validTilePositions)
+    {
+        Vector3 characterWorldPosition = GridManager.Instance.GetWorldPosition(characterTilePosition);
+        Vector3 shootDir = (targetUnit.transform.position - characterWorldPosition).normalized;
+
+        float CharacterShoulderHeight = 1.7f;
+
+        if (Physics.Raycast(
+            characterWorldPosition + Vector3.up * CharacterShoulderHeight,
+            shootDir,
+            out RaycastHit hit,
+            Vector3.Distance(characterWorldPosition, targetUnit.transform.position),
+            obstaclesLayerMask))
+        {
+
+            int characterLayer = LayerMask.NameToLayer("Character");
+            GameObject hitGameObject = hit.collider.gameObject;
+
+            if (hitGameObject.layer == characterLayer && 
+                hitGameObject.GetComponent<Character>().GetCharacterTeam() != _character.GetCharacterTeam())
+            {
+                validTilePositions.Add(hit.collider.gameObject.GetComponent<Character>().CharacterTilePosition);  
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     public override EnemyAIAction GetEnemyAIAction(TilePosition tilePosition)
