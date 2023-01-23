@@ -13,7 +13,7 @@ public class GameManagerMultiplayerLocal : GameManager
 
     public override void EndMatch()
     {
-
+        Debug.Log("Game Finished");
     }
 
     protected override IEnumerator StartGame()
@@ -44,7 +44,34 @@ public class GameManagerMultiplayerLocal : GameManager
 
     protected override void Character_OnDead(object sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        Character character = (Character)sender;
+
+        GridManager.Instance.ClearCharacterAtTilePosition(character.CharacterTilePosition);
+
+        if (character.GetCharacterTeam() == Team.Team1)
+        {
+            _spawnManager.SpawnedMedievalTeam.Remove(character.gameObject);
+        }
+        else
+        {
+            _spawnManager.SpawnedFutureTeam.Remove(character.gameObject);
+        }
+
+        if (_spawnManager.SpawnedMedievalTeam.Count == 0 || _spawnManager.SpawnedFutureTeam.Count == 0)
+        {
+            EndMatch();
+
+            if (_spawnManager.SpawnedMedievalTeam.Count > 0)
+            {
+                Debug.Log("Medieval team wins");
+            }
+
+            if (_spawnManager.SpawnedFutureTeam.Count > 0)
+            {
+                Loss();
+                Debug.Log("Future team wins");
+            }
+        }
     }
 
 }
