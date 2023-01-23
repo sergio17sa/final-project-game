@@ -1,25 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class GameManager : MonoBehaviour
+using UnityEngine.SceneManagement;
+public class GameManager : Singleton<GameManager>
 {
     [Header("Setup")]
     public bool isActive;
     public List<GameObject> players = new List<GameObject>();
 
-    public static GameManager Instance;
-
-    private void Awake()
+    public enum modeGame
     {
-        if (Instance != null)
-        {
-            Destroy(this);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(this);
+       multiplayerMode,
+       IAMode
     }
 
 
@@ -31,13 +25,16 @@ public class GameManager : MonoBehaviour
         //{
         //    item.GetComponent<NetworkPlayer>().SetPlayerName();
         //}
-        
+
     }
-    
-    
-    private  void Start()
+
+
+    private void Start()
     {
-       //  StartCoroutine(StartGame());
+        //  StartCoroutine(StartGame());
+        SpawnManager.OnVictory += victory;
+        SpawnManager.OnKill += kill;
+        SpawnManager.OnLoss += Loss;
     }
 
 
@@ -80,6 +77,18 @@ public class GameManager : MonoBehaviour
         {
             ScenesManager.Instance?.Pause();
         }
+    }
 
+    public void victory(object sender, EventArgs e)
+    {
+        StatisticsManager.Instance.ToggleVictory();
+    }
+    public void kill (object sender, EventArgs e)
+    {
+        StatisticsManager.Instance.ToggleKill();
+    }
+    public void Loss (object sender, EventArgs e)
+    {
+        StatisticsManager.Instance.ToggleLoss();
     }
 }

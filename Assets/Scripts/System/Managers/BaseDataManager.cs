@@ -4,11 +4,19 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-public class BaseDataManager : Singleton<BaseDataManager>
+public class BaseDataManager : MonoBehaviour
 {
+    public static BaseDataManager Instance;
     private void Awake()
     {
-        base.Awake();
+         if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(this);
         StatisticsManager.Instance.LoadPlayerData();
     }
 

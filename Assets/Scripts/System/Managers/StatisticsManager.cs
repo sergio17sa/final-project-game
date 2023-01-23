@@ -92,6 +92,7 @@ public class StatisticsManager : MonoBehaviour
         if (kill)
         {
             stats.PointsPerMatch += pointsPerKill;
+            stats.points += pointsPerKill;
             kill = false;
         }
 
