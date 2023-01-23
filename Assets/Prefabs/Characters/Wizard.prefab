@@ -3348,10 +3348,10 @@ MonoBehaviour:
   anim: {fileID: 3878348352020484324}
   index: 0
   soundsCharacter:
-  - {fileID: 11400000, guid: c70c86c3b9aba2a4ea8cec60c6dd5e4e, type: 2}
   - {fileID: 11400000, guid: 08da489498b07e64dba2f97f77c85260, type: 2}
-  - {fileID: 11400000, guid: e99883130f3ee3d489c7a6f703470acf, type: 2}
+  - {fileID: 11400000, guid: c70c86c3b9aba2a4ea8cec60c6dd5e4e, type: 2}
   - {fileID: 11400000, guid: f993223f05a1a944e89dc0b3b3cb717f, type: 2}
+  - {fileID: 11400000, guid: e99883130f3ee3d489c7a6f703470acf, type: 2}
 --- !u!65 &378671011
 BoxCollider:
   m_ObjectHideFlags: 0

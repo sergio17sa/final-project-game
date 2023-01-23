@@ -4,19 +4,11 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-public class BaseDataManager : MonoBehaviour
+public class BaseDataManager : Singleton<BaseDataManager>
 {
-    public static BaseDataManager Instance;
-    private void Awake()
+    void Awake() 
     {
-         if (Instance != null)
-        {
-            Destroy(this);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(this);
+        base.Awake();
         StatisticsManager.Instance.LoadPlayerData();
     }
 
@@ -53,7 +45,6 @@ public class BaseDataManager : MonoBehaviour
         }
         else
         {
-            StatisticsManager.Instance.isNewPlayer = true;
             return false;
         }
     }

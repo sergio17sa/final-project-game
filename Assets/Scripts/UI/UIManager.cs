@@ -8,35 +8,31 @@ using System;
 
 public class UIManager : Singleton<UIManager>
 {
-    public TMP_Text playerServer;
-    public TMP_Text playerClient;
+    [Header("Main Menu Panel")]
+    public GameObject panelMainButtons;
+    public GameObject panelSubs;
+    public GameObject panelWinner;
+    public GameObject panelLosser;
+    public GameObject panelRuler;
+    public GameObject pausePanel;
+
+    [Header("Estats Panel Player")]
     [SerializeField] TMP_Text matches, level, points;
-    public NetworkUIController networkUI;
     private float barLength = 1.4f, percentMultiplier = 100f;
     private string levelStr;
     private List<double> valuesPie = new List<double>();
+    private List<GameObject> provitionalGraphicsObjects = new List<GameObject>();
     [SerializeField] private Color[] colorsPie;
     [SerializeField] private Image widge, wonGames, lostGames, tiesGames, levelImg;
     [SerializeField] private TMP_Text wonGamesText, lostGamesText, tiesGamesText, pointsNextLevel, PlayerNameStats;
-    [SerializeField] private GameObject pieGraph, barGraph, panelInputPlayerName, paneljoinBtn;
+    [SerializeField] private GameObject pieGraph, barGraph, panelInputPlayerName;
     [SerializeField] private Sprite BeginnerImg, advancedImg, expertImg, masterImg;
     [SerializeField] private BarScript barPrefab;
     [SerializeField] private TMP_InputField inputPlayerName;
 
-
     private void Start()
     {
         HideInputPlayerName();
-    }
-
-    public void LoadStadistics()
-    {
-        SetPercentBar();
-        PieGraphMaker();
-        StatisticsManager.Instance.levelRange();
-        SetTextStatistics();
-        ChangeSpriteLevel();
-        BarsGraphMaker(StatisticsManager.Instance.stats.lastTenMatches);
     }
 
     public void HideInputPlayerName()
@@ -44,12 +40,12 @@ public class UIManager : Singleton<UIManager>
         if (String.IsNullOrEmpty(StatisticsManager.Instance.stats.playerName))
         {
             panelInputPlayerName.SetActive(true);
-            paneljoinBtn.SetActive(false);
+            panelMainButtons.SetActive(false);
         }
         else
         {
             panelInputPlayerName.SetActive(false);
-            paneljoinBtn.SetActive(true);
+            panelMainButtons.SetActive(true);
         }
     }
 
@@ -58,6 +54,17 @@ public class UIManager : Singleton<UIManager>
         StatisticsManager.Instance.stats.playerName = inputPlayerName.text;
         StatisticsManager.Instance.SavePlayerData();
         HideInputPlayerName();
+    }
+
+    #region Statas
+    public void LoadStadistics()
+    {
+        SetPercentBar();
+        PieGraphMaker();
+        StatisticsManager.Instance.levelRange();
+        SetTextStatistics();
+        ChangeSpriteLevel();
+        BarsGraphMaker(StatisticsManager.Instance.stats.lastTenMatches);
     }
 
     public void SetPercentBar()
@@ -88,16 +95,17 @@ public class UIManager : Singleton<UIManager>
             Image newWedge = Instantiate(widge) as Image;
             newWedge.transform.SetParent(pieGraph.transform, false);
             newWedge.color = colorsPie[i];
-           if (total == 0)
-           {
-               total = 1;
-           }
+
+            if (total == 0)
+            {
+                total = 1;
+            }
+
             newWedge.fillAmount = (float)(valuesPie[i] / total);
             newWedge.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, zRotation));
             zRotation -= newWedge.fillAmount * 360;
+            provitionalGraphicsObjects.Add(newWedge.gameObject);
         }
-
-        valuesPie.Clear();
     }
 
     public void SetTextStatistics()
@@ -110,6 +118,16 @@ public class UIManager : Singleton<UIManager>
         PlayerNameStats.text = StatisticsManager.Instance.stats.playerName.ToUpper();
     }
 
+    public void ResetGraphics()
+    {
+        for (int i = 0; i < provitionalGraphicsObjects.Count; i++)
+        {
+            Destroy(provitionalGraphicsObjects[i]);
+        }
+
+        valuesPie.Clear();
+        provitionalGraphicsObjects.Clear();
+    }
 
     public void ChangeSpriteLevel()
     {
@@ -138,7 +156,6 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-
     public void BarsGraphMaker(double[] lastMatches)
     {
         float total = 0;
@@ -149,6 +166,8 @@ public class UIManager : Singleton<UIManager>
             total += (float)lastMatches[i];
             newBar.bar.fillAmount = ((float)lastMatches[i] / total);
             newBar.points.text = $"{lastMatches[i].ToString()}-";
+            provitionalGraphicsObjects.Add(newBar.gameObject);
         }
     }
+    #endregion
 }

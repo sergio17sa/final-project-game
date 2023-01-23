@@ -12,11 +12,6 @@ public class ScenesManager : Singleton<ScenesManager>
     [SerializeField] private List<AsyncOperation> _loadOperations;
 
     /// <summary>
-    /// Lista de prefabs Utiles de la Scena
-    /// </summary>
-    public List<GameObject> systemPrefabs;
-
-    /// <summary>
     /// Nombre de la escena que se encuentra en ejecución
     /// </summary>
     string _currentLevelName;
@@ -29,7 +24,7 @@ public class ScenesManager : Singleton<ScenesManager>
     /// <summary>
     /// Barra de carga para la pantalla Loading
     /// </summary>
-    GameObject loadingPanel;
+    [SerializeField] GameObject loadingPanel;
     Slider slider;
 
     /// <summary>
@@ -43,9 +38,6 @@ public class ScenesManager : Singleton<ScenesManager>
     /// <value>Nombre de la escena.</value>
     public string CurrentLevelName { get { return _currentLevelName; } }
 
-    public UIController ui; 
-
-    
     /// <summary>
     /// Propiedad que retorna el estado de ejecución (T&F). 
     /// </summary>
@@ -70,21 +62,7 @@ public class ScenesManager : Singleton<ScenesManager>
     {
         SoundManager.Instance.CreateSoundsLevel(MusicLevel.MAINMENU);
         SoundManager.Instance.PlayNewSound("MainBackGround");
-
-
-        for (int i = 0; i < systemPrefabs.Count; i++)
-        {
-            if (systemPrefabs[i].name.Equals("LoadingPanel"))
-            {
-                loadingPanel = systemPrefabs[i];
-                slider = loadingPanel.GetComponentInChildren<UnityEngine.UI.Slider>();
-                systemPrefabs[i].SetActive(false);
-            }
-            else
-            {
-                systemPrefabs[i].SetActive(true);
-            }
-        }
+        slider = loadingPanel.GetComponentInChildren<UnityEngine.UI.Slider>();
     }
 
     /// <summary>
@@ -96,7 +74,6 @@ public class ScenesManager : Singleton<ScenesManager>
         if (_loadOperations.Contains(ao))
             _loadOperations.Remove(ao);
 
-        loadingPanel.SetActive(false);
         ValidateLevel();
         Debug.Log("[GameManager] Escena Cargada completamente");
     }
@@ -115,7 +92,6 @@ public class ScenesManager : Singleton<ScenesManager>
 
     public void RestartMainMenu()
     {
-        Cursor.visible = true;
         SceneManager.LoadScene("Boot");
     }
 
@@ -125,7 +101,7 @@ public class ScenesManager : Singleton<ScenesManager>
     /// <param name="levelName">Nombre de la escena que se desea cargar.</param>
     public void LoadLevel(string levelName)
     {
-        AsyncOperation ao = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
+        AsyncOperation ao = SceneManager.LoadSceneAsync(levelName,LoadSceneMode.Additive);
 
         if (ao == null)
         {
@@ -182,8 +158,12 @@ public class ScenesManager : Singleton<ScenesManager>
 
         switch (CurrentLevelName)
         {
-            case "Demo":
-                ui.sceneObject.SetActive(false);
+            case "Game":
+                SoundManager.Instance.CreateSoundsLevel(MusicLevel.GAME);
+                SoundManager.Instance.PlayNewSound("LevelBackGround");
+                break;
+
+            case "Multiplayer":
                 SoundManager.Instance.CreateSoundsLevel(MusicLevel.GAME);
                 SoundManager.Instance.PlayNewSound("LevelBackGround");
                 break;
@@ -205,16 +185,14 @@ public class ScenesManager : Singleton<ScenesManager>
     {
         is_pause = !is_pause;
         SoundManager.Instance.PauseAllSounds(is_pause);
-        ui.pausePanel.SetActive(is_pause);
+        UIManager.Instance.pausePanel.SetActive(is_pause);
 
         if (is_pause)
         {
-            Cursor.visible = true;
             Time.timeScale = 0.0f;
         }
         else
         {
-            Cursor.visible = false;
             Time.timeScale = 1;
         }
     }
@@ -237,21 +215,7 @@ public class ScenesManager : Singleton<ScenesManager>
             ao.allowSceneActivation = true;
             yield return new WaitForSeconds(2f);
             loadingPanel.SetActive(false);
+            UIManager.Instance.panelMainButtons.SetActive(false);
         }
     }
 }
-
-/// <summary>
-/// clase serializable que almacena todas las referencias usadas por la ui. 
-/// </summary>
-[System.Serializable]
-public class UIController
-{
-    public GameObject panelSubs;
-    public GameObject panelWinner;
-    public GameObject panelLosser;
-    public GameObject panelRuler;
-    public GameObject pausePanel;
-    public GameObject sceneObject;
-}
-

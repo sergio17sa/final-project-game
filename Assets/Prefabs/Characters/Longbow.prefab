@@ -409,10 +409,10 @@ MonoBehaviour:
   anim: {fileID: 546334136849807214}
   index: 0
   soundsCharacter:
-  - {fileID: 11400000, guid: 14795eec4822fdf43b9e871a8d695e23, type: 2}
   - {fileID: 11400000, guid: a1c0ae02fe0c8114dbd440a748e80eac, type: 2}
-  - {fileID: 11400000, guid: ea2e309b4411da54bb5cf715da9598ac, type: 2}
+  - {fileID: 11400000, guid: 14795eec4822fdf43b9e871a8d695e23, type: 2}
   - {fileID: 11400000, guid: 96ec3cf779e35f5409e57b7fffdd0c36, type: 2}
+  - {fileID: 11400000, guid: ea2e309b4411da54bb5cf715da9598ac, type: 2}
 --- !u!114 &2072045474
 MonoBehaviour:
   m_ObjectHideFlags: 0

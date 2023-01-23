@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class SpawnManager : Singleton<SpawnManager>
 {
     [SerializeField] private List<GameObject> _medievalTeam;
@@ -19,7 +17,6 @@ public class SpawnManager : Singleton<SpawnManager>
 
     [SerializeField] LayerMask obstaclesLayerMask;
 
-    public event EventHandler OnGameFinished;
     public event EventHandler OnSpawnsFinished;
     public static event EventHandler OnVictory;
     public static event EventHandler OnKill;
@@ -38,9 +35,6 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void Start()
     {
-
-
-
         Character.OnDead += Character_OnDead;
 
         SpawnObstacles();
@@ -170,14 +164,12 @@ public class SpawnManager : Singleton<SpawnManager>
 
         if (SpawnedMedievalTeam.Count == 0 || SpawnedFutureTeam.Count == 0)
         {
-            Debug.Log("Game Finished");
-            OnGameFinished?.Invoke(this, EventArgs.Empty);
-
+            GameManager.Instance.EndMatch();
+            
             if (SpawnedMedievalTeam.Count > 0) OnVictory?.Invoke(this, EventArgs.Empty);
 
             if (SpawnedFutureTeam.Count > 0) OnLoss?.Invoke(this, EventArgs.Empty);
 
         }
     }
-
 }

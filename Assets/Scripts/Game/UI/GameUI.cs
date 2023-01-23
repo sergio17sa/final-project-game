@@ -11,7 +11,7 @@ public class GameUI : MonoBehaviour
 
     private void Start()
     {
-        SpawnManager.Instance.OnGameFinished += SpawnManager_OnGameFinished;
+        //SpawnManager.Instance.OnGameFinished += SpawnManager_OnGameFinished;
     }
 
     private void SpawnManager_OnGameFinished(object sender, EventArgs e)
@@ -22,6 +22,6 @@ public class GameUI : MonoBehaviour
 
     private void OnDisable()
     {
-        SpawnManager.Instance.OnGameFinished -= SpawnManager_OnGameFinished;
+       // SpawnManager.Instance.OnGameFinished -= SpawnManager_OnGameFinished;
     }
 }

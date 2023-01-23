@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class StatisticsManager : MonoBehaviour
+public class StatisticsManager : Singleton<StatisticsManager>
 {
-    public static StatisticsManager Instance;
-    public bool isNewPlayer;
-    //[SerializeField] private PlayerStatsSave playerStatsSave;
     public PlayerStats stats;
     [SerializeField] private List<Character> characters;
     [SerializeField] private int pointsPerVictory = 624, pointsPerTie = 214, pointsPerKill = 124;
@@ -17,18 +14,6 @@ public class StatisticsManager : MonoBehaviour
     private string levelToPrint = "";
     [SerializeField] private string level1 = "Beginner", level2 = "Advanced", level3 = "Expert", level4 = "Master";
     [SerializeField] private float[] beginnerLevel = new float[2] { 0, 1439 }, advancedLevel = new float[2] { 1440, 3839 }, expertLevel = new float[2] { 3840, 7199 }, MasterLevel = new float[2] { 7200, int.MaxValue };
-
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy(this);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(this);
-    }
 
     private void Start()
     {

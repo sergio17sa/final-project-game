@@ -23,7 +23,11 @@ MonoBehaviour:
   tiesPercent: 0
   pointToNetxLevel: 0
   PointsPerMatch: 0
-  levels: []
+  levels:
+  - Beginner
+  - Advanced
+  - Expert
+  - Master
   lastTenMatches:
   - 0
   - 0

@@ -595,10 +595,10 @@ MonoBehaviour:
   anim: {fileID: 6522609536468769609}
   index: 0
   soundsCharacter:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 870a6b4fc67f7b24b966e0550233a36e, type: 2}
+  - {fileID: 11400000, guid: 8fb6c484561ed7041b07a6728dab28c4, type: 2}
+  - {fileID: 11400000, guid: 73062b9a009c5a8489f1d09727a36ba5, type: 2}
+  - {fileID: 11400000, guid: 418fc2be5b9a77b44abd6480e5e07223, type: 2}
 --- !u!114 &3453204123950596597
 MonoBehaviour:
   m_ObjectHideFlags: 0

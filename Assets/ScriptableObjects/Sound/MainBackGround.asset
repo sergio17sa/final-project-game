@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volume: 1
   pitch: 1
-  song: {fileID: 8300000, guid: 9aa4dbf9822404f4d905c12c4415b55f, type: 3}
+  song: {fileID: 8300000, guid: 2db299867fa916a409c8d82436708abb, type: 3}
   playOnAwake: 1
   loop: 1
   mixerGroup: {fileID: 8936691807230622006, guid: 95f3faaee53613348bbc5fbd4aa93015, type: 2}

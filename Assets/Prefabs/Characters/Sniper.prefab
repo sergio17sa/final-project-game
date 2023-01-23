@@ -2935,10 +2935,10 @@ MonoBehaviour:
   anim: {fileID: 6273680259211572297}
   index: 0
   soundsCharacter:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: b7dc434183af0d44c84d626d38667d43, type: 2}
+  - {fileID: 11400000, guid: f98696c1e7cc26747845ef0762092470, type: 2}
+  - {fileID: 11400000, guid: d30f8de03f6a3ee49940d2b83b20aa5f, type: 2}
+  - {fileID: 11400000, guid: e9bfb2120a2777a4a9d175aa57c086cf, type: 2}
 --- !u!65 &664410952675984157
 BoxCollider:
   m_ObjectHideFlags: 0

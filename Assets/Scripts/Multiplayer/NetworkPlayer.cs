@@ -46,14 +46,12 @@ public class NetworkPlayer : NetworkBehaviour
         playerServer.OnValueChanged += (NetString previousValue, NetString newValue) =>
         {
             Debug.Log(OwnerClientId + " playerServer value: " + playerServer.Value.nameString);
-            UIManager.Instance.playerServer.text = $"{playerServer.Value.nameString} {playerServer.Value.id.ToString()} {playerServer.Value.isReady.ToString()}";
 
         };
 
         playerClient.OnValueChanged += (NetString previousValue, NetString newValue) =>
         {
             Debug.Log(OwnerClientId + " playerClient value: " + playerClient.Value.nameString);
-            UIManager.Instance.playerClient.text = $"{playerClient.Value.nameString} {playerClient.Value.id.ToString()} {playerClient.Value.isReady.ToString()}";
         };
 
        
