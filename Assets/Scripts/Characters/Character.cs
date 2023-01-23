@@ -9,10 +9,6 @@ public class Character : MonoBehaviour
     public CharacterAnimationController characterAnim;
     public CharacterParticlesController characterParticles;
     public CharacterStadistics characterstats;
-    public CharacterSelectedVisual characterVisual;
-    public CharacterUI uiCharacter;
-    public CharacterActionsUI characterActionsUI;
-    public MoveAction moveActionCharacter;
     public float currentLife;
 
     public TilePosition CharacterTilePosition { get; private set; }
