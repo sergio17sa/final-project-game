@@ -2278,7 +2278,7 @@ MonoBehaviour:
   _maxAttackRange: 4
   obstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 384
   _projectilePrefab: {fileID: 2403745144335134045, guid: ac7f65e9e8e109144a576f2702de6347, type: 3}
   _spawnProjectilePosition: {fileID: 8071506253056297054}
   projectileHitEffect: {fileID: 100004, guid: fb7b0526ade434043b350a180d741cf3, type: 3}

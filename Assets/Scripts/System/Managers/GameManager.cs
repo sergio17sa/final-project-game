@@ -4,23 +4,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
+
 public abstract class GameManager : Singleton<GameManager>
 {
     [Header("Setup")]
     public bool isActive;
 
-    public enum ModeGame
+    protected SpawnManager _spawnManager;
+
+    public enum GameMode
     {
-       multiplayerMode,
-       IAMode
+        multiplayerMode,
+        IAMode
     }
+
+    public static GameMode gameMode;
+
 
     protected void Start()
     {
         StartCoroutine(StartGame());
-        SpawnManager.OnVictory += victory;
-        SpawnManager.OnKill += kill;
-        SpawnManager.OnLoss += Loss;
+
+        Character.OnDead += Character_OnDead;
+
+        _spawnManager = SpawnManager.Instance;
     }
 
     protected abstract IEnumerator StartGame();
@@ -61,18 +69,43 @@ public abstract class GameManager : Singleton<GameManager>
         }
     }
 
-    public void victory(object sender, EventArgs e)
-    {
-        StatisticsManager.Instance.ToggleVictory();
-    }
+    public void Victory() => StatisticsManager.Instance.ToggleVictory();
     
-    public void kill (object sender, EventArgs e)
+    public void Kill () => StatisticsManager.Instance.ToggleKill();
+
+    public void Loss () => StatisticsManager.Instance.ToggleLoss(); 
+
+    private void Character_OnDead(object sender, EventArgs e)
     {
-        StatisticsManager.Instance.ToggleKill();
-    }
-    
-    public void Loss (object sender, EventArgs e)
-    {
-        StatisticsManager.Instance.ToggleLoss();
+        Character character = (Character)sender;
+
+        GridManager.Instance.ClearCharacterAtTilePosition(character.CharacterTilePosition);
+
+        if (character.GetCharacterTeam() == Team.Team1)
+        {
+            _spawnManager.SpawnedMedievalTeam.Remove(character.gameObject);
+        }
+        else
+        {
+            _spawnManager.SpawnedFutureTeam.Remove(character.gameObject);
+            //Kill();
+        }
+
+        if (_spawnManager.SpawnedMedievalTeam.Count == 0 || _spawnManager.SpawnedFutureTeam.Count == 0)
+        {
+            //EndMatch();
+            
+            if (_spawnManager.SpawnedMedievalTeam.Count > 0) 
+            {
+                //Victory();
+                Debug.Log("Medieval team wins");
+            }
+
+            if (_spawnManager.SpawnedFutureTeam.Count > 0)
+            {
+                //Loss();
+                Debug.Log("Future team wins");
+            }
+        }
     }
 }
