@@ -9,6 +9,8 @@ public class GameManagerSingle : GameManager
     protected override void Start()
     {
         base.Start();
+        gameMode = GameMode.IAMode;
+        Debug.Log(gameMode);
     }
 
     protected override void Update()
@@ -59,5 +61,4 @@ public class GameManagerSingle : GameManager
             }
         }
     }
-
 }
