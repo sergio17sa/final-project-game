@@ -49,7 +49,7 @@ public class SwordAction : BaseAction
                 if (_stateTimer <= 0) TransitionToRestState();
                 break;
             case State.Rest:
-                _targetCharacter.GetDamage(GetComponent<Character>().characterstats.powerAttack);
+                _targetCharacter.GetDamage(_character.characterstats.powerAttack);
                 ActionComplete(this);
                 if (_stateTimer <= 0) ActionComplete(this);
                 break;

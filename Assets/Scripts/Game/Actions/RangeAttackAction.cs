@@ -206,7 +206,7 @@ public class RangeAttackAction : BaseAction
 
     private void ProjectileBehaviour_OnReachTarget(object sender, EventArgs e)
     {
-        _targetCharacter.GetDamage(50);
+        _targetCharacter.GetDamage(_character.characterstats.powerAttack);
         _projectile.SetParent(_spawnProjectilePosition);
         _projectile.localPosition = new Vector3(0, 0, 0);
         _projectile.gameObject.SetActive(false);
