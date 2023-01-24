@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8963033287572376048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4849663489726519713}
+  - component: {fileID: 3884642329143793049}
+  m_Layer: 0
+  m_Name: StatisticsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4849663489726519713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8963033287572376048}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3884642329143793049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8963033287572376048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3183aa3aa484941b3a8a5e49c9b75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNewPlayer: 0
+  stats: {fileID: 11400000, guid: 8baa6996b32ee81458e644ad78af0bcf, type: 2}
+  characters: []
+  pointsPerVictory: 624
+  pointsPerTie: 214
+  pointsPerKill: 124
+  victory: 0
+  loss: 0
+  tie: 0
+  kill: 0
+  level1: Beginner
+  level2: Advanced
+  level3: Expert
+  level4: Master
+  beginnerLevel:
+  - 0
+  - 1439
+  advancedLevel:
+  - 1440
+  - 3839
+  expertLevel:
+  - 3840
+  - 7199
+  MasterLevel:
+  - 7200
+  - 2.1474836e+9
