@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Tank
   characterType: 0
-  icon: {fileID: 0}
-  initialLife: 100
-  powerAttack: 20
+  icon: {fileID: 21300000, guid: 9b1cbbd740e3e1b42a2ddb0587cdd747, type: 3}
+  teamColor: {r: 0, g: 0, b: 1, a: 1}
+  initialLife: 150
+  powerAttack: 30
   healing: 10
   maxDamageIndex: 2
   maxAttackIndex: 3

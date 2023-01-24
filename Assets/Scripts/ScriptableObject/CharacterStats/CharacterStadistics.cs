@@ -8,7 +8,8 @@ public class CharacterStadistics : ScriptableObject
     public string characterName;
     public CharacterType characterType;
     public Sprite icon;
-    
+    public Color teamColor;
+
     public float initialLife;
     public float powerAttack;
     public float healing;

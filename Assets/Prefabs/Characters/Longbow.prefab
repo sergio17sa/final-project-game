@@ -279,8 +279,6 @@ GameObject:
   - component: {fileID: 488346278267890909}
   - component: {fileID: 2072045474}
   - component: {fileID: 3329793660773103278}
-  - component: {fileID: 6341925652310037608}
-  - component: {fileID: 2650794438595451298}
   - component: {fileID: 1464887451}
   - component: {fileID: 2771887787421740266}
   m_Layer: 7
@@ -391,6 +389,7 @@ MonoBehaviour:
   characterAnim: {fileID: 488346278267890909}
   characterParticles: {fileID: 2771887787421740266}
   characterstats: {fileID: 11400000, guid: 15079c9f152b4c340905de6674ecae61, type: 2}
+  characterUI: {fileID: 4912961390970987912}
   currentLife: 0
   _team: 0
 --- !u!114 &488346278267890909
@@ -441,48 +440,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5934332, y: 1.7574028, z: 0.5359275}
   m_Center: {x: 0.0052122152, y: 0.87225974, z: 0.02899135}
---- !u!114 &6341925652310037608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 486469556058802108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
---- !u!114 &2650794438595451298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 486469556058802108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 0
-  SyncScaleY: 0
-  SyncScaleZ: 0
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  InLocalSpace: 0
-  Interpolate: 1
 --- !u!114 &1464887451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb8c08c92f40824b87af983cf9479e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxAttackRange: 4
+  _maxAttackRange: 3
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 384

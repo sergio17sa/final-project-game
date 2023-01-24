@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: LongbowStadistic
   m_EditorClassIdentifier: 
   characterName: Longbow
-  healingType: 0
-  icon: {fileID: 0}
+  characterType: 0
+  icon: {fileID: 21300000, guid: f509ccbd7ef4e174f9b3c6ced0751939, type: 3}
+  teamColor: {r: 0.9960785, g: 0, b: 0, a: 1}
   initialLife: 100
   powerAttack: 20
-  healing: 10
+  healing: 20
   maxDamageIndex: 2
   maxAttackIndex: 0

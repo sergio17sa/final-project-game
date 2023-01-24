@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07011eccf211e24e9939ab45acb27fe, type: 3}
   m_Name: KnightStadistic
   m_EditorClassIdentifier: 
-  characterName: knight
-  healingType: 0
-  icon: {fileID: 0}
+  characterName: Knight
+  characterType: 0
+  icon: {fileID: 21300000, guid: 51902aa8f3779bb4cba05ab1a14ca4d0, type: 3}
+  teamColor: {r: 0.9960785, g: 0, b: 0, a: 1}
   initialLife: 100
-  powerAttack: 10
+  powerAttack: 20
   healing: 20
   maxDamageIndex: 2
   maxAttackIndex: 3

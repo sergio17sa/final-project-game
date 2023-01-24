@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Wizard
   characterType: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: a96900adefdbe8a4b86e8c8521d3e285, type: 3}
+  teamColor: {r: 0.9960785, g: 0, b: 0, a: 1}
   initialLife: 100
   powerAttack: 20
   healing: 20

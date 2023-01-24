@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
     public CharacterAnimationController characterAnim;
     public CharacterParticlesController characterParticles;
     public CharacterStadistics characterstats;
+    public CharacterUI characterUI;
     public float currentLife;
 
     public TilePosition CharacterTilePosition { get; private set; }

@@ -10,9 +10,11 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] Character _character;
     [SerializeField] Image _healthBarImage;
     [SerializeField] TextMeshProUGUI _actionsNumber;
+    public EventHandler updateGroupUI;
 
     private void Start()
     {
+        SetColorBar(_character.characterstats.teamColor);
         _character.OnGetDamaged += Character_OnGetDamaged;
         _character.OnHeal += Character_OnHeal;
 
@@ -21,6 +23,11 @@ public class CharacterUI : MonoBehaviour
 
         UpdateHealthBar();
         ResetActionsText();
+    }
+
+    public void SetColorBar(Color color)
+    {
+        _healthBarImage.color = color;
     }
 
     private void UpdateHealthBar()
@@ -49,9 +56,12 @@ public class CharacterUI : MonoBehaviour
         BaseAction baseAction = (BaseAction)sender;
         Character character = baseAction.GetComponent<Character>();
 
+
         if (character == _character) 
         { 
             _actionsNumber.text = _character.ActionsCounter.ToString();
+            Debug.Log("entro" + "" + character.ActionsCounter.ToString());
+
         }
     }
 
@@ -64,7 +74,6 @@ public class CharacterUI : MonoBehaviour
     {
         _character.OnGetDamaged -= Character_OnGetDamaged;
         _character.OnHeal -= Character_OnHeal;
-        Debug.Log("Finish2");
         
         BaseAction.OnActionPerformed -= BaseAction_OnActionPerformed;
         TurnSystemManager.Instance.OnTurnChanged -= TurnSystemManager_OnTurnChanged;

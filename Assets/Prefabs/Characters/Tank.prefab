@@ -508,9 +508,7 @@ GameObject:
   - component: {fileID: 3451042549739806639}
   - component: {fileID: 1779467125460976783}
   - component: {fileID: 3453204123950596597}
-  - component: {fileID: 1597136959}
   - component: {fileID: 6210816297640384903}
-  - component: {fileID: 5528531074115360844}
   - component: {fileID: 6954040871255635023}
   - component: {fileID: -558289079598963299}
   m_Layer: 7
@@ -577,6 +575,7 @@ MonoBehaviour:
   characterAnim: {fileID: 1779467125460976783}
   characterParticles: {fileID: -558289079598963299}
   characterstats: {fileID: 11400000, guid: fb474de8c99836e42894a6a4c969854d, type: 2}
+  characterUI: {fileID: 8276017088077367763}
   currentLife: 0
   _team: 1
 --- !u!114 &1779467125460976783
@@ -614,22 +613,6 @@ MonoBehaviour:
   _moveSpeed: 2
   _rotateSpeed: 30
   _maxMoveDistance: 2
---- !u!114 &1597136959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6615823800167427085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &6210816297640384903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,32 +628,6 @@ MonoBehaviour:
   projectileHitEffect: {fileID: 100004, guid: fb7b0526ade434043b350a180d741cf3, type: 3}
   _maxSwordDistance: 1
   _slashDuration: 1
---- !u!114 &5528531074115360844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6615823800167427085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 0
-  SyncScaleY: 0
-  SyncScaleZ: 0
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  InLocalSpace: 0
-  Interpolate: 1
 --- !u!65 &6954040871255635023
 BoxCollider:
   m_ObjectHideFlags: 0

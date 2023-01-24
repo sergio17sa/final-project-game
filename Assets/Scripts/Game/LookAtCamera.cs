@@ -10,11 +10,11 @@ public class LookAtCamera : MonoBehaviour
 
     void Awake()
     {
-        offsetRotation = transform.rotation;
+       // offsetRotation = transform.rotation;
     }
 
     void LateUpdate()
     {
-        transform.rotation = offsetRotation;
+        transform.LookAt(Camera.main.transform);
     }
 }

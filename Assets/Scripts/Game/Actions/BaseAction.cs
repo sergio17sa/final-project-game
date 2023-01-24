@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public abstract class BaseAction : NetworkBehaviour
+public abstract class BaseAction : MonoBehaviour
 {
     protected Character _character;
     protected bool _isActive;

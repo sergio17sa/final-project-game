@@ -2845,8 +2845,6 @@ GameObject:
   - component: {fileID: 1961529008945521069}
   - component: {fileID: 664410952675984157}
   - component: {fileID: 329980560}
-  - component: {fileID: -1036946692435468647}
-  - component: {fileID: 2142284402}
   - component: {fileID: 2142284403}
   - component: {fileID: -6888083895159001760}
   m_Layer: 7
@@ -2917,6 +2915,7 @@ MonoBehaviour:
   characterAnim: {fileID: 1961529008945521069}
   characterParticles: {fileID: -6888083895159001760}
   characterstats: {fileID: 11400000, guid: e3c21310c973ba6478563db036c9fb06, type: 2}
+  characterUI: {fileID: 3381810037985285344}
   currentLife: 0
   _team: 1
 --- !u!114 &1961529008945521069
@@ -2967,48 +2966,6 @@ MonoBehaviour:
   _moveSpeed: 2
   _rotateSpeed: 30
   _maxMoveDistance: 2
---- !u!114 &-1036946692435468647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6273680258552125420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
---- !u!114 &2142284402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6273680258552125420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 0
-  SyncScaleY: 0
-  SyncScaleZ: 0
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  InLocalSpace: 0
-  Interpolate: 1
 --- !u!114 &2142284403
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,11 +43,6 @@ public class ScenesManager : Singleton<ScenesManager>
     /// </summary>
     public bool IsPaused { get { return is_pause; } }
 
-    void OnDisable()
-    {
-        _loadOperations.Clear();
-    }
-
     void Start()
     {
         _currentLevelName = string.Empty;

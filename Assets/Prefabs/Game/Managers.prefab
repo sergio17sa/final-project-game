@@ -54,6 +54,7 @@ MonoBehaviour:
   - {fileID: 6615823800167427085, guid: d34a811a14b658b448cb3f8dadef8a04, type: 3}
   _obstacles:
   - {fileID: 467767051955192380, guid: e49829b15bdba3d4f9cb13f35c8f60f1, type: 3}
+  _props: []
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 256
