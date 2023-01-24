@@ -53,6 +53,9 @@ public class CharacterActionManager : Singleton<CharacterActionManager>
             {
                 if (raycastHit.transform.TryGetComponent<Character>(out Character character))
                 {
+
+                    if (character.tag == "EnemyAI") return false;
+
                     if (character == _selectedCharacter) return false;
 
                     //if (character.IsHealing) return false;
