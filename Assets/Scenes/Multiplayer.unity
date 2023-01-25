@@ -2784,6 +2784,14 @@ PrefabInstance:
       propertyPath: camera2
       value: 
       objectReference: {fileID: 147613791}
+    - target: {fileID: 2809042416432111271, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: nameText
+      value: 
+      objectReference: {fileID: 1010760657}
+    - target: {fileID: 2809042416432111271, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
+      propertyPath: infoHolder
+      value: 
+      objectReference: {fileID: 1932797020}
     - target: {fileID: 2809042416896419508, guid: 4201736af44213e4f928433de8f9bdad, type: 3}
       propertyPath: m_Name
       value: Managers
