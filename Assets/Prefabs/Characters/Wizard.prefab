@@ -3219,6 +3219,7 @@ GameObject:
   - component: {fileID: 378671010}
   - component: {fileID: 378671019}
   - component: {fileID: -5455088243195593327}
+  - component: {fileID: 1648654827985553940}
   m_Layer: 7
   m_Name: Wizard
   m_TagString: Untagged
@@ -3327,7 +3328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnim: {fileID: 8484083111258527150}
   characterParticles: {fileID: -5455088243195593327}
-  characterstats: {fileID: 11400000, guid: 2b2f0cb2929e3f644bcfbe4e98320cc3, type: 2}
+  characterStats: {fileID: 11400000, guid: 2b2f0cb2929e3f644bcfbe4e98320cc3, type: 2}
   characterUI: {fileID: 4274890318425074683}
   currentLife: 0
   _team: 0
@@ -3419,6 +3420,34 @@ MonoBehaviour:
   - {fileID: 7301906304159494557}
   - {fileID: 5745235722346583649}
   - {fileID: 899747204919359407}
+--- !u!114 &1648654827985553940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3783782984685763966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb8f14bc43330348bee703fee9552a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 1214138049498576460}
+  body: {fileID: 0}
+  individualStatsPanel: {fileID: 0}
+  icon: {fileID: 0}
+  nameText: {fileID: 0}
+  powerText: {fileID: 0}
+  damage: {fileID: 0}
+  healing: {fileID: 0}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  adjustedPosition: {x: 150, y: 150, z: 0}
+  boundaryMax: {x: -1750, y: -1000}
+  canShow: 0
+  isInteracting: 0
+  isAction: 0
 --- !u!1 &3783790248134570506
 GameObject:
   m_ObjectHideFlags: 0

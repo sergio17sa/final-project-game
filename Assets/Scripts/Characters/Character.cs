@@ -8,7 +8,7 @@ public class Character : MonoBehaviour
 {
     public CharacterAnimationController characterAnim;
     public CharacterParticlesController characterParticles;
-    public CharacterStadistics characterstats;
+    public CharacterStadistics characterStats;
     public CharacterUI characterUI;
     public float currentLife;
 
@@ -41,7 +41,7 @@ public class Character : MonoBehaviour
 
         ActionsCounter = BaseActions.Length;
 
-        currentLife = characterstats.initialLife;
+        currentLife = characterStats.initialLife;
     }
 
     private void Start()
@@ -91,9 +91,9 @@ public class Character : MonoBehaviour
         characterAnim.SetHealing();
         OnHeal?.Invoke(this, EventArgs.Empty);
 
-        if (currentLife > characterstats.initialLife)
+        if (currentLife > characterStats.initialLife)
         {
-            currentLife = characterstats.initialLife;
+            currentLife = characterStats.initialLife;
         }
     }
 
@@ -165,6 +165,6 @@ public class Character : MonoBehaviour
         AddRemainingActions();
     }
 
-    public float GetNormalizeHealth() => currentLife / (float)characterstats.initialLife;
+    public float GetNormalizeHealth() => currentLife / (float)characterStats.initialLife;
 
 }

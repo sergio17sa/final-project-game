@@ -4341,6 +4341,7 @@ GameObject:
   - component: {fileID: 7190361432443822010}
   - component: {fileID: 1104260947}
   - component: {fileID: 721272194317111464}
+  - component: {fileID: -4001909537550636783}
   m_Layer: 7
   m_Name: Knight
   m_TagString: Untagged
@@ -4448,7 +4449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnim: {fileID: 8548709854619684936}
   characterParticles: {fileID: 721272194317111464}
-  characterstats: {fileID: 11400000, guid: 1a0bea82222ffbb45843a1426e79b66f, type: 2}
+  characterStats: {fileID: 11400000, guid: 1a0bea82222ffbb45843a1426e79b66f, type: 2}
   characterUI: {fileID: 1223405990}
   currentLife: 0
   _team: 0
@@ -4534,6 +4535,34 @@ MonoBehaviour:
   - {fileID: 4822794669676738296}
   - {fileID: 7206173111774726598}
   - {fileID: 1407925565747423917}
+--- !u!114 &-4001909537550636783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8549923349657404279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb8f14bc43330348bee703fee9552a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 7402910456750382952}
+  body: {fileID: 0}
+  individualStatsPanel: {fileID: 0}
+  icon: {fileID: 0}
+  nameText: {fileID: 0}
+  powerText: {fileID: 0}
+  damage: {fileID: 0}
+  healing: {fileID: 0}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  adjustedPosition: {x: 150, y: 150, z: 0}
+  boundaryMax: {x: -1750, y: -1000}
+  canShow: 0
+  isInteracting: 0
+  isAction: 0
 --- !u!1 &8549925148878223879
 GameObject:
   m_ObjectHideFlags: 0

@@ -3233,6 +3233,7 @@ GameObject:
   - component: {fileID: 1055119925}
   - component: {fileID: 694507992843561206}
   - component: {fileID: -4745524997001110535}
+  - component: {fileID: 7773506955090325386}
   m_Layer: 7
   m_Name: CyberKnight
   m_TagString: Untagged
@@ -3314,7 +3315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnim: {fileID: 4132488603783541226}
   characterParticles: {fileID: -4745524997001110535}
-  characterstats: {fileID: 11400000, guid: 3bed6b286143e554eb052f4ff58c874b, type: 2}
+  characterStats: {fileID: 11400000, guid: 3bed6b286143e554eb052f4ff58c874b, type: 2}
   characterUI: {fileID: 2370639518637006993}
   currentLife: 0
   _team: 1
@@ -3400,6 +3401,34 @@ MonoBehaviour:
   - {fileID: 2305764207542170153}
   - {fileID: 1535955401981329251}
   - {fileID: 2169948594217885914}
+--- !u!114 &7773506955090325386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7871070135524757766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb8f14bc43330348bee703fee9552a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 4949496934640313317}
+  body: {fileID: 0}
+  individualStatsPanel: {fileID: 0}
+  icon: {fileID: 0}
+  nameText: {fileID: 0}
+  powerText: {fileID: 0}
+  damage: {fileID: 0}
+  healing: {fileID: 0}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  adjustedPosition: {x: 150, y: 150, z: 0}
+  boundaryMax: {x: -1750, y: -1000}
+  canShow: 0
+  isInteracting: 0
+  isAction: 0
 --- !u!1 &7886610565799225807
 GameObject:
   m_ObjectHideFlags: 0

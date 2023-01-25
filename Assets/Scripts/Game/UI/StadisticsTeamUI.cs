@@ -34,13 +34,11 @@ public class StadisticsTeamUI : MonoBehaviour
             newHolder.characterPrefab = characters[i].GetComponent<Character>();
             newHolder.body = Instantiate(holderPrefab, transform.position, Quaternion.identity, holderLayaut.transform);
             newHolder.icon = newHolder.body.transform.GetChild(0).GetComponentInChildren<Image>();
-            newHolder.icon.sprite = newHolder.characterPrefab.characterstats.icon;
+            newHolder.icon.sprite = newHolder.characterPrefab.characterStats.icon;
             newHolder.healSlider = newHolder.body.GetComponentInChildren<Slider>();
-            newHolder.healSlider.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = newHolder.characterPrefab.characterstats.teamColor;
+            newHolder.healSlider.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = newHolder.characterPrefab.characterStats.teamColor;
             newHolder.healSlider.maxValue = 1;
-            newHolder.nameText = newHolder.body.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
-            newHolder.nameText.text = newHolder.characterPrefab.characterstats.characterName;
-            newHolder.actionsNumber = newHolder.body.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
+            newHolder.actionsNumber = newHolder.body.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
             newHolder.actionsNumber.text = newHolder.characterPrefab.ActionsCounter.ToString();
             newHolder.characterPrefab.OnGetDamaged += Character_OnGetDamaged;
             newHolder.characterPrefab.OnHeal += Character_OnHeal;
@@ -72,7 +70,6 @@ public class StadisticsTeamUI : MonoBehaviour
         {
             if (character == statsHolder[i].characterPrefab)
             {
-                Debug.Log("entro"+""+ character.ActionsCounter.ToString());
                 statsHolder[i].actionsNumber.text = character.ActionsCounter.ToString();
             }
         }
@@ -103,21 +100,11 @@ public class StadisticsTeamUI : MonoBehaviour
             }
         }
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log("Character" + characters[0].GetComponent<Character>().ActionsCounter);
-        }
-    }
-
     private void TurnSystemManager_OnTurnChangedGroup(object sender, EventArgs e)
     {
         for (int i = 0; i < statsHolder.Count; i++)
         {
                 ResetActionsText(statsHolder[i].characterPrefab);
-           
-                Debug.Log("entrossssss"+""+ statsHolder[i].characterPrefab.ActionsCounter.ToString());
         }
     }
 
@@ -145,8 +132,6 @@ public class StadisticsTeamUI : MonoBehaviour
         }
 
         Character.OnDead -= grupalCharacterStats_OnDead;
-
-
     }
 }
 
@@ -157,6 +142,5 @@ public class Holder
     public GameObject body;
     public Image icon;
     public Slider healSlider;
-    public TextMeshProUGUI nameText;
     public TextMeshProUGUI actionsNumber;
 }

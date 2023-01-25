@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+    Character character;
     private enum State
     {
         WaitForTurn,
@@ -46,8 +47,6 @@ public class EnemyAI : MonoBehaviour
             case State.Busy:
                 break;
         }
-
-       
     }
 
     private void Start()
@@ -55,11 +54,19 @@ public class EnemyAI : MonoBehaviour
         TurnSystemManager.Instance.OnTurnChanged += TurnSystemManager_OnTurnChanged;
     }
 
+    private void OnDisable()
+    {
+        TurnSystemManager.Instance.OnTurnChanged -= TurnSystemManager_OnTurnChanged;
+    }
+
     private bool TryTakeAIAction(Action OnAIActionComplete)
     {
-        foreach(GameObject characterAI in SpawnManager.Instance.SpawnedFutureTeam)
+        foreach (GameObject characterAI in SpawnManager.Instance.SpawnedFutureTeam)
         {
-            if(TryTakeAIAction(characterAI, OnAIActionComplete)) return true;
+            if (TryTakeAIAction(characterAI, OnAIActionComplete))
+            {
+                return true; 
+            }
         }
 
         return false;
@@ -68,6 +75,8 @@ public class EnemyAI : MonoBehaviour
     private bool TryTakeAIAction(GameObject characterAI, Action OnAIActionComplete)
     {
         Character character = characterAI.GetComponent<Character>();
+        character.characterParticles.StartParticle(1);
+
         EnemyAIAction bestEnemyAIAction = null;
         BaseAction bestBaseAction = null;
 
@@ -87,6 +96,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     bestEnemyAIAction= testAIAction;
                     bestBaseAction = baseAction;
+                    character.characterParticles.StopParticle(1);
                 }
             }
         }

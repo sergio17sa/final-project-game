@@ -2106,6 +2106,7 @@ GameObject:
   - component: {fileID: 4777419358609241325}
   - component: {fileID: 837885533}
   - component: {fileID: -906054303965603731}
+  - component: {fileID: -412964360652242075}
   m_Layer: 7
   m_Name: Turret
   m_TagString: Untagged
@@ -2168,7 +2169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnim: {fileID: 6902261578644195905}
   characterParticles: {fileID: -906054303965603731}
-  characterstats: {fileID: 11400000, guid: 3b9c2776b5c9ac5488aeead6144475bf, type: 2}
+  characterStats: {fileID: 11400000, guid: 3b9c2776b5c9ac5488aeead6144475bf, type: 2}
   characterUI: {fileID: 2788911923444482552}
   currentLife: 0
   _team: 1
@@ -2260,6 +2261,34 @@ MonoBehaviour:
   - {fileID: 5687158900712475456}
   - {fileID: 6780962741581306163}
   - {fileID: 2151410221390162120}
+--- !u!114 &-412964360652242075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3952430398348442102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb8f14bc43330348bee703fee9552a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 2706175069156986975}
+  body: {fileID: 0}
+  individualStatsPanel: {fileID: 0}
+  icon: {fileID: 0}
+  nameText: {fileID: 0}
+  powerText: {fileID: 0}
+  damage: {fileID: 0}
+  healing: {fileID: 0}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  adjustedPosition: {x: 150, y: 150, z: 0}
+  boundaryMax: {x: -1750, y: -1000}
+  canShow: 0
+  isInteracting: 0
+  isAction: 0
 --- !u!1 &3952430398348442104
 GameObject:
   m_ObjectHideFlags: 0

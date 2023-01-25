@@ -281,6 +281,7 @@ GameObject:
   - component: {fileID: 3329793660773103278}
   - component: {fileID: 1464887451}
   - component: {fileID: 2771887787421740266}
+  - component: {fileID: -3819988924398297373}
   m_Layer: 7
   m_Name: Longbow
   m_TagString: Untagged
@@ -388,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnim: {fileID: 488346278267890909}
   characterParticles: {fileID: 2771887787421740266}
-  characterstats: {fileID: 11400000, guid: 15079c9f152b4c340905de6674ecae61, type: 2}
+  characterStats: {fileID: 11400000, guid: 15079c9f152b4c340905de6674ecae61, type: 2}
   characterUI: {fileID: 4912961390970987912}
   currentLife: 0
   _team: 0
@@ -480,6 +481,34 @@ MonoBehaviour:
   - {fileID: 2953037844958290133}
   - {fileID: 5617049321479515502}
   - {fileID: 2965356724079408806}
+--- !u!114 &-3819988924398297373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486469556058802108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb8f14bc43330348bee703fee9552a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 488346278267890910}
+  body: {fileID: 0}
+  individualStatsPanel: {fileID: 0}
+  icon: {fileID: 0}
+  nameText: {fileID: 0}
+  powerText: {fileID: 0}
+  damage: {fileID: 0}
+  healing: {fileID: 0}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  adjustedPosition: {x: 150, y: 150, z: 0}
+  boundaryMax: {x: -1750, y: -1000}
+  canShow: 0
+  isInteracting: 0
+  isAction: 0
 --- !u!1 &486470574212576348
 GameObject:
   m_ObjectHideFlags: 0

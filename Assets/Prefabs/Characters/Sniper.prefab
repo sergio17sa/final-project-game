@@ -2847,6 +2847,7 @@ GameObject:
   - component: {fileID: 329980560}
   - component: {fileID: 2142284403}
   - component: {fileID: -6888083895159001760}
+  - component: {fileID: 8542745426199073004}
   m_Layer: 7
   m_Name: Sniper
   m_TagString: Untagged
@@ -2914,7 +2915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnim: {fileID: 1961529008945521069}
   characterParticles: {fileID: -6888083895159001760}
-  characterstats: {fileID: 11400000, guid: e3c21310c973ba6478563db036c9fb06, type: 2}
+  characterStats: {fileID: 11400000, guid: e3c21310c973ba6478563db036c9fb06, type: 2}
   characterUI: {fileID: 3381810037985285344}
   currentLife: 0
   _team: 1
@@ -3006,6 +3007,34 @@ MonoBehaviour:
   - {fileID: 7894860304492075735}
   - {fileID: 7672608356893960259}
   - {fileID: 8565361181547094447}
+--- !u!114 &8542745426199073004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6273680258552125420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb8f14bc43330348bee703fee9552a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 8353332313609982257}
+  body: {fileID: 0}
+  individualStatsPanel: {fileID: 0}
+  icon: {fileID: 0}
+  nameText: {fileID: 0}
+  powerText: {fileID: 0}
+  damage: {fileID: 0}
+  healing: {fileID: 0}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  adjustedPosition: {x: 150, y: 150, z: 0}
+  boundaryMax: {x: -1750, y: -1000}
+  canShow: 0
+  isInteracting: 0
+  isAction: 0
 --- !u!1 &6273680258552125422
 GameObject:
   m_ObjectHideFlags: 0

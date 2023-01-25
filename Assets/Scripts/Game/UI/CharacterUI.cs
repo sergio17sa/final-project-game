@@ -14,7 +14,7 @@ public class CharacterUI : MonoBehaviour
 
     private void Start()
     {
-        SetColorBar(_character.characterstats.teamColor);
+        SetColorBar(_character.characterStats.teamColor);
         _character.OnGetDamaged += Character_OnGetDamaged;
         _character.OnHeal += Character_OnHeal;
 
@@ -60,7 +60,6 @@ public class CharacterUI : MonoBehaviour
         if (character == _character) 
         { 
             _actionsNumber.text = _character.ActionsCounter.ToString();
-            Debug.Log("entro" + "" + character.ActionsCounter.ToString());
 
         }
     }

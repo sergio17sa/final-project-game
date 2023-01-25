@@ -511,6 +511,7 @@ GameObject:
   - component: {fileID: 6210816297640384903}
   - component: {fileID: 6954040871255635023}
   - component: {fileID: -558289079598963299}
+  - component: {fileID: -1391688585438611311}
   m_Layer: 7
   m_Name: Tank
   m_TagString: Untagged
@@ -574,7 +575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnim: {fileID: 1779467125460976783}
   characterParticles: {fileID: -558289079598963299}
-  characterstats: {fileID: 11400000, guid: fb474de8c99836e42894a6a4c969854d, type: 2}
+  characterStats: {fileID: 11400000, guid: fb474de8c99836e42894a6a4c969854d, type: 2}
   characterUI: {fileID: 8276017088077367763}
   currentLife: 0
   _team: 1
@@ -660,6 +661,34 @@ MonoBehaviour:
   - {fileID: 4173530360378341228}
   - {fileID: 5300470395644947764}
   - {fileID: 1573181371056914411}
+--- !u!114 &-1391688585438611311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6615823800167427085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb8f14bc43330348bee703fee9552a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 3451042549739806639}
+  body: {fileID: 0}
+  individualStatsPanel: {fileID: 0}
+  icon: {fileID: 0}
+  nameText: {fileID: 0}
+  powerText: {fileID: 0}
+  damage: {fileID: 0}
+  healing: {fileID: 0}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  adjustedPosition: {x: 150, y: 150, z: 0}
+  boundaryMax: {x: -1750, y: -1000}
+  canShow: 0
+  isInteracting: 0
+  isAction: 0
 --- !u!1 &6615873338777708681
 GameObject:
   m_ObjectHideFlags: 0

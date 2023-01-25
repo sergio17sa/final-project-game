@@ -8,6 +8,8 @@ TagManager:
   - Team2
   - Winner
   - EnemyAI
+  - PersonalStatsPanel
+  - StatsPanel
   layers:
   - Default
   - TransparentFX

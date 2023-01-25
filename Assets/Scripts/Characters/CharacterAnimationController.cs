@@ -38,7 +38,7 @@ public class CharacterAnimationController : MonoBehaviour
         {
             SoundManager.Instance?.PlayNewSound(soundsCharacter[0].name);
             brain.characterParticles.StartParticle(4);
-            index = RandomIndex(brain.characterstats.maxDamageIndex);
+            index = RandomIndex(brain.characterStats.maxDamageIndex);
             anim.SetInteger("Index", index);
             Debug.Log(index + " " + gameObject.name);
             anim.SetTrigger("Damage");
@@ -48,7 +48,7 @@ public class CharacterAnimationController : MonoBehaviour
     public void SetAttack()
     {
         SoundManager.Instance?.PlayNewSound(soundsCharacter[1].name); 
-        index = RandomIndex(brain.characterstats.maxAttackIndex);
+        index = RandomIndex(brain.characterStats.maxAttackIndex);
         anim.SetInteger("Index", index);
         anim.SetTrigger("Attack");
     }
@@ -57,7 +57,7 @@ public class CharacterAnimationController : MonoBehaviour
     {
         SoundManager.Instance?.PlayNewSound(soundsCharacter[2].name);
         
-        if (brain.characterstats.characterType == CharacterType.MEDIEVAL)
+        if (brain.characterStats.characterType == CharacterType.MEDIEVAL)
         {
             anim.SetTrigger("Healing");
         }

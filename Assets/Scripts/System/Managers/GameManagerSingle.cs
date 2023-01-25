@@ -25,6 +25,7 @@ public class GameManagerSingle : GameManager
 
     protected override IEnumerator StartGame()
     {
+        isActive = true;
         yield return null;
     }
 
