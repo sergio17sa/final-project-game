@@ -9,6 +9,7 @@ public class GameManagerMultiplayerLocal : GameManager
     protected override void Update()
     {
         base.Update();
+
     }
 
     public override void EndMatch()
@@ -18,6 +19,9 @@ public class GameManagerMultiplayerLocal : GameManager
 
     protected override IEnumerator StartGame()
     {
+        Debug.Log(gameMode);
+        gameMode = GameMode.multiplayerMode;
+        Debug.Log(gameMode);
         TurnSystemManager.Instance.OnTurnChanged += ToggleCamera;
         isActive = true;
         yield return null;
