@@ -1,30 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManagerMultiplayerLocal : GameManager
 {
     [SerializeField] private GameObject camera1, camera2;
-    protected override void Update()
+    private void Start()
     {
-        base.Update();
-
+        TurnSystemManager.Instance.OnTurnChanged += ToggleCamera;
+        base.Start();
+        TurnSystemManager.Instance.player1name = "MEDIEVAL TEAM";
+        TurnSystemManager.Instance.player2name = "FUTURE TEAM";
     }
 
-    public override void EndMatch()
+    protected override void StartGame()
     {
-        Debug.Log("Game Finished");
-    }
-
-    protected override IEnumerator StartGame()
-    {
-        Debug.Log(gameMode);
         gameMode = GameMode.multiplayerMode;
         Debug.Log(gameMode);
-        TurnSystemManager.Instance.OnTurnChanged += ToggleCamera;
         isActive = true;
-        yield return null;
     }
 
     private void OnDisable()
@@ -63,21 +58,19 @@ public class GameManagerMultiplayerLocal : GameManager
 
         if (_spawnManager.SpawnedMedievalTeam.Count == 0 || _spawnManager.SpawnedFutureTeam.Count == 0)
         {
-            EndMatch();
-
             if (_spawnManager.SpawnedMedievalTeam.Count > 0)
             {
-                Debug.Log("Medieval team wins");
+                message = "Medieval Team Wins";
             }
 
             if (_spawnManager.SpawnedFutureTeam.Count > 0)
             {
-                Loss();
-                Debug.Log("Future team wins");
+                message = "Future Team Wins";
             }
+            
+           StartCoroutine(EndMatch());
         }
     }
-
 }
 
 

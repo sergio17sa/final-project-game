@@ -15,13 +15,26 @@ public class TurnSystemManager : Singleton<TurnSystemManager>
     public event EventHandler OnTurnChanged;
     public GameObject infoHolder;
     public TextMeshProUGUI nameText;
+    public string player1name;
+    public string player2name;
 
 
     private Team _teamTurn;
     public int TurnCounter { get; private set; } = 0;
-    protected override void Awake()
+
+    private void Start()
     {
-        base.Awake();
+        StartCoroutine(StartMatch());
+    }
+
+    IEnumerator StartMatch()
+    {
+        infoHolder.SetActive(false);
+
+        yield return new WaitForSeconds(3.5f);
+
+        infoHolder.SetActive(true);
+        yield return new WaitForSeconds(3);
         NextTurn();
     }
 
@@ -41,18 +54,19 @@ public class TurnSystemManager : Singleton<TurnSystemManager>
 
     public IEnumerator ShowCommunicator()
     {
-        infoHolder.SetActive(true);
-
         if (TurnCounter % 2 == 0)
         {
-            nameText.text = "ENEMY " + "TURN";
+            yield return new WaitForSeconds(1f);
+            infoHolder.SetActive(true);
+            nameText.text = player2name + " TURN";
             yield return new WaitForSeconds(2f);
             infoHolder.SetActive(false);
-
         }
         else
         {
-            nameText.text = "PLAYER " + "TURN";
+            yield return new WaitForSeconds(1.5f);
+            infoHolder.SetActive(true);
+            nameText.text = player1name + " TURN";
             yield return new WaitForSeconds(3f);
             infoHolder.SetActive(false);
         }

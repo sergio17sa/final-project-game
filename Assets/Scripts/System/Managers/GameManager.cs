@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using TMPro;
 
 public abstract class GameManager : Singleton<GameManager>
 {
     [Header("Setup")]
     public bool isActive;
+    protected string message;
 
     protected SpawnManager _spawnManager;
 
@@ -21,40 +22,26 @@ public abstract class GameManager : Singleton<GameManager>
 
     public static GameMode gameMode;
 
+    private void Awake()
+    {
+        base.Awake();
+        StartGame();
+    }
 
     protected virtual void Start()
     {
-        StartCoroutine(StartGame());
-
         Character.OnDead += Character_OnDead;
-
         _spawnManager = SpawnManager.Instance;
     }
 
-    protected abstract IEnumerator StartGame();
+    protected abstract void StartGame();
 
-    public abstract void EndMatch();
-
-    public IEnumerator Winner()
+    public IEnumerator EndMatch()
     {
+        yield return new WaitForSeconds(3.5f);
         isActive = false;
-        SoundManager.Instance.PauseAllSounds(true);
-        SoundManager.Instance.PlayNewSound("Winner");
-        yield return new WaitForSeconds(5f);
-        UIManager.Instance.panelWinner.SetActive(true);
-        yield return new WaitUntil(() => !UIManager.Instance.panelWinner.activeInHierarchy);
-        ScenesManager.Instance.RestartMainMenu();
-    }
-
-    public IEnumerator Losser()
-    {
-        isActive = false;
-        SoundManager.Instance.PauseAllSounds(true);
-        SoundManager.Instance.PlayNewSound("Losser");
-        yield return new WaitForSeconds(5f);
-        UIManager.Instance.panelLosser.SetActive(true);
-        yield return new WaitUntil(() => !UIManager.Instance.panelLosser.activeInHierarchy);
-        ScenesManager.Instance.RestartMainMenu();
+        UIManager.Instance.endPanel.SetActive(true);
+        UIManager.Instance.endPanel.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().text = message;
     }
 
     // Update is called once per frame
@@ -80,6 +67,5 @@ public abstract class GameManager : Singleton<GameManager>
     private void OnDisable()
     {
         Character.OnDead -= Character_OnDead;
-        ScenesManager.Instance.RestartMainMenu();
     }
 }

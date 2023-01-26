@@ -190,8 +190,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 352321535
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.078431375}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -392,7 +392,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2306519703245766043}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 6.4153924, y: 6.4153924, z: 6.4153924}
   m_ConstrainProportionsScale: 0
@@ -595,10 +595,10 @@ MonoBehaviour:
   anim: {fileID: 6522609536468769609}
   index: 0
   soundsCharacter:
-  - {fileID: 11400000, guid: 870a6b4fc67f7b24b966e0550233a36e, type: 2}
-  - {fileID: 11400000, guid: 8fb6c484561ed7041b07a6728dab28c4, type: 2}
-  - {fileID: 11400000, guid: 73062b9a009c5a8489f1d09727a36ba5, type: 2}
-  - {fileID: 11400000, guid: 418fc2be5b9a77b44abd6480e5e07223, type: 2}
+  - {fileID: 11400000, guid: 5a4285b690ea69c4d85f000ce1d4c4cf, type: 2}
+  - {fileID: 11400000, guid: 66effbd691a3b4149bd5bc28113a6df0, type: 2}
+  - {fileID: 11400000, guid: b3e36dabeade87a468cdcacb7a80f1e7, type: 2}
+  - {fileID: 11400000, guid: fb41173619993f646962de88c278f955, type: 2}
 --- !u!114 &3453204123950596597
 MonoBehaviour:
   m_ObjectHideFlags: 0

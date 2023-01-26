@@ -11,8 +11,7 @@ public class UIManager : Singleton<UIManager>
     [Header("Main Menu Panel")]
     public GameObject panelMainButtons;
     public GameObject panelSubs;
-    public GameObject panelWinner;
-    public GameObject panelLosser;
+    public GameObject endPanel;
     public GameObject panelRuler;
     public GameObject pausePanel;
 
